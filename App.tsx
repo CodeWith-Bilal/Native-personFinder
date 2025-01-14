@@ -1,13 +1,29 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+import SignupScreen from './src/register/Register'; // Adjust the path as needed
+import LoginScreen from './src/login/Login'; // Adjust the path as needed
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from 'react-native-splash-screen';
 
+const Stack = createNativeStackNavigator();
 SplashScreen.hide();
 const App = () => {
   return (
-    <View style={{backgroundColor:'#ffff',flex:1,justifyContent:'center',alignItems:'center'}}>
-      <Text style={{fontSize:100}}>HELLO</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Signup">
+        <Stack.Screen
+          name="Signup"
+          component={SignupScreen}
+          options={{ headerShown: false }} // Hide the header for the Signup screen
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ title: 'Login' }} // Customize the header for the Login screen
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
