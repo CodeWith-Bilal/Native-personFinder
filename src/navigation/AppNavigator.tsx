@@ -1,3 +1,5 @@
+//src/naviation/AppNavigation
+
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,10 +9,6 @@ import auth from '@react-native-firebase/auth';
 import LoginScreen from '../login/Login';
 import HomeScreen from '../screen/home/Home';
 import SignupScreen from '../register/Register';
-// import LoginScreen from './screens/LoginScreen';
-// import HomeScreen from './screens/HomeScreen';
-// import SignupScreen from './screens/SignupScreen';
-
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;
@@ -47,7 +45,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={user ? 'Home' : 'Login'}>
+      <Stack.Navigator initialRouteName={user ? 'Home' : 'Signup'}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />

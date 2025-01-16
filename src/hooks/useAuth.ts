@@ -1,36 +1,42 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import auth from '@react-native-firebase/auth';
+import { FirebaseAuthUser } from '../types/types';
 
-interface AuthState {
-  user: { uid: string } | null;
-  loading: boolean;
-  error: string | null;
-}
-
-const initialState: AuthState = {
-  user: null,
-  loading: false,
-  error: null,
+export const registerWithEmail = async (email: string, password: string, name:string): Promise<FirebaseAuthUser> => {
+  try {
+    const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    await user.updateProfile({ displayName: name });
+    return {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+    };
+  } catch (err) {
+    const error = err as Error; // Explicitly cast the error to the `Error` type
+    throw new Error('ERROR: ' + error.message);
+  }
 };
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    setUser: (state, action: PayloadAction<{ uid: string }>) => {
-      state.user = action.payload;
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-    },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
-    },
-    logout: (state) => {
-      state.user = null;
-      state.error = null;
-    },
-  },
-});
+export const loginWithEmail = async (email: string, password: string): Promise<FirebaseAuthUser> => {
+  try {
+    const userCredential = await auth().signInWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    return {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+    };
+  } catch (err) {
+    const error = err as Error; // Explicitly cast the error to the `Error` type
+    throw new Error(error.message);
+  }
+};
 
-export const { setUser, setLoading, setError, logout } = authSlice.actions;
-export default authSlice.reducer;
+export const logout = async (): Promise<void> => {
+  try {
+    await auth().signOut();
+  } catch (err) {
+    const error = err as Error; // Explicitly cast the error to the `Error` type
+    throw new Error(error.message);
+  }
+};

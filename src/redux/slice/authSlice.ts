@@ -1,3 +1,5 @@
+//src/redux/slice/authSlice
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {

@@ -6,3 +6,14 @@ export interface User {
     user: User | null;
     isLoggedIn: boolean;
   }
+  export type RootStackParamList = {
+    Login: undefined;
+    Home: undefined;
+    Signup: undefined;
+  };
+  export interface FirebaseAuthUser {
+    uid: string;
+    email: string | null;
+    displayName: string | null;
+
+  }
