@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "578891259540",
+    "project_id": "personfinder-27ef3",
+    "storage_bucket": "personfinder-27ef3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578891259540:android:db110c25654e9b622f9e81",
+        "android_client_info": {
+          "package_name": "com.personfinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiLPOen9Rkpc8yAbzE9cnM4JEcyqSVAlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,47 +1,36 @@
-import { useState } from 'react';
-import { auth } from '../services/firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const useAuth = () => {
-  const [loading, setLoading] = useState(false);
+interface AuthState {
+  user: { uid: string } | null;
+  loading: boolean;
+  error: string | null;
+}
 
-  const signUp = async (email: string, password: string, name: string) => {
-    setLoading(true);
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await updateProfile(user, { displayName: name });
-
-      setLoading(false);
-      return { success: true, user };
-    } catch (error: any) {
-      setLoading(false);
-      return { success: false, error: error.message };
-    }
-  };
-
-  const login = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setLoading(false);
-      return { success: true, user: userCredential.user };
-    } catch (error: any) {
-      setLoading(false);
-      return { success: false, error: error.message };
-    }
-  };
-
-  const logOut = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
-  return { signUp, login, logOut, loading };
+const initialState: AuthState = {
+  user: null,
+  loading: false,
+  error: null,
 };
 
-export default useAuth;
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setUser: (state, action: PayloadAction<{ uid: string }>) => {
+      state.user = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
+      state.error = null;
+    },
+  },
+});
+
+export const { setUser, setLoading, setError, logout } = authSlice.actions;
+export default authSlice.reducer;

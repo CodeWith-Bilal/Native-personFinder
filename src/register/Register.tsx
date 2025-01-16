@@ -1,91 +1,51 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
-import Input from '../component/inputs/Inputs';
-import Button from '../component/button/Button';
-import useAuth from '../hooks/useAuth';
+import { View, TextInput, Button, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setLoading, setError } from '../redux/slice/authSlice';
+import { registerWithEmail } from '../services/firebaseConfig'; // Firebase function to register
+import { useNavigation } from '@react-navigation/native';
 
-const SignUpScreen = ({ navigation }: any) => {
-  const [name, setName] = useState('');
+const SignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signUp, loading } = useAuth();
+  const [name, setName] = useState('');
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleSignUp = async () => {
-    if (!name || !email || !password) {
-      Alert.alert('Error', 'Please fill all fields');
-      return;
-    }
-
-    const response = await signUp(email, password, name);
-    if (response.success) {
-      Alert.alert('Success', 'Account created successfully!');
-      navigation.navigate('Login');
-    } else {
-      Alert.alert('Error', response.error || 'Sign up failed');
+    dispatch(setLoading(true));
+    try {
+      await registerWithEmail(email, password);  // Register user
+      dispatch(setLoading(false));
+      navigation.navigate('Login');  // Navigate to login page after successful registration
+    } catch (error: any) {
+      dispatch(setError(error.message));
+      dispatch(setLoading(false));
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Findr</Text>
-      <Text style={styles.subtitle}>Join the Search for Hope</Text>
-
-      <Input
-        label="Name"
-        placeholder="Enter your name"
+    <View>
+      <Text>Sign Up</Text>
+      <TextInput
+        placeholder="Name"
         value={name}
         onChangeText={setName}
       />
-      <Input
-        label="Email"
-        placeholder="Enter your email"
+      <TextInput
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
       />
-      <Input
-        label="Password"
-        placeholder="Enter your password"
+      <TextInput
+        placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
-
-      <Button title="Sign Up" onPress={handleSignUp} loading={loading} />
-
-      <View style={styles.linkContainer}>
-        <Text style={styles.link} onPress={() => navigation.navigate('Login')}>
-          Already have an account? Log in
-        </Text>
-      </View>
+      <Button title="Sign Up" onPress={handleSignUp} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 28,
-     fontWeight: 'bold',
-      color: '#6A5ACD',
-    },
-  subtitle: {
-     fontSize: 16,
-     color: '#6A5ACD',
-      marginBottom: 20,
-     },
-  linkContainer: {
-    marginTop: 15,
-  },
-  link: {
-    color: '#6A5ACD',
-    textDecorationLine: 'underline',
-   },
-});
-
-export default SignUpScreen;
+export default SignupScreen;

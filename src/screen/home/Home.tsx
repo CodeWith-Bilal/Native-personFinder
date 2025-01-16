@@ -1,30 +1,30 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import useAuth from '../../hooks/useAuth';
-import { auth } from '../../services/firebaseConfig';
+import { View, Text, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { logout as firebaseLogout } from '../../services/firebaseConfig';  // Firebase logout function
+import { logout } from '../../redux/slice/authSlice';  // Redux logout action
 
-const Home = ({ navigation }: any) => {
-  const { logOut } = useAuth();
-  const userName = auth.currentUser?.displayName;
+const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleLogout = async () => {
-    await logOut();
-    navigation.navigate('Login');
+    try {
+      await firebaseLogout();
+      dispatch(logout());  // Clear user data in Redux
+      navigation.navigate('Login');  // Navigate to login screen after logout
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome, {userName || 'User'}!</Text>
-      <Text style={styles.subtitle}>You are logged in</Text>
+    <View>
+      <Text>Home Screen</Text>
       <Button title="Logout" onPress={handleLogout} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 8 },
-  subtitle: { fontSize: 18, marginBottom: 16 },
-});
-
-export default Home;
+export default HomeScreen;
