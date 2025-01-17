@@ -1,59 +1,107 @@
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser, logout } from '../redux/slice/authSlice';
-import auth from '@react-native-firebase/auth';
-import LoginScreen from '../login/Login';
-import SignupScreen from '../register/Register';
-// import BottomTabNavigator from './BottomNavigation';
-import { RootState } from '../redux/store';
-import BottomTabNavigator from '../navigation/BottomNavigation';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setLoading, setError, setUser } from '../redux/slice/authSlice';
+import { loginWithEmail, signInWithGoogle } from '../hooks/useAuth';
+import Input from '../component/inputs/Inputs';
+import Button from '../component/button/Button';
+import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
+// import Input from '../components/Input';
+// import Button from '../components/Button';
 
-const Stack = createNativeStackNavigator();
-
-const AppNavigator = () => {
+const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
-  const [initializing, setInitializing] = useState(true);
+ const navigation = useNavigation();
+  const handleLogin = async () => {
+    console.log('Starting Login...');
+    console.log('Email:', email);
+    console.log('Password:', password);
+    dispatch(setLoading(true));
+    try {
+      const user = await loginWithEmail(email, password);
+      console.log('User Details:', user);
+      dispatch(
+        setUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        })
+      );
+      Toast.show({
+        type: 'success',
+        text1: 'Login Successful!',
+      });
+      navigation.navigate('Home');
+    } catch (err) {
+      console.error('Login Error:', err);
+      Toast.show({
+        type: 'error',
+        text1: 'Login Failed',
+        text2: err.message || 'Something went wrong',
+      });
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
-  useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(
-          setUser({
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          })
-        );
-      } else {
-        dispatch(logout());
-      }
-      setInitializing(false);
-    });
-    return unsubscribe;
-  }, [dispatch]);
-
-  if (initializing) {
-    return null; // Optional: Add a loading screen while checking authentication status
-  }
+  const handleGoogleSignIn = async () => {
+    dispatch(setLoading(true));
+    try {
+      const user = await signInWithGoogle();
+      dispatch(
+        setUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        })
+      );
+    } catch (err) {
+      const error = err as Error;
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!user ? (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-          </>
-        ) : (
-          <Stack.Screen name="Main" component={BottomTabNavigator} />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <Input
+        label="Email"
+        placeholder="Enter your email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <Input
+        label="Password"
+        placeholder="Enter your password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <Button title="Login" onPress={handleLogin} />
+      <Button title="Sign In with Google" onPress={handleGoogleSignIn} />
+    </View>
   );
 };
 
-export default AppNavigator;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+});
+
+export default LoginScreen;

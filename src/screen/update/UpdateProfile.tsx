@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Alert, Text } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { updateProfile } from '../../hooks/useAuth';
-import Input from '../../component/inputs/Inputs';
-import Button from '../../component/button/Button';
+import Input from '../../component/Inputs/Inputs';
+import Button from '../../component/Button/Button';
 import Toast from 'react-native-toast-message';
-import auth from '@react-native-firebase/auth';
-import { logout } from '../../redux/slice/authSlice';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/types';
 
 const UpdateProfileScreen = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -19,8 +14,6 @@ const UpdateProfileScreen = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
   const [photoURL, setPhotoURL] = useState(user?.photoURL || '');
-  const dispatch = useDispatch();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleSelectPhoto = () => {
     launchImageLibrary({ mediaType: 'photo' }, async (response) => {
@@ -38,30 +31,13 @@ const UpdateProfileScreen = () => {
       await updateProfile({ name, email, password, photoURL });
       Toast.show({
         type: 'success',
-        text1: 'Profile updated successfully!',
+        text1: 'Profile Updated',
+        text2: 'Your profile has been successfully updated.',
       });
     } catch (err) {
       Toast.show({
         type: 'error',
-        text1: 'Error updating profile',
-        text2: (err as Error).message,
-      });
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await auth().signOut();
-      dispatch(logout()); // Clear the Redux store
-      navigation.replace('Login'); // Navigate to Login screen
-      Toast.show({
-        type: 'success',
-        text1: 'Logged out successfully!',
-      });
-    } catch (err) {
-      Toast.show({
-        type: 'error',
-        text1: 'Error logging out',
+        text1: 'Update Failed',
         text2: (err as Error).message,
       });
     }
@@ -74,7 +50,7 @@ const UpdateProfileScreen = () => {
           source={
             photoURL
               ? { uri: photoURL }
-              : require('../../assests/Vector.png') // Default profile image
+              : require('../../assets/Vector.png') // Default profile image
           }
           style={styles.profileImage}
         />
@@ -89,7 +65,6 @@ const UpdateProfileScreen = () => {
         secureTextEntry
       />
       <Button title="Update Profile" onPress={handleUpdateProfile} />
-      <Button title="Logout" onPress={handleLogout} style={styles.logoutButton} />
     </View>
   );
 };
@@ -107,10 +82,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
     backgroundColor: '#ddd',
-  },
-  logoutButton: {
-    marginTop: 20,
-    backgroundColor: 'red', // Optional styling
   },
 });
 

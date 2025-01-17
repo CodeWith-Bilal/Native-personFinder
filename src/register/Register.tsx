@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setLoading, setError } from '../redux/slice/authSlice';
 import { registerWithEmail } from '../hooks/useAuth';
@@ -8,11 +8,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/types';
 import Input from '../component/inputs/Inputs';
 import Button from '../component/button/Button';
+// import Input from '../components/Input';
+// import Button from '../components/Button';
 
 const SignupScreen = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -20,35 +22,33 @@ const SignupScreen = () => {
     dispatch(setLoading(true));
     try {
       await registerWithEmail(email, password, name);
+      dispatch(setLoading(false));
       navigation.navigate('Login');
     } catch (err) {
       const error = err as Error;
       dispatch(setError(error.message));
-    } finally {
       dispatch(setLoading(false));
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Sign Up</Text>
+      <Text style={styles.title}>Sign Up</Text>
       <Input
-        style={styles.input}
-        placeholder="Name"
+        label="Name"
+        placeholder="Enter your name"
         value={name}
         onChangeText={setName}
       />
       <Input
-        style={styles.input}
-        placeholder="Email"
+        label="Email"
+        placeholder="Enter your email"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
       />
       <Input
-        style={styles.input}
-        placeholder="Password"
+        label="Password"
+        placeholder="Enter your password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -67,27 +67,18 @@ const SignupScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    padding: 20,
     justifyContent: 'center',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-    borderRadius: 4,
   },
   link: {
     marginTop: 12,
     color: '#007BFF',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
     textAlign: 'center',
   },
 });
