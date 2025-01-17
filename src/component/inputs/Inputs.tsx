@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, StyleSheet, Text, TextInputProps } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps, Text } from 'react-native';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -7,23 +7,26 @@ interface InputProps extends TextInputProps {
 
 const Input: React.FC<InputProps> = ({ label, ...props }) => {
   return (
-    <View style={styles.container}>
+    <>
       {label && <Text style={styles.label}>{label}</Text>}
       <TextInput style={styles.input} {...props} />
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { width: '100%', marginBottom: 15 },
-  label: { fontSize: 14, color: '#555', marginBottom: 5 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
+  label: {
     fontSize: 16,
+    marginBottom: 4,
     color: '#333',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    marginBottom: 16,
   },
 });
 

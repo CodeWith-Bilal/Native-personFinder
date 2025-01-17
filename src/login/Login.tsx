@@ -1,84 +1,59 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { setLoading, setError, setUser } from '../redux/slice/authSlice';
-import { loginWithEmail } from '../hooks/useAuth';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/types';
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, logout } from '../redux/slice/authSlice';
+import auth from '@react-native-firebase/auth';
+import LoginScreen from '../login/Login';
+import SignupScreen from '../register/Register';
+// import BottomTabNavigator from './BottomNavigation';
+import { RootState } from '../redux/store';
+import BottomTabNavigator from '../navigation/BottomNavigation';
 
-const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Stack = createNativeStackNavigator();
+
+const AppNavigator = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [initializing, setInitializing] = useState(true);
 
-  const handleLogin = async () => {
-    dispatch(setLoading(true));
-    try {
-      const user = await loginWithEmail(email, password);
-      dispatch(setUser({ uid: user.uid }));
-      navigation.navigate('Home');
-    } catch (err) {
-      const error = err as Error;
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(
+          setUser({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          })
+        );
+      } else {
+        dispatch(logout());
+      }
+      setInitializing(false);
+    });
+    return unsubscribe;
+  }, [dispatch]);
+
+  if (initializing) {
+    return null; // Optional: Add a loading screen while checking authentication status
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Login" onPress={handleLogin} />
-      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-        <Text style={styles.link}>Don't have an account? Sign up</Text>
-      </TouchableOpacity>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {!user ? (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </>
+        ) : (
+          <Stack.Screen name="Main" component={BottomTabNavigator} />
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-  },
-  link: {
-    marginTop: 16,
-    color: '#007BFF',
-    textAlign: 'center',
-  },
-});
-
-export default LoginScreen;
+export default AppNavigator;

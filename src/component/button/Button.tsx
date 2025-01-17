@@ -1,41 +1,31 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 
 interface ButtonProps {
   title: string;
-  onPress: () => void;
-  loading?: boolean;
-  disabled?: boolean;
-  style?: ViewStyle;
+  onPress: (event: GestureResponderEvent) => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, loading, disabled, style }) => {
+const Button: React.FC<ButtonProps> = ({ title, onPress }) => {
   return (
-    <TouchableOpacity
-      style={[styles.button, disabled ? styles.disabledButton : {}, style]}
-      onPress={onPress}
-      disabled={disabled || loading}
-    >
-      {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>{title}</Text>}
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#6A5ACD',
-    padding: 15,
-    borderRadius: 5,
-    width: '100%',
+    backgroundColor: '#007BFF',
+    padding: 12,
+    borderRadius: 8,
     alignItems: 'center',
+    marginVertical: 8,
   },
-  disabledButton: {
-    backgroundColor: '#ccc',
-  },
-  buttonText: {
+  text: {
     color: '#fff',
-    fontWeight: 'bold',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

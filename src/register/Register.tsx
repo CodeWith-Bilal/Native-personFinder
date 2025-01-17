@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setLoading, setError } from '../redux/slice/authSlice';
 import { registerWithEmail } from '../hooks/useAuth';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/types';
+import Input from '../component/inputs/Inputs';
+import Button from '../component/button/Button';
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('');
@@ -30,13 +32,13 @@ const SignupScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Sign Up</Text>
-      <TextInput
+      <Input
         style={styles.input}
         placeholder="Name"
         value={name}
         onChangeText={setName}
       />
-      <TextInput
+      <Input
         style={styles.input}
         placeholder="Email"
         value={email}
@@ -44,7 +46,7 @@ const SignupScreen = () => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <TextInput
+      <Input
         style={styles.input}
         placeholder="Password"
         value={password}
