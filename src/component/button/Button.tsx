@@ -1,33 +1,36 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle } from 'react-native';
-
-interface ButtonProps {
+import { TouchableOpacity, Text,TouchableOpacityProps, StyleSheet } from 'react-native';
+// import {styles} from "./ButtonStyles"
+import { colors } from '../../constants/colors';
+interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  onPress: () => void;
-  style?: ViewStyle;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, style }) => {
+const Button: React.FC<ButtonProps> = ({ title, style, ...props }) => {
   return (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
+    <TouchableOpacity style={[styles.button, style]} {...props}>
+      <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+export default Button;
+
+
+export const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 4,
+    width: '80%',
+    height: 52,
+    backgroundColor: colors.skyBlue,
+    justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 8,
+    marginTop: 20,
   },
-  text: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  buttonText: {
+    color: colors.buttonText,
+    fontSize: 23,
+    fontWeight: '600',
+    fontFamily: 'Montserrat',
   },
 });
-
-export default Button;

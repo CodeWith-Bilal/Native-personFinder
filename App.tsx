@@ -1,17 +1,22 @@
+// import { StyleSheet, Text, View } from 'react-native'
 import React from 'react';
-import AppNavigator from './src/navigation/AppNavigator';
-import Toast from 'react-native-toast-message';
+import Navigation from './src/navigation/Navigation';
 import { Provider } from 'react-redux';
-import store  from './src/redux/store';
-import Splashscreen from 'react-native-splash-screen';
+import { store } from './src/redux/store';
+import SplashScreen from 'react-native-splash-screen';
+
 const App = () => {
-  Splashscreen.hide();
+  SplashScreen.hide();
   return (
+
     <Provider store={store}>
-        <AppNavigator />
-      <Toast />
-    </Provider>
+    <Navigation />
+
+  </Provider>
+
   );
 };
 
 export default App;
+
+// const styles = StyleSheet.create({})
