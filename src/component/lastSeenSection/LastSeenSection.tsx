@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import DatePicker from 'react-native-date-picker';
-// import {styles} from './LastSeenSectionStyles';
-import {LastSeenSectionProps} from '../../types/types';
-import {colors} from '../../constants/colors';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import RNDatePicker from '@react-native-community/datetimepicker';
+import { LastSeenSectionProps } from '../../types/types';
+import { colors } from '../../constants/colors';
+
 const LastSeenSection: React.FC<LastSeenSectionProps> = ({
   lastLocation,
   lastSeen,
@@ -18,7 +18,7 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
       <Text style={styles.label}>Last Seen Location</Text>
       <TextInput
         value={lastLocation}
-        onChangeText={text => handleInputChange('lastLocation', text)}
+        onChangeText={(text) => handleInputChange('lastLocation', text)}
         placeholder="Last Location"
         style={styles.input}
       />
@@ -33,7 +33,16 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
         />
 
         {showPicker && (
-          <DatePicker date={date} mode="datetime" onDateChange={setDate} />
+          <RNDatePicker
+            mode="date"
+            value={date} // Use the date state as the value
+            onChange={(event, selectedDate) => {
+              if (selectedDate) {
+                setDate(selectedDate);
+                // setShowPicker(false); // Set the selected date
+              }
+            }}
+          />
         )}
 
         {showPicker && (
@@ -41,13 +50,13 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
             <Button
               title="Confirm"
               onPress={() => {
-                handleInputChange('lastSeen', date.toLocaleString());
-                setShowPicker(false);
+                handleInputChange('lastSeen', date.toLocaleString()); // Save date as string
+                setShowPicker(false); // Hide the date picker
               }}
             />
             <Button
               title="Cancel"
-              onPress={() => setShowPicker(false)}
+              onPress={() => setShowPicker(false)} // Hide the date picker on cancel
               color={colors.crimson}
             />
           </View>
@@ -60,24 +69,24 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
 export default LastSeenSection;
 
 export const styles = StyleSheet.create({
-    label: {
-        color: colors.charcoal,
-        fontWeight: '500',
-        fontSize: 14,
-        marginBottom: 6,
-      },
-      input: {
-        borderWidth: 1,
-        borderColor: colors.lightGray,
-        padding: 10,
-        borderRadius: 5,
-        marginBottom: 15,
-        fontSize: 16,
-      },
-      buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 10,
-        gap: 10,
-      },
+  label: {
+    color: colors.charcoal,
+    fontWeight: '500',
+    fontSize: 14,
+    marginBottom: 6,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 15,
+    fontSize: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+    gap: 10,
+  },
 });

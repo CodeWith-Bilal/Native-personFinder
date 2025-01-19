@@ -5,8 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  StyleSheet,
-  Dimensions,
 } from 'react-native';
 
 import {useCombinedHook} from '../../hooks/useReportManager';
@@ -15,19 +13,13 @@ import {useAppNavigation} from '../../utils/AppNavigation';
 import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
 import PhotoUploadSection from '../../component/photoUploadSection/PhotoUploadSection';
 import {getPhysicalDescriptionFields} from '../../constants/constants';
-import LastSeenSection from '../../component/lastSeenSection/LastSeenSection';
-// import {styles} from './ReportFormStyle';
-import { colors } from '../../constants/colors';
+
 export default function ReportMissingPerson() {
   const navigation = useAppNavigation();
   const {
     formData,
     showDatePicker,
     setShowDatePicker,
-    showPicker,
-    setShowPicker,
-    date,
-    setDate,
     handleInputChange,
     handleDateChange,
     selectPhoto,
@@ -39,7 +31,6 @@ export default function ReportMissingPerson() {
     formData,
     handleInputChange,
   );
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Header
@@ -54,16 +45,6 @@ export default function ReportMissingPerson() {
         showDatePicker={showDatePicker}
         setShowDatePicker={setShowDatePicker}
         handleDateChange={handleDateChange}
-      />
-
-      <LastSeenSection
-        lastLocation={formData?.lastLocation}
-        lastSeen={formData?.lastSeen}
-        showPicker={showPicker}
-        date={date}
-        handleInputChange={handleInputChange}
-        setShowPicker={setShowPicker}
-        setDate={setDate}
       />
 
       <Text style={styles.title}>Physical Description</Text>
@@ -92,6 +73,8 @@ export default function ReportMissingPerson() {
     </ScrollView>
   );
 }
+import {StyleSheet,Dimensions} from 'react-native';
+import {colors} from '../../constants/colors';
 const { width } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   horizontalLine: {
