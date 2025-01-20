@@ -194,7 +194,7 @@ export type ProfileCardProps = {
   };
   onPress: () => void;
 };
-
+//
 export type MissingPersonModalProps = {
   visible: boolean;
   onClose: () => void;
