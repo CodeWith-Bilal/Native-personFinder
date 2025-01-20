@@ -69,7 +69,7 @@ export function useCombinedHook() {
   };
 
   const selectPhoto = async () => {
-    setIsloading(true);
+    setIsloading(true); 
     const response = await launchImageLibrary({
       mediaType: 'photo',
       quality: 1,
@@ -93,7 +93,7 @@ export function useCombinedHook() {
         Alert.alert('Error', 'No valid image URI found.');
       }
     }
-    setIsloading(false);
+    setIsloading(false); 
   };
 
   const submitReportForm = async () => {

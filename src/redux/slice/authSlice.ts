@@ -11,12 +11,16 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   success: false,
-  user: null,
+  user:null,
 };
-
-GoogleSignin.configure({
-  webClientId: '578891259540-ep9m1tn5di0rkiv6if3ntomi7tlcs86n.apps.googleusercontent.com',
-});
+interface Auth {
+  user: {
+    uid: string;
+    email: string | null;
+    displayName: string | null;
+    photoURL: string | null;
+  };
+}
 
 export const loginAsync = createAsyncThunk<
   AuthState['user'],
@@ -36,30 +40,49 @@ export const loginAsync = createAsyncThunk<
     return rejectWithValue(error?.message);
   }
 });
-
+GoogleSignin.configure({
+  webClientId: '578891259540-ep9m1tn5di0rkiv6if3ntomi7tlcs86n.apps.googleusercontent.com', // Replace with your client ID
+  offlineAccess: true, // If you need server-side authentication
+});
 export const googleLoginAsync = createAsyncThunk<
-  AuthState['user'],
+  Auth['user'],
   void,
-  {rejectValue: string}
->('auth/googleLoginAsync', async (_, {rejectWithValue}) => {
+  { rejectValue: string }
+>('auth/googleLoginAsync', async (_, { rejectWithValue }) => {
   try {
-    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    const {idToken} = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // Ensure Google Play Services are available
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+    // Perform sign-in
+    const signInResponse = await GoogleSignin.signIn();
+
+    // Access idToken from nested data object
+    const { data } = signInResponse;
+    // console.log(signInResponse);
+    if (!data?.idToken) {
+      throw new Error('Google Sign-In failed: idToken is null.');
+    }
+
+    // Authenticate with Firebase using the idToken
+    const googleCredential = auth.GoogleAuthProvider.credential(data.idToken);
     const response = await auth().signInWithCredential(googleCredential);
-    const {uid, email, displayName, photoURL} = response?.user;
-    return {uid, email, displayName, photoURL};
+
+    // Extract user details
+    const { uid, email, displayName, photoURL } = response?.user;
+
+    return { uid, email, displayName, photoURL };
   } catch (err) {
-    const error = err as fireError;
+    // Handle errors
+    const error = err as Error;
 
     ToastAndroid.show(
       'Google login failed. Please try again.',
-      ToastAndroid.LONG,
+      ToastAndroid.LONG
     );
-    return rejectWithValue(error?.message);
+
+    return rejectWithValue(error.message || 'An unknown error occurred');
   }
 });
-
 export const registerAsync = createAsyncThunk<
   AuthState['user'],
   {email: string; password: string; username: string},
