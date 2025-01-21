@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import {IMAGES} from '../../constants/constants';
 import { colors } from '../../constants/colors';
-// import {styles} from "./HeaderStyles"
 interface HeaderProps {
   title: string;
   onBackPress: () => void;
