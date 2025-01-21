@@ -14,7 +14,6 @@ export const handleFormFieldUpdate = (
     case 'eyeColor':
     case 'hairColor':
     case 'hairLength':
-    case 'lastSeen':
     case 'lastLocation':
       state[key] = value;
       break;

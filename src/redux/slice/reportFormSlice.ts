@@ -1,8 +1,9 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
-import {ReportFormState} from '../../types/types';
-import {handleFormFieldUpdate} from '../../utils/formFieldHandlers';
-import {calculateAge} from '../../utils/calculateAge';
+import { ReportFormState } from '../../types/types';
+import { handleFormFieldUpdate } from '../../utils/formFieldHandlers';
+import { calculateAge } from '../../utils/calculateAge';
+
 const initialState: ReportFormState = {
   fullName: '',
   gender: '',
@@ -24,7 +25,7 @@ export const submitReport = createAsyncThunk(
   'reportForm/submitReport',
   async (
     formData: Omit<ReportFormState, 'status' | 'error'>,
-    {rejectWithValue},
+    { rejectWithValue }
   ) => {
     try {
       const birthDate = new Date(formData.dateOfBirth);
@@ -34,17 +35,18 @@ export const submitReport = createAsyncThunk(
         .collection('Reports')
         .add({
           ...formData,
-          dateOfBirth: birthDate,
+          dateOfBirth: birthDate.toISOString(), // Ensure consistent date format
           age,
           timestamp: firestore.FieldValue.serverTimestamp(),
         });
+
       return formData;
     } catch (error) {
       return rejectWithValue(
-        'There was an error submitting the report. Please try again.',
+        'There was an error submitting the report. Please try again.'
       );
     }
-  },
+  }
 );
 
 const reportFormSlice = createSlice({
@@ -52,7 +54,7 @@ const reportFormSlice = createSlice({
   initialState,
   reducers: {
     updateFormField: (state, action) => {
-      const {key, value} = action.payload;
+      const { key, value } = action.payload;
       handleFormFieldUpdate(state, key, value);
     },
 
@@ -60,15 +62,16 @@ const reportFormSlice = createSlice({
       Object.assign(state, initialState);
     },
   },
-
   extraReducers: builder => {
     builder
       .addCase(submitReport.pending, state => {
         state.status = 'loading';
         state.error = null;
       })
-      .addCase(submitReport.fulfilled, state => {
+      .addCase(submitReport.fulfilled, (state) => {
         state.status = 'succeeded';
+        // Optionally, reset the form after successful submission
+        Object.assign(state, initialState);
       })
       .addCase(submitReport.rejected, (state, action) => {
         state.status = 'failed';
@@ -77,5 +80,5 @@ const reportFormSlice = createSlice({
   },
 });
 
-export const {updateFormField, resetForm} = reportFormSlice.actions;
+export const { updateFormField, resetForm } = reportFormSlice.actions;
 export default reportFormSlice.reducer;

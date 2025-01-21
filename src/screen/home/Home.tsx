@@ -134,7 +134,7 @@ export const styles = StyleSheet.create({
   profileDetails: {
     fontWeight: '400',
     fontSize: 11,
-    color: 'white',
+    color: 'black',
     position: 'absolute',
     bottom: 34,
     padding: 16,

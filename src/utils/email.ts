@@ -10,7 +10,7 @@ export const sendEmail = (subject: string, body: string) => {
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
-    Linking.openURL(mailtoUrl).catch(err =>
+    Linking.openURL(mailtoUrl).catch(() =>
       ToastAndroid.show('Error opening email client', ToastAndroid.LONG),
     );
   } else {
