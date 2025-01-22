@@ -5,41 +5,47 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
-import {useReportManager} from '../../hooks/useReportManager';
+import {StyleSheet,Dimensions} from 'react-native';
+import {colors} from '../../constants/colors';
+const { width } = Dimensions.get('window');
+import { useReportManager} from '../../hooks/useReportManager';
 import Header from '../../component/header/Header';
+import {useAppNavigation} from '../../utils/AppNavigation';
 import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
 import PhotoUploadSection from '../../component/photoUploadSection/PhotoUploadSection';
 import {getPhysicalDescriptionFields} from '../../constants/constants';
-import {StyleSheet, Dimensions} from 'react-native';
-import {colors} from '../../constants/colors';
-import { useAppNavigation } from '../../utils/AppNavigation';
-
-const {width} = Dimensions.get('window');
-
-export default function ReportForm() {
+import LastSeenSection from '../../component/lastSeenSection/LastSeenSection';
+// import {styles} from './ReportFormStyle';
+export default function ReportMissingPerson() {
+  const navigation = useAppNavigation();
   const {
     formData,
     showDatePicker,
     setShowDatePicker,
+    showPicker,
+    setShowPicker,
+    date,
+    setDate,
     handleInputChange,
     handleDateChange,
     selectPhoto,
     submitReport,
     isLoading,
-  } = useReportManager();
 
+  } = useReportManager();
   const physicalDescriptionFields = getPhysicalDescriptionFields(
     formData,
     handleInputChange,
   );
-const navigation = useAppNavigation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Header title="Report Missing Person" onBackPress={() => navigation.goBack()}/>
+      <Header
+        title="Missing Person Details"
+        onBackPress={() => navigation.goBack()}
+      />
+      <Text style={styles.title}>Basic Details of Missing Person</Text>
 
-      <Text style={styles.title}>Basic Details</Text>
       <BasicDetailsSection
         formData={formData}
         handleInputChange={handleInputChange}
@@ -48,7 +54,18 @@ const navigation = useAppNavigation();
         handleDateChange={handleDateChange}
       />
 
+      <LastSeenSection
+        lastLocation={formData?.lastLocation}
+        lastSeen={formData?.lastSeen}
+        showPicker={showPicker}
+        date={date}
+        handleInputChange={handleInputChange}
+        setShowPicker={setShowPicker}
+        setDate={setDate}
+      />
+
       <Text style={styles.title}>Physical Description</Text>
+
       {physicalDescriptionFields.map((field, index) => (
         <View key={index}>
           <Text style={styles.label}>{field.label}</Text>
@@ -61,41 +78,30 @@ const navigation = useAppNavigation();
         </View>
       ))}
 
-      <PhotoUploadSection
-        photo={formData.photo}
-        selectPhoto={selectPhoto}
-        isloading={isLoading}
-      />
+      <PhotoUploadSection photo={formData?.photo} selectPhoto={selectPhoto}  isloading={isLoading} />
 
       <View style={styles.horizontalLine} />
 
       <View style={styles.alignButton}>
-        <TouchableOpacity
-          style={styles.submitButton}
-          onPress={submitReport}
-          disabled={isLoading}>
-          {isLoading ? (
-            <ActivityIndicator color={colors.buttonText} />
-          ) : (
-            <Text style={styles.submitButtonText}>Submit Report</Text>
-          )}
+        <TouchableOpacity style={styles.submitButton} onPress={submitReport}>
+          <Text style={styles.submitButtonText}>Submit Report</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 20,
-    backgroundColor: colors.whitish,
-  },
+export const styles = StyleSheet.create({
   horizontalLine: {
     borderBottomColor: colors.charcoal,
     borderBottomWidth: 1,
     marginBottom: 16,
   },
+  container: {
+    flexGrow: 1,
+    padding: 20,
+    backgroundColor: colors.whitish,
+  },
+
   title: {
     fontSize: 23,
     fontWeight: '400',
@@ -118,8 +124,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
+
   submitButton: {
-    width: width * 0.6,
+     width: width * 0.6,
     backgroundColor: colors.skyBlue,
     paddingHorizontal: 17,
     paddingVertical: 7,
@@ -128,10 +135,11 @@ const styles = StyleSheet.create({
   },
   submitButtonText: {
     color: colors.buttonText,
-    fontSize: width > 350 ? 23 : 18,
+   fontSize: width > 350 ? 23 : 18,
     fontWeight: '500',
     fontFamily: 'Montserrat',
   },
+
   alignButton: {
     alignItems: 'center',
   },

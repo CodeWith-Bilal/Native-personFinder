@@ -62,11 +62,10 @@ export function useReportManager() {
     selectedDate: Date | undefined,
   ) => {
     const currentDate = selectedDate || new Date(formData?.dateOfBirth);
-    const isoString = currentDate.toISOString();
+    const isoString = currentDate.toISOString(); // Ensure it's properly formatted
     handleInputChange('dateOfBirth', isoString);
     setShowDatePicker(false);
   };
-
   const selectPhoto = async () => {
     setIsLoading(true);
     const response = await launchImageLibrary({
@@ -126,7 +125,7 @@ export function useReportManager() {
       !fullName ||
       !gender ||
       !dateOfBirth ||
-      !lastSeen ||
+      // !lastSeen ||
       !lastLocation ||
       !height ||
       !weight ||
