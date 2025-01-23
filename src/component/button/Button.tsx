@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity, Text,TouchableOpacityProps, StyleSheet } from 'react-native';
-// import {styles} from "./ButtonStyles"
 import { colors } from '../../constants/colors';
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -15,6 +14,8 @@ const Button: React.FC<ButtonProps> = ({ title, style, ...props }) => {
 };
 
 export default Button;
+
+
 
 
 export const styles = StyleSheet.create({
@@ -34,3 +35,4 @@ export const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
   },
 });
+

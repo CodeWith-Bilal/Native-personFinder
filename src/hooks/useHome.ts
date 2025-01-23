@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
-import { useReportManager } from '../hooks/useReportManager';
+import {useState, useMemo} from 'react';
+import { useCombinedHook } from './useReportManager';
+// import {useCombinedHook} from '../hooks/useReportFound';
 
 export const useHomeScreenManager = () => {
   const {
@@ -9,35 +10,27 @@ export const useHomeScreenManager = () => {
     openModal,
     closeModal,
     loading,
-  } = useReportManager();
-
+  } = useCombinedHook();
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredResultsCount, setFilteredResultsCount] = useState(0);
 
   const handleSearchQueryChange = (query: string) => {
     setSearchQuery(query);
   };
 
   const filteredProfiles = useMemo(() => {
-    const results = profiles.filter(profile => {
-      const nameMatch = profile?.fullName
-        ?.toLowerCase()
-        .includes(searchQuery.toLowerCase());
-      const locationMatch = profile?.lastLocation
-        ?.toLowerCase()
-        .includes(searchQuery.toLowerCase());
-      return nameMatch || locationMatch;
-    });
-
-    setFilteredResultsCount(results.length); // Track the number of matches
-    return results;
+    return profiles.filter(
+      profile =>
+        profile?.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        profile?.lastLocation
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase()),
+    );
   }, [profiles, searchQuery]);
 
   return {
     searchQuery,
     handleSearchQueryChange,
     filteredProfiles,
-    filteredResultsCount, // Added for showing result counts
     modalVisible,
     selectedProfile,
     openModal,

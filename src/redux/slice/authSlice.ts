@@ -11,7 +11,7 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   success: false,
-  user:null,
+  user: null,
 };
 interface Auth {
   user: {
@@ -21,7 +21,6 @@ interface Auth {
     photoURL: string | null;
   };
 }
-
 export const loginAsync = createAsyncThunk<
   AuthState['user'],
   {email: string; password: string},
@@ -40,6 +39,7 @@ export const loginAsync = createAsyncThunk<
     return rejectWithValue(error?.message);
   }
 });
+
 GoogleSignin.configure({
   webClientId: '578891259540-ep9m1tn5di0rkiv6if3ntomi7tlcs86n.apps.googleusercontent.com', // Replace with your client ID
   offlineAccess: true, // If you need server-side authentication
@@ -83,6 +83,7 @@ export const googleLoginAsync = createAsyncThunk<
     return rejectWithValue(error.message || 'An unknown error occurred');
   }
 });
+
 export const registerAsync = createAsyncThunk<
   AuthState['user'],
   {email: string; password: string; username: string},

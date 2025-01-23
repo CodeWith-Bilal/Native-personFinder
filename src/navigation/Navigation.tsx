@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {firebase, FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {RootStackParams} from '../types/types';
 import BottomNavigation from './BottomNavigation';
+
 import {
   Register,
   Login,
@@ -13,24 +15,16 @@ import {
   News,
 } from '../constants/constants';
 
-export type RootStackParams = {
-  MainTabs: undefined;
-  ReportForm: undefined;
-  FilterReport: undefined;
-  Profile: undefined;
-  News: undefined;
-  Login: undefined;
-  Register: undefined;
-  ForgotPassword: undefined;
-};
-
 const Stack = createNativeStackNavigator<RootStackParams>();
 
-const Navigation: React.FC = () => {
+export default function Navigation() {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(setUser);
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      setUser(user);
+    });
+
     return unsubscribe;
   }, []);
 
@@ -55,6 +49,4 @@ const Navigation: React.FC = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
-
-export default Navigation;
+}

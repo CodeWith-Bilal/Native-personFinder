@@ -5,18 +5,20 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  StyleSheet,
+  Dimensions,
 } from 'react-native';
-import {StyleSheet,Dimensions} from 'react-native';
-import {colors} from '../../constants/colors';
-const { width } = Dimensions.get('window');
-import { useReportManager} from '../../hooks/useReportManager';
+
+import {useCombinedHook} from '../../hooks/useReportManager';
 import Header from '../../component/header/Header';
 import {useAppNavigation} from '../../utils/AppNavigation';
 import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
 import PhotoUploadSection from '../../component/photoUploadSection/PhotoUploadSection';
 import {getPhysicalDescriptionFields} from '../../constants/constants';
 import LastSeenSection from '../../component/lastSeenSection/LastSeenSection';
-// import {styles} from './ReportFormStyle';
+import { colors } from '../../constants/colors';
+const { width } = Dimensions.get('window');
+
 export default function ReportMissingPerson() {
   const navigation = useAppNavigation();
   const {
@@ -31,9 +33,9 @@ export default function ReportMissingPerson() {
     handleDateChange,
     selectPhoto,
     submitReport,
-    isLoading,
+    isloading,
 
-  } = useReportManager();
+  } = useCombinedHook();
   const physicalDescriptionFields = getPhysicalDescriptionFields(
     formData,
     handleInputChange,
@@ -78,7 +80,7 @@ export default function ReportMissingPerson() {
         </View>
       ))}
 
-      <PhotoUploadSection photo={formData?.photo} selectPhoto={selectPhoto}  isloading={isLoading} />
+      <PhotoUploadSection photo={formData?.photo} selectPhoto={selectPhoto}  isloading={isloading} />
 
       <View style={styles.horizontalLine} />
 

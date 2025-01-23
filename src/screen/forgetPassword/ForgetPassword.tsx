@@ -13,8 +13,7 @@ import Header from '../../component/header/Header';
 import {useAppNavigation} from '../../utils/AppNavigation';
 import { FORGOT_PASSWORD } from '../../constants/constants';
 import { IMAGES } from '../../constants/constants';
-// import {styles} from "./ForgotPasswordStyles"
-import { colors } from '../../constants/colors';
+import { colors } from "../../constants/colors";
 export default function ForgotPassword() {
   const navigation = useAppNavigation();
   const { email, setEmail, sendResetCode } = useAuth();
@@ -22,7 +21,7 @@ export default function ForgotPassword() {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-
+   
         <View style={styles.headerWrapper}>
           <Header
             title="Forgot Password"
@@ -39,6 +38,7 @@ export default function ForgotPassword() {
         {FORGOT_PASSWORD.instructions}
         </Text>
 
+       
         <Text style={styles.label}>Email</Text>
         <View style={styles.inputContainer}>
           <Image
@@ -60,6 +60,7 @@ export default function ForgotPassword() {
     </ScrollView>
   );
 }
+
 export const styles = StyleSheet.create({
     scrollContainer: {
       flexGrow: 1,

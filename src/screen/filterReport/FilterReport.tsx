@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList, ActivityIndicator, StyleSheet} from 'react-native';
-import { useReportManager} from '../../hooks/useReportManager';
+import {useCombinedHook} from '../../hooks/useReportManager';
 import MissingPersonModal from '../../component/profileModal/ProfileModal';
 import Header from '../../component/header/Header';
 import SearchBar from '../../component/searchBar/SearchBar';
@@ -8,8 +8,7 @@ import FilterOptions from '../../component/filterOptions/FilterOptions';
 import {useAppNavigation} from '../../utils/AppNavigation';
 import ProfileCard from '../../component/profileCard/ProfileCard';
 import {colors} from '../../constants/colors';
-import {ProfileCardProps} from '../../types/types';
-
+import {ProfileCardProps} from "../../types/types"
 const AllMissingPersonsScreen = () => {
   const navigation = useAppNavigation();
   const {
@@ -22,10 +21,8 @@ const AllMissingPersonsScreen = () => {
     handleSearchQueryChange,
     handleGenderChange,
     loading,
-    profilesError, // Added to handle error state
-  } = useReportManager();
-
-  // Removed the unused `error` variable and used `profilesError` directly from the hook
+  } = useCombinedHook();
+  let error: undefined;
 
   const filterOptions = ['Male', 'Female', 'Trans', 'All'];
 
@@ -38,8 +35,8 @@ const AllMissingPersonsScreen = () => {
       <SearchBar value={searchQuery} onChange={handleSearchQueryChange} />
       <FilterOptions options={filterOptions} onSelect={handleGenderChange} />
 
-      {profilesError ? (
-        <Text style={styles.errorText}>{profilesError}</Text> // Display error message
+      {error ? (
+        <Text style={styles.errorText}>{error}</Text>
       ) : loading ? (
         <ActivityIndicator
           size="large"
@@ -53,11 +50,11 @@ const AllMissingPersonsScreen = () => {
           data={filteredProfiles}
           renderItem={({item}) => (
             <ProfileCard
-              profile={item as ProfileCardProps['profile']}
-              onPress={() => openModal(item)} // Open the modal when the profile is pressed
-            />
+            profile={item as ProfileCardProps['profile']}
+            onPress={() => openModal(item)}
+          />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item?.id}
           contentContainerStyle={styles.listContent}
         />
       )}
@@ -65,14 +62,13 @@ const AllMissingPersonsScreen = () => {
       <MissingPersonModal
         visible={modalVisible}
         onClose={closeModal}
-        profile={selectedProfile} // Pass the selected profile to the modal
+        profile={selectedProfile}
       />
     </View>
   );
 };
 
 export default AllMissingPersonsScreen;
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -82,7 +78,6 @@ export const styles = StyleSheet.create({
   errorText: {
     color: colors.crimson,
     textAlign: 'center',
-    marginTop: 20,
   },
   loader: {
     flex: 1,

@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-// import {styles} from './LogoStyles';
 import {LogoProps} from '../../types/types';
 
 export const Logo: React.FC<LogoProps> = ({color, size}) => {

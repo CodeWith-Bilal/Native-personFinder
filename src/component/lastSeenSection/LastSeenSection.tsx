@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import RNDatePicker from '@react-native-community/datetimepicker';
-import { LastSeenSectionProps } from '../../types/types';
-import { colors } from '../../constants/colors';
-
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import DatePicker from 'react-native-date-picker';
+import {LastSeenSectionProps} from '../../types/types';
+import {colors} from '../../constants/colors';
 const LastSeenSection: React.FC<LastSeenSectionProps> = ({
   lastLocation,
   lastSeen,
@@ -18,7 +17,7 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
       <Text style={styles.label}>Last Seen Location</Text>
       <TextInput
         value={lastLocation}
-        onChangeText={(text) => handleInputChange('lastLocation', text)}
+        onChangeText={text => handleInputChange('lastLocation', text)}
         placeholder="Last Location"
         style={styles.input}
       />
@@ -33,16 +32,7 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
         />
 
         {showPicker && (
-          <RNDatePicker
-            mode="date"
-            value={date} // Use the date state as the value
-            onChange={(event, selectedDate) => {
-              if (selectedDate) {
-                setDate(selectedDate);
-                // setShowPicker(false); // Set the selected date
-              }
-            }}
-          />
+          <DatePicker date={date} mode="datetime" onDateChange={setDate} />
         )}
 
         {showPicker && (
@@ -50,13 +40,13 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
             <Button
               title="Confirm"
               onPress={() => {
-                handleInputChange('lastSeen', date.toLocaleString()); // Save date as string
-                setShowPicker(false); // Hide the date picker
+                handleInputChange('lastSeen', date.toLocaleString());
+                setShowPicker(false);
               }}
             />
             <Button
               title="Cancel"
-              onPress={() => setShowPicker(false)} // Hide the date picker on cancel
+              onPress={() => setShowPicker(false)}
               color={colors.crimson}
             />
           </View>

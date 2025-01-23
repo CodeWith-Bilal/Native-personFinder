@@ -1,4 +1,3 @@
-import {useProfile} from '../../hooks/useProfile';
 import React from 'react';
 import {
   View,
@@ -11,8 +10,8 @@ import {
 } from 'react-native';
 
 import {useAppNavigation} from '../../utils/AppNavigation';
-// import {styles} from './ProfileStyles';
 import {IMAGES} from '../../constants/constants';
+import { useProfile } from '../../hooks/useProfile';
 import { colors } from '../../constants/colors';
 const EditProfileScreen: React.FC = () => {
   const navigation = useAppNavigation();
@@ -74,6 +73,7 @@ const EditProfileScreen: React.FC = () => {
 };
 
 export default EditProfileScreen;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -152,4 +152,3 @@ export const styles = StyleSheet.create({
     fontSize: 23,
   },
 });
-

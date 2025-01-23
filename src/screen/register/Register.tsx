@@ -1,14 +1,21 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  Image,
+} from 'react-native';
 import CheckBox from 'react-native-check-box';
-import { useAuth } from '../../hooks/useAuth';
+import {useAuth} from '../../hooks/useAuth';
 import Button from '../../component/button/Button';
-import { getInputs } from '../../constants/constants';
-import { IMAGES } from '../../constants/constants';
-import { styles } from './RegisterStyle';
-import InputField from '../../component/input/InputField';
-
-const Register: React.FC = () => {
+import {getInputs} from '../../constants/constants';
+import {IMAGES} from '../../constants/constants';
+import {styles} from './RegisterStyle';
+import {colors} from '../../constants/colors';
+const Register = () => {
   const {
     email,
     setEmail,
@@ -33,30 +40,58 @@ const Register: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Image source={IMAGES.regVector} style={styles.topRightImage} resizeMode="contain" />
+        <Image
+          source={IMAGES.regVector}
+          style={styles.topRightImage}
+          resizeMode="contain"
+        />
         <Text style={styles.logoText}>Findr</Text>
         <Text style={styles.subtitle}>Join the Search for Hope</Text>
 
-        {inputs.map((input, index) => (
-          <InputField
-            key={index}
-            label={input.label}
-            placeholder={input.placeholder}
-            value={input.value}
-            onChangeText={input.onChangeText}
-            secureTextEntry={input.secureTextEntry || false}
-            keyboardType={input.keyboardType || 'default'}
-            helperText={input.helperText || ''}
-          />
-        ))}
+        {inputs.map(
+          (
+            {
+              label,
+              placeholder,
+              value,
+              onChangeText,
+              secureTextEntry,
+              helperText,
+              keyboardType,
+            },
+            index,
+          ) => (
+            <View key={index} style={styles.inputContainer}>
+              <Text style={styles.label}>{label}</Text>
+              <TextInput
+                style={styles.input}
+                placeholder={placeholder}
+                value={value}
+                onChangeText={onChangeText}
+                secureTextEntry={secureTextEntry}
+                keyboardType={keyboardType}
+                placeholderTextColor={colors.charcoal}
+              />
+              {helperText && (
+                <Text style={styles.helperText}>{helperText}</Text>
+              )}
+            </View>
+          ),
+        )}
 
         <View style={styles.checkboxContainer}>
-          <CheckBox isChecked={isSelected} onClick={() => setSelection(!isSelected)} />
+          <CheckBox
+            isChecked={isSelected}
+            onClick={() => setSelection(!isSelected)}
+            rightTextStyle={styles.checkboxLabel}
+          />
           <Text style={styles.checkboxLabel}>Remember me</Text>
         </View>
 
         <View style={styles.leftAlignedContainer}>
-          <Text style={styles.helperText}>Save my login details for next time.</Text>
+          <Text style={styles.helperText}>
+            Save my login details for next time.
+          </Text>
         </View>
 
         <Button title="Next" onPress={onregister} />

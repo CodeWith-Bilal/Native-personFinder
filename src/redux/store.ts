@@ -1,13 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 
-import authReducer from './slice/authSlice';
-import profileReducer from './slice/profileSlice';
-import reportFormReducer from './slice/reportFormSlice';
-import filterReportReducer from './slice/filterReportSlice';
-import newsReducer from './slice/newsSlice';
-// import { useDispatch, useSelector } from 'react-redux';
-// export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
-// export const useAppSelector = useSelector.withTypes<RootState>();
+import authReducer from '../redux/slice/authSlice';
+import profileReducer from '../redux/slice/profileSlice';
+import reportFormReducer from '../redux/slice/reportFormSlice';
+import filterReportReducer from '../redux/slice/filterReportSlice';
+
+import newsReducer from '../redux/slice/newsSlice';
 
 export const store = configureStore({
   reducer: {

@@ -136,7 +136,6 @@ export const IMAGES = {
 import Register from '../screen/register/Register';
 import Login from '../screen/login/Login';
 import ForgotPassword from '../screen/forgetPassword/ForgetPassword';
-// import Splash from '../screens/splash/Splash';
 import ReportForm from '../screen/reportForm/ReportForm';
 import FilterReport from '../screen/filterReport/FilterReport';
 import ProfileScreen from '../screen/profile/Profile';

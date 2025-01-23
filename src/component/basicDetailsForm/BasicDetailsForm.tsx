@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {IMAGES} from '../../constants/constants';
-// import {styles} from './BasicDetailsFormStyles';
 import useGenderDropdown from '../../hooks/useBasicDetailsForm';
 import {BasicDetailsSectionProps} from '../../types/types';
 import { colors } from '../../constants/colors';
@@ -78,69 +77,71 @@ const BasicDetailsSection: React.FC<BasicDetailsSectionProps> = ({
 };
 
 export default BasicDetailsSection;
+
 export const styles = StyleSheet.create({
-    buttonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop: 10,
-      gap: 10,
-    },
-    label: {
-      color: colors.charcoal,
-      fontWeight: '500',
-      fontSize: 14,
-      marginBottom: 6,
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: colors.lightGray,
-      padding: 10,
-      borderRadius: 5,
-      marginBottom: 15,
-      fontSize: 16,
-    },
-    dropdown: {
-      borderWidth: 1,
-      borderColor: colors.lightGray,
-      padding: 10,
-      borderRadius: 5,
-      marginBottom: 15,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    dropdownText: {
-      fontSize: 16,
-      color: colors.charcoal,
-    },
-    dropdownIcon: {
-      width: 20,
-      height: 20,
-    },
-    dropdownOptions: {
-      borderWidth: 1,
-      borderColor: colors.lightGray,
-      borderRadius: 5,
-      marginBottom: 15,
-    },
-    dropdownOption: {
-      padding: 10,
-    },
-    dropdownOptionText: {
-      fontSize: 16,
-      color: colors.charcoal,
-    },
-    dateInput: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      borderWidth: 1,
-      borderColor: colors.lightGray,
-      padding: 10,
-      borderRadius: 5,
-      marginBottom: 15,
-    },
-    icon: {
-      marginLeft: 23,
-    },
-  });
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+    gap: 10,
+  },
+  label: {
+    color: colors.charcoal,
+    fontWeight: '500',
+    fontSize: 14,
+    marginBottom: 6,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 15,
+    fontSize: 16,
+  },
+  dropdown: {
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dropdownText: {
+    fontSize: 16,
+    color: colors.charcoal,
+  },
+  dropdownIcon: {
+    width: 20,
+    height: 20,
+  },
+  dropdownOptions: {
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    borderRadius: 5,
+    marginBottom: 15,
+  },
+  dropdownOption: {
+    padding: 10,
+  },
+  dropdownOptionText: {
+    fontSize: 16,
+    color: colors.charcoal,
+  },
+  dateInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 15,
+  },
+  icon: {
+    marginLeft: 23,
+  },
+});
+

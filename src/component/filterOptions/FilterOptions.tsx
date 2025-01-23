@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-// import {styles} from './FilterOptionsStyles';
 import { colors } from '../../constants/colors';
 interface FilterOptionsProps {
   options: string[];
@@ -26,24 +25,25 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({options, onSelect}) => {
 };
 
 export default FilterOptions;
-export const styles = StyleSheet.create({
-    filterContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      marginBottom: 16,
-    },
-    filterText: {fontSize: 14, fontWeight: 'bold', color: colors.charcoal},
 
-    filterButton: {
-      backgroundColor: colors.filter,
-      paddingVertical: 8,
-      paddingHorizontal: 12,
-      shadowColor: colors.shadow,
-      shadowOffset: {width: 0, height: 1},
-      shadowOpacity: 0.09,
-      shadowRadius: 2,
-      elevation: 2,
-    },
-    filterButtonText: {fontSize: 14, fontWeight: 'bold', color: colors.label},
-  });
+export const styles = StyleSheet.create({
+  filterContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  filterText: {fontSize: 14, fontWeight: 'bold', color: colors.charcoal},
+
+  filterButton: {
+    backgroundColor: colors.filter,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    shadowColor: colors.shadow, 
+    shadowOffset: {width: 0, height: 1}, 
+    shadowOpacity: 0.09, 
+    shadowRadius: 2, 
+    elevation: 2,
+  },
+  filterButtonText: {fontSize: 14, fontWeight: 'bold', color: colors.label},
+});

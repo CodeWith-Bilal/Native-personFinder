@@ -8,12 +8,12 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import {useHomeScreenManager} from '../../hooks/useHome';
+// import {useHomeScreenManager} from './useHome';
 import MissingPersonModal from '../../component/profileModal/ProfileModal';
 import {HeroSection} from '../../component/hero/Hero';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
-// import {styles} from './HomeStyles';
+import { useHomeScreenManager } from '../../hooks/useHome';
 
 export default function HomeScreen() {
   const {
@@ -88,6 +88,7 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
+
 export const styles = StyleSheet.create({
   loaderContainer: {
     flex: 1,

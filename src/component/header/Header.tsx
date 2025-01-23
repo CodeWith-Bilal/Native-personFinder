@@ -20,6 +20,9 @@ const Header: React.FC<HeaderProps> = ({ title, onBackPress }) => {
 };
 
 export default Header;
+
+
+
 export const styles = StyleSheet.create({
     headerContainer: {
       flexDirection: 'row',
