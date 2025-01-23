@@ -1,23 +1,42 @@
-import React from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import DatePicker from 'react-native-date-picker';
-import {LastSeenSectionProps} from '../../types/types';
-import {colors} from '../../constants/colors';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { LastSeenSectionProps } from '../../types/types';
+import { colors } from '../../constants/colors';
+
 const LastSeenSection: React.FC<LastSeenSectionProps> = ({
   lastLocation,
   lastSeen,
   showPicker,
   date,
   handleInputChange,
-  setShowPicker,
   setDate,
 }) => {
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+
+  const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    const { type } = event;
+
+    if (Platform.OS === 'android' && type === 'set') {
+      // Hide pickers when a date or time is selected on Android
+      setShowDatePicker(false);
+      setShowTimePicker(false);
+    }
+
+    // If a date or time is selected, update the form data and state
+    if (selectedDate) {
+      setDate(selectedDate);
+      handleInputChange('lastSeen', selectedDate.toLocaleString()); // Update the 'lastSeen' field
+    }
+  };
+
   return (
     <View>
       <Text style={styles.label}>Last Seen Location</Text>
       <TextInput
         value={lastLocation}
-        onChangeText={text => handleInputChange('lastLocation', text)}
+        onChangeText={(text) => handleInputChange('lastLocation', text)}
         placeholder="Last Location"
         style={styles.input}
       />
@@ -26,30 +45,44 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
         <Text style={styles.label}>Last Seen</Text>
         <TextInput
           value={lastSeen}
-          onFocus={() => setShowPicker(true)}
+          onFocus={() => {
+            setShowDatePicker(true); // Show the date picker when the input is focused
+            setShowTimePicker(false); // Ensure the time picker is hidden when date is focused
+          }}
           placeholder="Last Seen"
           style={styles.input}
         />
 
-        {showPicker && (
-          <DatePicker date={date} mode="datetime" onDateChange={setDate} />
+        {/* Date Picker for Android */}
+        {showDatePicker && Platform.OS === 'android' && (
+          <DateTimePicker
+            value={date || new Date()}
+            mode="date"
+            display="default"
+            onChange={onChange}
+            style={{ width: '100%' }}
+          />
         )}
 
-        {showPicker && (
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Confirm"
-              onPress={() => {
-                handleInputChange('lastSeen', date.toLocaleString());
-                setShowPicker(false);
-              }}
-            />
-            <Button
-              title="Cancel"
-              onPress={() => setShowPicker(false)}
-              color={colors.crimson}
-            />
-          </View>
+        {/* Time Picker for Android */}
+        {showTimePicker && Platform.OS === 'android' && (
+          <DateTimePicker
+            value={date || new Date()}
+            mode="time"
+            display="default"
+            onChange={onChange}
+            style={{ width: '100%' }}
+          />
+        )}
+
+        {/* For iOS, single datetime picker */}
+        {Platform.OS === 'ios' && showPicker && (
+          <DateTimePicker
+            value={date || new Date()}
+            mode="datetime"
+            display="spinner"
+            onChange={onChange}
+          />
         )}
       </View>
     </View>

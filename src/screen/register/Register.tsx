@@ -25,7 +25,7 @@ const Register = () => {
     setUsername,
     isSelected,
     setSelection,
-    onregister,
+    onRegister,
   } = useAuth();
 
   const inputs = getInputs(
@@ -94,7 +94,7 @@ const Register = () => {
           </Text>
         </View>
 
-        <Button title="Next" onPress={onregister} />
+        <Button title="Next" onPress={onRegister} />
 
         <TouchableOpacity>
           <Text style={styles.footerText}>Need Help or Have Questions?</Text>

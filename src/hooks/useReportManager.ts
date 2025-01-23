@@ -1,10 +1,10 @@
-import {useState, useEffect} from 'react';
-import {Alert, ToastAndroid} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { useState, useEffect } from 'react';
+import { Alert, ToastAndroid } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import firestore from '@react-native-firebase/firestore';
-import {useSelector} from 'react-redux';
-import {useAppDispatch} from './useDispatch';
-import {RootState} from '../redux/store';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from './useDispatch';
+import { RootState } from '../redux/store';
 import {
   updateFormField,
   submitReport,
@@ -16,10 +16,9 @@ import {
   setSelectedGender,
   filterProfiles,
 } from '../redux/slice/filterReportSlice';
-import {useAppNavigation} from '../utils/AppNavigation';
-
-import {CustomDateTimePickerEvent} from '../types/types';
-import {Profile} from '../types/types';
+import { useAppNavigation } from '../utils/AppNavigation';
+import { CustomDateTimePickerEvent } from '../types/types';
+import { Profile } from '../types/types';
 
 export function useCombinedHook() {
   const dispatch = useAppDispatch();
@@ -36,7 +35,7 @@ export function useCombinedHook() {
     hairColor: '',
     hairLength: '',
     photo: null,
-    lastSeen: '',
+    lastSeen: '', // Ensure this field is properly initialized
     lastLocation: '',
   });
 
@@ -44,6 +43,7 @@ export function useCombinedHook() {
   const [showPicker, setShowPicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [isloading, setIsloading] = useState(false);
+
   const handleInputChange = (
     key: keyof typeof formData,
     value: string | Date | number | null,
@@ -53,18 +53,26 @@ export function useCombinedHook() {
         ? value.toISOString()
         : value;
 
-    setFormData(prev => ({...prev, [key]: updatedValue}));
-    dispatch(updateFormField({key, value: updatedValue}));
+    setFormData(prev => ({ ...prev, [key]: updatedValue }));
+    dispatch(updateFormField({ key, value: updatedValue }));
   };
 
   const handleDateChange = (
     event: CustomDateTimePickerEvent,
     selectedDate: Date | undefined,
   ) => {
-    const currentDate = selectedDate || new Date(formData?.dateOfBirth);
-    const isoString = currentDate.toISOString();
-    handleInputChange('dateOfBirth', isoString);
+    const currentDate = selectedDate || new Date();
+    handleInputChange('dateOfBirth', currentDate.toISOString());
     setShowDatePicker(false);
+  };
+
+  const handleLastSeenChange = (
+    event: CustomDateTimePickerEvent,
+    selectedDate: Date | undefined,
+  ) => {
+    const currentDate = selectedDate || new Date();
+    handleInputChange('lastSeen', currentDate.toISOString());
+    setShowDatePicker(false); // Dismiss the date picker
   };
 
   const selectPhoto = async () => {
@@ -72,7 +80,7 @@ export function useCombinedHook() {
     const response = await launchImageLibrary({
       mediaType: 'photo',
       quality: 1,
-      includeBase64: true, // Include base64 in the response
+      includeBase64: true,
     });
 
     if (response.assets && response.assets.length > 0) {
@@ -83,12 +91,12 @@ export function useCombinedHook() {
           const reportId = 'uniqueReportId'; // Replace with actual report ID or logic
           await firestore()
             .collection('Reports')
-            .doc(reportId) // Specify the report document
+            .doc(reportId)
             .set(
               {
-                photo: `data:image/jpeg;base64,${imageBase64}`, // Save base64 as a Data URI
+                photo: `data:image/jpeg;base64,${imageBase64}`,
               },
-              { merge: true }, // Ensure it doesn't overwrite other fields
+              { merge: true },
             );
 
           handleInputChange('photo', `data:image/jpeg;base64,${imageBase64}`);
@@ -111,7 +119,7 @@ export function useCombinedHook() {
       fullName,
       gender,
       dateOfBirth,
-      // lastSeen,
+      lastSeen,
       lastLocation,
       height,
       weight,
@@ -126,7 +134,7 @@ export function useCombinedHook() {
       !fullName ||
       !gender ||
       !dateOfBirth ||
-      // !lastSeen ||
+      !lastSeen || // Ensure lastSeen is checked
       !lastLocation ||
       !height ||
       !weight ||
@@ -155,7 +163,7 @@ export function useCombinedHook() {
         dateOfBirth: new Date().toISOString(),
         nickname: '',
         lastLocation: '',
-        lastSeen: '',
+        lastSeen: '', // Reset lastSeen
         height: '',
         weight: '',
         eyeColor: '',
@@ -210,7 +218,7 @@ export function useCombinedHook() {
     setSelectedProfile(null);
   };
 
-  const {filteredProfiles, selectedGender, searchQuery} = useSelector(
+  const { filteredProfiles, selectedGender, searchQuery } = useSelector(
     (state: RootState) => state.filterReport,
   );
 
@@ -238,6 +246,7 @@ export function useCombinedHook() {
     setDate,
     handleInputChange,
     handleDateChange,
+    handleLastSeenChange, // Ensure this function is passed for lastSeen handling
     selectPhoto,
     submitReport: submitReportForm,
     profiles,
@@ -255,6 +264,3 @@ export function useCombinedHook() {
     isloading,
   };
 }
-
-
-
