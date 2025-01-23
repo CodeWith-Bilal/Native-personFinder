@@ -11,10 +11,11 @@ export const colors = {
   shadow: '#101828',
   navyBlue: '#0802a3',
   charcoal: '#000000',
+  black:'#000000',
   slateGray: '#667085',
   jetBlack: '#121212',
   ashGray: '#d0d5dd',
   onyx: '#222526',
   lightGray: '#ccc',
-  transparent:"#00000080",
+  transparent:'#00000080',
 };

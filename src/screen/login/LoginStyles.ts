@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 20,
+    paddingTop: 15,
     backgroundColor: colors.whitish,
   },
   logo: {
@@ -95,9 +95,9 @@ export const styles = StyleSheet.create({
   link: {
     marginTop: 21,
     fontFamily: 'Familjen Grotesk',
-    fontSize: 11,
+    fontSize: 13,
     color: colors.bigBlack,
-    fontWeight: '400',
+    fontWeight: '700',
     textDecorationLine: 'underline',
   },
   linkSeparator: {

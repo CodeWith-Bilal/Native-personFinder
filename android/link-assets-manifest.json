@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Familjen Grotesk.ttf",
+      "sha1": "719b1fc81acd59a5ba43e273a68d6130d72f81bc"
+    },
+    {
+      "path": "src/assets/fonts/Montserrat.ttf",
+      "sha1": "25c429296b9d6eb242cba92d1ee7fae484b019cb"
+    },
+    {
+      "path": "src/assets/fonts/Satisfy.ttf",
+      "sha1": "fd2f096e9d0cd82b9f8e191d7f73167176d0f729"
+    }
+  ]
+}

@@ -5,7 +5,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  TextInput,
 } from 'react-native';
 import Button from '../../component/button/Button';
 import {useAuth} from '../../hooks/useAuth';
@@ -15,6 +14,8 @@ import {getInputConfig} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
 import {styles} from './LoginStyles';
+import InputField from '../../component/input/InputField'; // Adjust the path if necessary
+
 export default function Login() {
   const {email, setEmail, password, setPassword, onLogin, onGoogleButtonPress} =
     useAuth();
@@ -35,21 +36,15 @@ export default function Login() {
 
         {inputs.map((input, index) => (
           <View key={index} style={styles.inputLabelContainer}>
-            <Text style={styles.label}>{input.label}</Text>
-            <View style={styles.inputContainer}>
-              {input.icon && <Image source={input?.icon} style={styles.icon} />}
-              <TextInput
-                style={styles.input}
-                placeholder={input?.placeholder}
-                value={input?.value}
-                onChangeText={input?.onChangeText}
-                keyboardType={input?.keyboardType}
-                secureTextEntry={input?.secureTextEntry}
-              />
-            </View>
-            {input.infoText && (
-              <Text style={styles.infoText}>{input?.infoText}</Text>
-            )}
+            <InputField
+              label={input.label}
+              placeholder={input.placeholder}
+              value={input.value}
+              onChangeText={input.onChangeText}
+              keyboardType={input.keyboardType}
+              secureTextEntry={input.secureTextEntry}
+              helperText={input.infoText}
+            />
           </View>
         ))}
 
@@ -73,7 +68,7 @@ export default function Login() {
         </View>
 
         <TouchableOpacity onPress={onGoogleButtonPress}>
-          <Image source={IMAGES.google} />
+          <Image source={IMAGES.google}/>
         </TouchableOpacity>
 
         <Image source={IMAGES.logVector} style={styles.bottomImage} />
