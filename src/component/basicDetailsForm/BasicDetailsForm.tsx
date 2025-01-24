@@ -12,6 +12,7 @@ const BasicDetailsSection: React.FC<BasicDetailsSectionProps> = ({
   showDatePicker,
   setShowDatePicker,
   handleDateChange,
+  // lastLocation,
 }) => {
   const {genderDropdownVisible, toggleGenderDropdown} = useGenderDropdown();
   const dateOfBirthDate = new Date(formData?.dateOfBirth);
@@ -72,6 +73,13 @@ const BasicDetailsSection: React.FC<BasicDetailsSectionProps> = ({
         placeholder="Nickname or Known Aliases"
         style={styles.input}
       />
+<Text style={styles.label}>Last Seen Location</Text>
+      <TextInput
+              value={formData?.lastLocation}
+              onChangeText={(text) => handleInputChange('lastLocation', text)}
+              placeholder="Last Location"
+              style={styles.input}
+            />
     </View>
   );
 };

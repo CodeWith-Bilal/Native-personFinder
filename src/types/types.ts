@@ -17,6 +17,7 @@ export type FieldProps = {
   type?: string;
 };
 export type BasicDetailsSectionProps = {
+  lastLocation: string;
   formData: FormData;
   handleInputChange: (
     field:
@@ -147,7 +148,11 @@ export type ReportFormState = {
 };
 export type FormFieldKey = keyof ReportFormState;
 export type LastSeenSectionProps = {
-  lastLocation: string;
+  showDatePicker: boolean; // Whether the date picker should be shown
+  setShowDatePicker: (value: boolean) => void; // Function to toggle the date picker visibility
+  showTimePicker: boolean; // Whether the time picker should be shown
+  onDateChange: (event: any, selectedDate: Date | undefined) => void; // Callback for date change
+  onTimeChange: (event: any, selectedTime: Date | undefined) => void; // Callback for time change
   lastSeen: string;
   showPicker: boolean;
   date: Date;

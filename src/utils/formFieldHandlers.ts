@@ -13,6 +13,7 @@ export const handleFormFieldUpdate = (
     case 'weight':
     case 'eyeColor':
     case 'hairColor':
+    case 'lastSeen':
     case 'hairLength':
     case 'lastLocation':
       state[key] = value;

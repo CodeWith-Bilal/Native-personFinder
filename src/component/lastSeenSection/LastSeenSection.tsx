@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Platform, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { LastSeenSectionProps } from '../../types/types';
 import { colors } from '../../constants/colors';
 
 const LastSeenSection: React.FC<LastSeenSectionProps> = ({
-  lastLocation,
   lastSeen,
-  showPicker,
   date,
   handleInputChange,
   setDate,
@@ -15,76 +13,70 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
-  const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    const { type } = event;
+  // Helper function to format date and time in PST
+  const formatDateToPST = (date: Date): string => {
+    return new Intl.DateTimeFormat('en-PK', {
+      timeZone: 'Asia/Karachi',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }).format(date);
+  };
 
-    if (Platform.OS === 'android' && type === 'set') {
-      // Hide pickers when a date or time is selected on Android
-      setShowDatePicker(false);
-      setShowTimePicker(false);
-    }
-
-    // If a date or time is selected, update the form data and state
+  const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    if (Platform.OS === 'android') setShowDatePicker(false); // Close date picker after selection on Android
     if (selectedDate) {
-      setDate(selectedDate);
-      handleInputChange('lastSeen', selectedDate.toLocaleString()); // Update the 'lastSeen' field
+      setDate(selectedDate); // Temporarily save the date
+      // Alert.alert('Date Selected', `You selected: ${formatDateToPST(selectedDate)}`);
+      setShowTimePicker(true); // Open the time picker after date selection
+    }
+  };
 
-      // Show an alert to notify the user
-      Alert.alert('Date Selected', `You selected: ${selectedDate.toLocaleString()}`);
+  const onTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
+    if (Platform.OS === 'android') setShowTimePicker(false); // Close time picker after selection on Android
+    if (selectedTime) {
+      // Combine the selected time with the previously selected date
+      const finalDateTime = new Date(date || new Date());
+      finalDateTime.setHours(selectedTime.getHours());
+      finalDateTime.setMinutes(selectedTime.getMinutes());
+
+      setDate(finalDateTime); // Update the state with the full date and time
+      handleInputChange('lastSeen', formatDateToPST(finalDateTime)); // Save in PST format
+      // Alert.alert('Date and Time Selected', `You selected: ${formatDateToPST(finalDateTime)}`);
     }
   };
 
   return (
     <View>
-      <Text style={styles.label}>Last Seen Location</Text>
-      <TextInput
-        value={lastLocation}
-        onChangeText={(text) => handleInputChange('lastLocation', text)}
-        placeholder="Last Location"
-        style={styles.input}
-      />
-
       <View>
         <Text style={styles.label}>Last Seen</Text>
         <TextInput
           value={lastSeen}
-          onFocus={() => {
-            setShowDatePicker(true); // Show the date picker when the input is focused
-            setShowTimePicker(false); // Ensure the time picker is hidden when date is focused
-          }}
+          onFocus={() => setShowDatePicker(true)} // Open date picker when input is focused
           placeholder="Last Seen"
           style={styles.input}
         />
 
-        {/* Date Picker for Android */}
-        {showDatePicker && Platform.OS === 'android' && (
+        {/* Date Picker */}
+        {showDatePicker && (
           <DateTimePicker
             value={date || new Date()}
             mode="date"
             display="default"
-            onChange={onChange}
-            style={{ width: '100%' }}
+            onChange={onDateChange}
           />
         )}
 
-        {/* Time Picker for Android */}
-        {showTimePicker && Platform.OS === 'android' && (
+        {/* Time Picker */}
+        {showTimePicker && (
           <DateTimePicker
             value={date || new Date()}
             mode="time"
             display="default"
-            onChange={onChange}
-            style={{ width: '100%' }}
-          />
-        )}
-
-        {/* For iOS, single datetime picker */}
-        {Platform.OS === 'ios' && showPicker && (
-          <DateTimePicker
-            value={date || new Date()}
-            mode="datetime"
-            display="spinner"
-            onChange={onChange}
+            onChange={onTimeChange}
           />
         )}
       </View>

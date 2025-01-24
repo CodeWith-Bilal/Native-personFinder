@@ -1,55 +1,63 @@
-// // InputField.tsx
-// import React from 'react';
-// import { View, Text, TextInput, StyleSheet, TextInputProps } from 'react-native';
-// import { colors } from '../../constants/colors';
+// components/InputField.tsx
 
-// interface InputFieldProps extends TextInputProps {
-//   label?: string;
-//   helperText?: string;
-// }
+import React from 'react';
+import { View, Text, TextInput, Image, StyleSheet, TextInputProps } from 'react-native';
+import { colors } from '../../constants/colors';
 
-// const InputField: React.FC<InputFieldProps> = ({
-//   label,
-//   helperText,
-//   ...rest
-// }) => {
-//   return (
-//     <View style={styles.inputContainer}>
-//       {label && <Text style={styles.label}>{label}</Text>}
-//       <TextInput
-//         style={styles.input}
-//         placeholderTextColor={colors.charcoal}
-//         {...rest}
-//       />
-//       {helperText && <Text style={styles.helperText}>{helperText}</Text>}
-//     </View>
-//   );
-// };
+interface InputFieldProps extends TextInputProps {
+  label: string;
+  icon?: any;
+  infoText?: string | null;
+}
 
-// const styles = StyleSheet.create({
-//   inputContainer: {
-//     marginBottom: 20,
-//   },
-//   label: {
-//     fontSize: 16,
-//     fontWeight: 'bold',
-//     color: colors.label,
-//     marginBottom: 8,
-//   },
-//   input: {
-//     height: 50,
-//     borderColor: colors.lightGray,
-//     borderWidth: 1,
-//     borderRadius: 8,
-//     paddingHorizontal: 15,
-//     fontSize: 16,
-//     color: colors.black,
-//   },
-//   helperText: {
-//     fontSize: 14,
-//     color: colors.charcoal,
-//     marginTop: 5,
-//   },
-// });
+const InputField: React.FC<InputFieldProps> = ({ label, icon, infoText, ...textInputProps }) => {
+  return (
+    <View>
+      <Text style={styles.label}>{label}</Text>
+      <View style={styles.inputContainer}>
+        {icon && <Image source={icon} style={styles.icon} />}
+        <TextInput style={styles.input} {...textInputProps} />
+      </View>
+      {infoText && <Text style={styles.infoText}>{infoText}</Text>}
+    </View>
+  );
+};
 
-// export default InputField;
+export default InputField;
+
+const styles = StyleSheet.create({
+//   inputLabelContainer: {
+//     width: '100%',
+//     marginBottom: 10,
+//   },
+  label: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: colors.label,
+    marginBottom: 5,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.ashGray,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+
+  },
+  input: {
+    flex: 1,
+    fontSize: 14,
+    color: colors.slateGray,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  infoText: {
+    fontWeight: '400',
+    fontSize: 14,
+    color: colors.slateGray,
+    marginBottom: 20,
+    width: '80%',
+  },
+});

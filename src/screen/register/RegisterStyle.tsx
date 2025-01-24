@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { colors } from '../../constants/colors';
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -49,6 +50,10 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       marginBottom: 10,
     },
+    width:{
+width:'100%',
+color:'black',
+    },
     checkboxLabel: {
       marginLeft: 8,
       fontSize: 16,
@@ -63,8 +68,9 @@ export const styles = StyleSheet.create({
       fontSize: 14,
     },
     button: {
-      backgroundColor: '#000',
-      padding: 15,
+      backgroundColor: colors.skyBlue,
+      width:'100%',
+      padding: 9,
       borderRadius: 8,
       alignItems: 'center',
       marginBottom: 20,

@@ -116,6 +116,6 @@ export const styles = StyleSheet.create({
       flex: 1,
       fontSize: 16,
       color: colors.slateGray,
-      height: 44,
+      height: 40,
     },
   });
