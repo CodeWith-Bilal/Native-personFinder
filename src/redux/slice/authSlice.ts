@@ -88,7 +88,7 @@ export const registerUser = async (email: string, password: string, username: st
 
     return serializableUser;
   } catch (err) {
-    ToastAndroid.show('Registration failed. Please try again.', ToastAndroid.LONG);
+    ToastAndroid.show('Email Already Exist. Try again later', ToastAndroid.LONG);
     throw (err as fireError)?.message;
   }
 };

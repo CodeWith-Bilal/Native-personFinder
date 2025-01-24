@@ -1,44 +1,50 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
-import {ProfileState} from '../../types/types';
+import { fireError, ProfileState } from '../../types/types';
 
 const initialState: ProfileState = {
   status: 'idle',
   error: null,
 };
 
-export const updateProfileAsync = createAsyncThunk(
-  'profile/updateProfile',
-  async ({name, photo}: {name: string; photo: string | null}) => {
-    const user = auth()?.currentUser;
-    if (user) {
-      await user?.updateProfile({
-        displayName: name,
-        photoURL: photo,
-      });
-    }
-    return {name, photo};
-  },
-);
-
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder
-      .addCase(updateProfileAsync.pending, state => {
-        state.status = 'loading';
-        state.error = null;
-      })
-      .addCase(updateProfileAsync.fulfilled, state => {
-        state.status = 'succeeded';
-      })
-      .addCase(updateProfileAsync.rejected, (state, action) => {
+  reducers: {
+    // Replacing updateProfileAsync with a normal reducer that uses try-catch
+    updateProfile: (state, action) => {
+      state.status = 'loading'; // Set loading state before submitting
+      state.error = null;
+
+      const { name, photo } = action.payload;
+      try {
+        const user = auth()?.currentUser;
+        if (user) {
+          // Updating profile
+          user
+            .updateProfile({
+              displayName: name,
+              photoURL: photo,
+            })
+            .then(() => {
+              state.status = 'succeeded'; // Successfully updated profile
+            })
+            .catch((error) => {
+              state.status = 'failed'; // If there's an error
+              state.error = error.message || 'Failed to update profile';
+            });
+        } else {
+          state.status = 'failed';
+          state.error = 'User not found';
+        }
+      } catch (error) {
+        const Err = error as fireError;
         state.status = 'failed';
-        state.error = action.error.message || 'Failed to update profile';
-      });
+        state.error =  Err.message || 'Failed to update profile';
+      }
+    },
   },
 });
 
+export const { updateProfile } = profileSlice.actions;
 export default profileSlice.reducer;

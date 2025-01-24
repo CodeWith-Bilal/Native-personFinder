@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Platform, Alert } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { LastSeenSectionProps } from '../../types/types';
 import { colors } from '../../constants/colors';
@@ -28,6 +28,9 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
     if (selectedDate) {
       setDate(selectedDate);
       handleInputChange('lastSeen', selectedDate.toLocaleString()); // Update the 'lastSeen' field
+
+      // Show an alert to notify the user
+      Alert.alert('Date Selected', `You selected: ${selectedDate.toLocaleString()}`);
     }
   };
 

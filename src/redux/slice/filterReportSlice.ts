@@ -1,33 +1,6 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
-import {Profile} from '../../types/types';
-
-export const fetchReports = createAsyncThunk(
-  'filterReport/fetchReports',
-  async () => {
-    const querySnapshot = await firestore()
-      .collection('Reports')
-      .orderBy('timestamp', 'desc')
-      .get();
-    const reportsData = querySnapshot.docs.map(doc => ({
-      id: doc?.id,
-      fullName: doc?.data()?.fullName,
-      age: doc?.data()?.age,
-      gender: doc?.data()?.gender,
-      lastSeen: doc?.data()?.lastSeen,
-      lastLocation: doc?.data()?.lastLocation,
-      photo: doc?.data()?.photo,
-      dateOfBirth: doc?.data()?.dateOfBirth || '',
-      nickname: doc?.data()?.nickname || '',
-      height: doc?.data()?.height || '',
-      weight: doc?.data()?.weight || '',
-      hairColor: doc?.data()?.hairColor || '',
-      hairLength: doc?.data()?.hairLength || '',
-      eyeColor: doc?.data()?.eyeColor || '',
-    }));
-    return reportsData;
-  },
-);
+import { Profile } from '../../types/types';
 
 const filterReportSlice = createSlice({
   name: 'filterReport',
@@ -37,6 +10,7 @@ const filterReportSlice = createSlice({
     selectedGender: null as string | null,
     searchQuery: '',
     error: null as string | null,
+    loading: false,
   },
   reducers: {
     setSearchQuery: (state, action) => {
@@ -67,19 +41,61 @@ const filterReportSlice = createSlice({
 
       state.filteredProfiles = filtered;
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(fetchReports.fulfilled, (state, action) => {
+    fetchReportsStart: state => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchReportsSuccess: (state, action) => {
+      state.loading = false;
       state.profiles = action.payload;
       state.filteredProfiles = action.payload;
-    });
-    builder.addCase(fetchReports.rejected, (state) => {
-      state.error = 'Error fetching profiles';
-    });
+    },
+    fetchReportsFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const {setSearchQuery, setSelectedGender, filterProfiles} =
-  filterReportSlice.actions;
+export const {
+  setSearchQuery,
+  setSelectedGender,
+  filterProfiles,
+  fetchReportsStart,
+  fetchReportsSuccess,
+  fetchReportsFailure,
+} = filterReportSlice.actions;
+
+export const fetchReports = () => async (dispatch: any) => {
+  dispatch(fetchReportsStart());
+
+  try {
+    const querySnapshot = await firestore()
+      .collection('Reports')
+      .orderBy('timestamp', 'desc')
+      .get();
+
+    const reportsData = querySnapshot.docs.map(doc => ({
+      id: doc?.id,
+      fullName: doc?.data()?.fullName,
+      age: doc?.data()?.age,
+      gender: doc?.data()?.gender,
+      lastSeen: doc?.data()?.lastSeen,
+      lastLocation: doc?.data()?.lastLocation,
+      photo: doc?.data()?.photo,
+      dateOfBirth: doc?.data()?.dateOfBirth || '',
+      nickname: doc?.data()?.nickname || '',
+      height: doc?.data()?.height || '',
+      weight: doc?.data()?.weight || '',
+      hairColor: doc?.data()?.hairColor || '',
+      hairLength: doc?.data()?.hairLength || '',
+      eyeColor: doc?.data()?.eyeColor || '',
+    }));
+
+    dispatch(fetchReportsSuccess(reportsData));
+  } catch (error) {
+    dispatch(fetchReportsFailure('Error fetching profiles'));
+  }
+};
 
 export default filterReportSlice.reducer;

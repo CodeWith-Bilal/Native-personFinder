@@ -21,8 +21,8 @@ export default function Navigation() {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      setUser(user);
+    const unsubscribe = firebase.auth().onAuthStateChanged(User => {
+      setUser(User);
     });
 
     return unsubscribe;

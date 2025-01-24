@@ -56,15 +56,15 @@ export default function ReportMissingPerson() {
         handleDateChange={handleDateChange}
       />
 
-<LastSeenSection
-  lastLocation={formData?.lastLocation}
-  lastSeen={formData?.lastSeen}
-  showPicker={showPicker}
-  date={date}
-  handleInputChange={handleInputChange}
-  setShowPicker={setShowPicker}  // This prop is passed to manage the visibility of the picker
-  setDate={setDate}  // This prop is used to update the date when the picker value is set
-/>
+      <LastSeenSection
+        lastLocation={formData?.lastLocation}
+        lastSeen={formData?.lastSeen}
+        showPicker={showPicker}
+        date={date}
+        handleInputChange={handleInputChange}
+        setShowPicker={setShowPicker}
+        setDate={setDate}
+      />
 
       <Text style={styles.title}>Physical Description</Text>
 
