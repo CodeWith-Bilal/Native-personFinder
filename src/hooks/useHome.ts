@@ -1,6 +1,6 @@
 import {useState, useMemo} from 'react';
-import { useCombinedHook } from './useReportManager';
-// import {useCombinedHook} from '../hooks/useReportFound';
+import { useReportHook } from './useReport';
+// import {useReportHook} from '../hooks/useReportFound';
 
 export const useHomeScreenManager = () => {
   const {
@@ -10,7 +10,7 @@ export const useHomeScreenManager = () => {
     openModal,
     closeModal,
     loading,
-  } = useCombinedHook();
+  } = useReportHook();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchQueryChange = (query: string) => {

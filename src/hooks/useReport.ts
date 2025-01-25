@@ -20,7 +20,7 @@ import { useAppNavigation } from '../utils/AppNavigation';
 import { CustomDateTimePickerEvent } from '../types/types';
 import { Profile } from '../types/types';
 
-export function useCombinedHook() {
+export function useReportHook() {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigation();
 
@@ -74,7 +74,7 @@ export function useCombinedHook() {
     handleInputChange('lastSeen', currentDate.toISOString());
     setShowDatePicker(false); // Dismiss the date picker
   };
-
+//photo select
   const selectPhoto = async () => {
     setIsloading(true);
     const response = await launchImageLibrary({

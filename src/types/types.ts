@@ -147,12 +147,7 @@ export type ReportFormState = {
   error: string | null;
 };
 export type FormFieldKey = keyof ReportFormState;
-export type LastSeenSectionProps = {
-  showDatePicker: boolean; // Whether the date picker should be shown
-  setShowDatePicker: (value: boolean) => void; // Function to toggle the date picker visibility
-  showTimePicker: boolean; // Whether the time picker should be shown
-  onDateChange: (event: any, selectedDate: Date | undefined) => void; // Callback for date change
-  onTimeChange: (event: any, selectedTime: Date | undefined) => void; // Callback for time change
+export type LastSeenProps = {
   lastSeen: string;
   showPicker: boolean;
   date: Date;
@@ -181,13 +176,13 @@ export type LogoProps = {
   color?: string;
   size?: string;
 };
-export type PhotoUploadSectionProp = {
+export type PhotoUploadProp = {
   photo: string | null;
   selectPhoto: () => void;
   isloading: boolean;
 };
 
-export type ProfileCardProps = {
+export type MiissingPersonCardProp = {
   profile: {
     id: string;
     fullName: string;
@@ -200,7 +195,7 @@ export type ProfileCardProps = {
   onPress: () => void;
 };
 
-export type MissingPersonModalProps = {
+export type ReportModalProps = {
   visible: boolean;
   onClose: () => void;
   profile: MissingPerson | null;
@@ -233,6 +228,7 @@ export type InputConfig = {
   secureTextEntry: boolean;
   helperText: string | null;
   keyboardType: KeyboardTypeOptions;
+  icon?: any;
 };
 export type InputField = {
   label: string;

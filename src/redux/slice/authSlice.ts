@@ -5,6 +5,8 @@ import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { fireError } from '../../types/types';
 import { AuthState } from '../../types/types';
+// import {GOOGLE_CLIENT_ID} from '@env';
+import { GOOGLE_CLIENT_ID } from '@env';
 
 const initialState: AuthState = {
   loading: false,
@@ -13,18 +15,9 @@ const initialState: AuthState = {
   user: null,
 };
 
-// interface Auth {
-//   user: {
-//     uid: string;
-//     email: string | null;
-//     displayName: string | null;
-//     photoURL: string | null;
-//   };
-// }
-
 GoogleSignin.configure({
-  webClientId: '578891259540-ep9m1tn5di0rkiv6if3ntomi7tlcs86n.apps.googleusercontent.com', // Replace with your client ID
-  offlineAccess: true, // If you need server-side authentication
+  webClientId: GOOGLE_CLIENT_ID,
+  offlineAccess: true,  // Ensure offline access is enabled
 });
 
 
@@ -35,9 +28,11 @@ export const loginUser = async (email: string, password: string) => {
   try {
     const response = await auth().signInWithEmailAndPassword(email, password);
     const { uid, email: userEmail, displayName, photoURL } = response?.user;
+    setLoading(true);
     return { uid, email: userEmail, displayName, photoURL };
   } catch (err) {
     const error = err as fireError;
+    setLoading(true);
     ToastAndroid.show('Login failed. Please check your credentials or register.', ToastAndroid.LONG);
     throw error?.message;
   }
@@ -47,6 +42,10 @@ export const loginUser = async (email: string, password: string) => {
 export const googleLogin = async () => {
   try {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+    // Force account selection by signing out first
+    await GoogleSignin.signOut();
+
     const signInResponse = await GoogleSignin.signIn();
     const { data } = signInResponse;
 
@@ -88,7 +87,7 @@ export const registerUser = async (email: string, password: string, username: st
 
     return serializableUser;
   } catch (err) {
-    ToastAndroid.show('Email Already Exist. Try again later', ToastAndroid.LONG);
+    ToastAndroid.show('Invalid Properties. Try agin later', ToastAndroid.LONG);
     throw (err as fireError)?.message;
   }
 };

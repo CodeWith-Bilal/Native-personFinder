@@ -17,4 +17,5 @@ export const colors = {
   onyx: '#222526',
   lightGray: '#ccc',
   transparent:"#00000080",
+  clr:'#000000B5',
 };

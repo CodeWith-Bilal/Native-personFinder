@@ -8,12 +8,13 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-// import {useHomeScreenManager} from './useHome';
-import MissingPersonModal from '../../component/profileModal/ProfileModal';
+import {useHomeScreenManager} from '../../hooks/useHome';
+// import MissingPersonModal from '../../component/profileModal/ProfileModal';
 import {HeroSection} from '../../component/hero/Hero';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
-import { useHomeScreenManager } from '../../hooks/useHome';
+import ReportModal from '../../component/reportModal/reportModal';
+// import {styles} from './HomeStyles';
 
 export default function HomeScreen() {
   const {
@@ -60,6 +61,7 @@ export default function HomeScreen() {
                 imageStyle={{borderRadius: 10}}>
                 <View style={styles.overlay}>
                   <Text style={styles.missingText}>MISSING</Text>
+                  <View style={styles.detailsOverly}>
                   <Text style={styles.profileDetails}>
                     Name: {profile?.fullName}
                     {'\n'}
@@ -73,6 +75,7 @@ export default function HomeScreen() {
                     onPress={() => openModal(profile)}>
                     <Text style={styles.detailsButtonText}>View Details</Text>
                   </TouchableOpacity>
+                  </View>
                 </View>
               </ImageBackground>
             </View>
@@ -80,7 +83,7 @@ export default function HomeScreen() {
         </ScrollView>
       )}
 
-      <MissingPersonModal
+      <ReportModal
         visible={modalVisible}
         onClose={closeModal}
         profile={selectedProfile}
@@ -88,7 +91,6 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
-
 export const styles = StyleSheet.create({
   loaderContainer: {
     flex: 1,
@@ -123,6 +125,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 10,
   },
+  detailsOverly:{
+    backgroundColor: colors.clr,
+  },
   missingText: {
     backgroundColor: colors.crimson,
     color: colors.whitish,
@@ -134,8 +139,10 @@ export const styles = StyleSheet.create({
   },
   profileDetails: {
     fontWeight: '400',
+    backgroundColor: colors.clr,
+    width:200,
     fontSize: 11,
-    color: 'black',
+    color: 'white',
     position: 'absolute',
     bottom: 34,
     padding: 16,

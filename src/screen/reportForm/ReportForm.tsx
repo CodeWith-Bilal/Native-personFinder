@@ -9,13 +9,13 @@ import {
   Dimensions,
 } from 'react-native';
 
-import {useCombinedHook} from '../../hooks/useReportManager';
+import {useReportHook} from '../../hooks/useReport';
 import Header from '../../component/header/Header';
 import {useAppNavigation} from '../../utils/AppNavigation';
 import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
-import PhotoUploadSection from '../../component/photoUploadSection/PhotoUploadSection';
+import PhotoUpload from '../../component/photoUpload/PhotoUpload';
 import {getPhysicalDescriptionFields} from '../../constants/constants';
-import LastSeenSection from '../../component/lastSeenSection/LastSeenSection';
+import LastSeen from '../../component/lastSeen/LastSeen';
 import { colors } from '../../constants/colors';
 const { width } = Dimensions.get('window');
 
@@ -35,7 +35,7 @@ export default function ReportMissingPerson() {
     submitReport,
     isloading,
 
-  } = useCombinedHook();
+  } = useReportHook();
   const physicalDescriptionFields = getPhysicalDescriptionFields(
     formData,
     handleInputChange,
@@ -49,6 +49,7 @@ export default function ReportMissingPerson() {
       <Text style={styles.title}>Basic Details of Missing Person</Text>
 
       <BasicDetailsSection
+        lastLocation={formData?.lastLocation}
         formData={formData}
         handleInputChange={handleInputChange}
         showDatePicker={showDatePicker}
@@ -56,8 +57,7 @@ export default function ReportMissingPerson() {
         handleDateChange={handleDateChange}
       />
 
-      <LastSeenSection
-        lastLocation={formData?.lastLocation}
+      <LastSeen
         lastSeen={formData?.lastSeen}
         showPicker={showPicker}
         date={date}
@@ -80,7 +80,7 @@ export default function ReportMissingPerson() {
         </View>
       ))}
 
-      <PhotoUploadSection photo={formData?.photo} selectPhoto={selectPhoto}  isloading={isloading} />
+      <PhotoUpload photo={formData?.photo} selectPhoto={selectPhoto}  isloading={isloading} />
 
       <View style={styles.horizontalLine} />
 

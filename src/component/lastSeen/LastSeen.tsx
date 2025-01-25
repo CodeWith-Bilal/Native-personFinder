@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { LastSeenSectionProps } from '../../types/types';
+import { LastSeenProps } from '../../types/types';
 import { colors } from '../../constants/colors';
 
-const LastSeenSection: React.FC<LastSeenSectionProps> = ({
+const LastSeen: React.FC<LastSeenProps> = ({
   lastSeen,
   date,
   handleInputChange,
@@ -84,7 +84,7 @@ const LastSeenSection: React.FC<LastSeenSectionProps> = ({
   );
 };
 
-export default LastSeenSection;
+export default LastSeen;
 
 export const styles = StyleSheet.create({
   label: {

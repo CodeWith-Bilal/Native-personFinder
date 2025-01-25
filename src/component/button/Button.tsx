@@ -1,38 +1,50 @@
 import React from 'react';
-import { TouchableOpacity, Text,TouchableOpacityProps, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { colors } from '../../constants/colors';
-interface ButtonProps extends TouchableOpacityProps {
+
+interface ButtonProps {
   title: string;
+  onPress: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  style?: React.CSSProperties;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, style, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, loading = false }) => {
   return (
-    <TouchableOpacity style={[styles.button, style]} {...props}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <TouchableOpacity
+      style={[styles.button, disabled && styles.disabledButton]}
+      onPress={onPress}
+      disabled={disabled}
+    >
+      {loading ? (
+        <ActivityIndicator size="small" color="white" />
+      ) : (
+        <Text style={styles.text}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
 
-export default Button;
-
-
-
-
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   button: {
-    width: '80%',
-    height: 52,
+    height:52,
     backgroundColor: colors.skyBlue,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 8,
-    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  buttonText: {
-    color: colors.buttonText,
-    fontSize: 23,
-    fontWeight: '600',
-    fontFamily: 'Montserrat',
+  disabledButton: {
+    backgroundColor: colors.skyBlue,
+  },
+  text: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 600,
+    fontFamily:'Montserrat',
   },
 });
 
+export default Button;

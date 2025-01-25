@@ -13,10 +13,10 @@ import {
 } from 'react-native';
 import {useReportFound} from '../../hooks/useReportFound';
 import {sendEmail} from '../../utils/email';
-import {MissingPersonModalProps} from '../../types/types';
+import { ReportModalProps} from '../../types/types';
 import {colors} from '../../constants/colors';
 
-const MissingPersonModal: React.FC<MissingPersonModalProps> = ({
+const ReportModal: React.FC<ReportModalProps> = ({
   visible,
   onClose,
   profile,
@@ -97,7 +97,7 @@ const MissingPersonModal: React.FC<MissingPersonModalProps> = ({
   );
 };
 
-export default MissingPersonModal;
+export default ReportModal;
 
 export const styles = StyleSheet.create({
   modalContainer: {

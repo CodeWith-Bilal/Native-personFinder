@@ -1,14 +1,15 @@
 import React from 'react';
 import {View, Text, FlatList, ActivityIndicator, StyleSheet} from 'react-native';
-import {useCombinedHook} from '../../hooks/useReportManager';
-import MissingPersonModal from '../../component/profileModal/ProfileModal';
+import {useReportHook} from '../../hooks/useReport';
+// import MissingPersonModal from '../../component/profileModal/ProfileModal';
 import Header from '../../component/header/Header';
 import SearchBar from '../../component/searchBar/SearchBar';
 import FilterOptions from '../../component/filterOptions/FilterOptions';
 import {useAppNavigation} from '../../utils/AppNavigation';
-import ProfileCard from '../../component/profileCard/ProfileCard';
+import MiissingPersonCard from '../../component/missingPersonCard/missongPersonCard';
 import {colors} from '../../constants/colors';
-import {ProfileCardProps} from "../../types/types"
+import {MiissingPersonCardProp} from "../../types/types"
+import ReportModal from '../../component/reportModal/reportModal';
 const AllMissingPersonsScreen = () => {
   const navigation = useAppNavigation();
   const {
@@ -21,7 +22,7 @@ const AllMissingPersonsScreen = () => {
     handleSearchQueryChange,
     handleGenderChange,
     loading,
-  } = useCombinedHook();
+  } = useReportHook();
   let error: undefined;
 
   const filterOptions = ['Male', 'Female', 'Trans', 'All'];
@@ -49,8 +50,8 @@ const AllMissingPersonsScreen = () => {
         <FlatList
           data={filteredProfiles}
           renderItem={({item}) => (
-            <ProfileCard
-            profile={item as ProfileCardProps['profile']}
+            <MiissingPersonCard
+            profile={item as MiissingPersonCardProp['profile']}
             onPress={() => openModal(item)}
           />
           )}
@@ -59,7 +60,7 @@ const AllMissingPersonsScreen = () => {
         />
       )}
 
-      <MissingPersonModal
+      <ReportModal
         visible={modalVisible}
         onClose={closeModal}
         profile={selectedProfile}

@@ -14,19 +14,21 @@ import {useAppNavigation} from '../../utils/AppNavigation';
 import {getInputConfig} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
-import { styles } from './LoginStyles';
+import {styles} from './LoginStyles';
 
 export default function Login() {
-  const {email, setEmail, password, setPassword, onLogin, onGoogleButtonPress} =
-    useAuth();
-  const navigation = useAppNavigation();
-
-  const inputs = getInputConfig(
+  const {
     email,
     setEmail,
     password,
     setPassword,
-  );
+    onLogin,
+    onGoogleButtonPress,
+    loading,
+  } = useAuth();
+  const navigation = useAppNavigation();
+
+  const inputs = getInputConfig(email, setEmail, password, setPassword);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -40,7 +42,7 @@ export default function Login() {
             <View style={styles.inputContainer}>
               {input.icon && <Image source={input?.icon} style={styles.icon} />}
               <TextInput
-                style={[styles.input, { width: '80%' }]}
+                style={[styles.input, {width: '80%'}]}
                 placeholder={input?.placeholder}
                 value={input?.value}
                 onChangeText={input?.onChangeText}
@@ -54,7 +56,14 @@ export default function Login() {
           </View>
         ))}
 
-        <Button title="Log in" onPress={onLogin} />
+<View style={styles.width}>
+  <Button
+    title={loading ? '' : 'Log in'}
+    onPress={onLogin}
+    disabled={loading}
+    loading={loading}
+  />
+</View>
 
         <View style={styles.linkContainer}>
           <TouchableOpacity

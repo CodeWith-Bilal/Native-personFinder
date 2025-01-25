@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 15,
+    paddingTop: 45,
     backgroundColor: colors.whitish,
   },
   logo: {
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 14,
-    color: colors.slateGray,
+    color: colors.bigBlack,
   },
   icon: {
     marginRight: 10,
@@ -71,20 +71,9 @@ export const styles = StyleSheet.create({
     width: '80%',
   },
 
-  button: {
-    width: '80%',
-    height: 52,
-    backgroundColor: colors.skyBlue,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: colors.buttonText,
-    fontSize: 23,
-    fontWeight: '600',
-    fontFamily: 'Montserrat',
+  width:{
+    width:'80%',
+    marginTop:20,
   },
 
   linkContainer: {

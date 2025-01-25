@@ -17,20 +17,19 @@ export const styles = StyleSheet.create({
       left :93,
     },
     logoText: {
-      fontSize: 32,
+      fontSize: 64,
       fontWeight: 'bold',
       textAlign: 'center',
-      marginTop: 20,
       color: '#5B59FE',
     },
     subtitle: {
-      fontSize: 16,
+      fontSize: 23,
       color: '#666',
       textAlign: 'center',
       marginBottom: 30,
     },
     inputContainer: {
-      marginBottom: 20,
+      marginBottom: 10,
     },
     label: {
       fontSize: 16,
@@ -51,8 +50,7 @@ export const styles = StyleSheet.create({
       marginBottom: 10,
     },
     width:{
-width:'100%',
-color:'black',
+width:'auto',
     },
     checkboxLabel: {
       marginLeft: 8,
@@ -73,7 +71,6 @@ color:'black',
       padding: 9,
       borderRadius: 8,
       alignItems: 'center',
-      marginBottom: 20,
     },
     buttonText: {
       color: '#fff',
@@ -86,4 +83,24 @@ color:'black',
       textAlign: 'center',
       textDecorationLine: 'underline',
     },
+  inputWithIconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.charcoal,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 5,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+    tintColor: colors.charcoal, // Adjust the color of the icon
+  },
+  // input: {
+  //   flex: 1,
+  //   fontSize: 16,
+  //   color: colors.black,
   });

@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image,ActivityIndicator, StyleSheet} from 'react-native';
 import {IMAGES} from '../../constants/constants';
-import {PhotoUploadSectionProp} from '../../types/types';
+import {PhotoUploadProp} from '../../types/types';
 import { colors } from '../../constants/colors';
-const PhotoUploadSection: React.FC<PhotoUploadSectionProp> = ({
+const PhotoUpload: React.FC<PhotoUploadProp> = ({
   photo,
   selectPhoto,
   isloading,
@@ -30,7 +30,7 @@ const PhotoUploadSection: React.FC<PhotoUploadSectionProp> = ({
   );
 };
 
-export default PhotoUploadSection;
+export default PhotoUpload;
 
 export const styles = StyleSheet.create({
   title: {

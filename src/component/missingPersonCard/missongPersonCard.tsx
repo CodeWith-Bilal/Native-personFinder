@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {ProfileCardProps} from '../../types/types';
+import {MiissingPersonCardProp} from '../../types/types';
 import { colors } from '../../constants/colors';
 
-const ProfileCard: React.FC<ProfileCardProps> = ({profile, onPress}) => {
+const MiissingPersonCard: React.FC<MiissingPersonCardProp> = ({profile, onPress}) => {
   return (
     <View style={styles.card}>
       <Image source={{uri: profile?.photo}} style={styles.image} />
@@ -24,7 +24,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({profile, onPress}) => {
   );
 };
 
-export default ProfileCard;
+export default MiissingPersonCard;
 export const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
