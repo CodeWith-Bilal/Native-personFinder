@@ -100,7 +100,7 @@ export function useReportHook() {
             );
 
           handleInputChange('photo', `data:image/jpeg;base64,${imageBase64}`);
-          Alert.alert('Success', 'Image uploaded successfully!');
+          // Alert.alert('Success', 'Image uploaded successfully!');
         } catch (error) {
           console.error('Error uploading image:', error);
           Alert.alert('Error', 'Failed to upload image to Firestore.');
