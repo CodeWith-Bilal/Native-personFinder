@@ -71,6 +71,7 @@ export const getInputs = (
     onChangeText: setEmail,
     secureTextEntry: false,
     helperText: 'Your email address is your username.',
+    icon: require('../assets/images/Icon.png'),
     keyboardType: 'email-address',
   },
   {
