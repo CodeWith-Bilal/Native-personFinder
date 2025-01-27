@@ -16,32 +16,7 @@ export type FieldProps = {
   onChange: (text: string) => void;
   type?: string;
 };
-export type BasicDetailsSectionProps = {
-  lastLocation: string;
-  formData: FormData;
-  handleInputChange: (
-    field:
-      | 'fullName'
-      | 'gender'
-      | 'nickname'
-      | 'height'
-      | 'weight'
-      | 'eyeColor'
-      | 'hairColor'
-      | 'hairLength'
-      | 'lastSeen'
-      | 'lastLocation'
-      | 'dateOfBirth'
-      | 'photo',
-    value: string,
-  ) => void;
-  showDatePicker: boolean;
-  setShowDatePicker: (value: boolean) => void;
-  handleDateChange: (
-    event: CustomDateTimePickerEvent,
-    selectedDate?: Date,
-  ) => void;
-};
+
 export type CustomDateTimePickerEvent = {
   type: string;
 };
@@ -59,7 +34,18 @@ export type FormData = {
   dateOfBirth: string;
   photo: string | null;
 };
-
+export type AuthState = {
+  loading: boolean;
+  error: string | null;
+  success: boolean;
+  user: {
+    uid: string;
+    email: string | null;
+    displayName: string | null;
+    photoURL: string | null;
+    phoneNumber?: string | null;
+  } | null;
+};
 export type fireError = {
   response?: {
     data: string;
@@ -108,18 +94,6 @@ export type Profile = {
   age: number;
 };
 
-export type AuthState = {
-  loading: boolean;
-  error: string | null;
-  success: boolean;
-  user: {
-    uid: string;
-    email: string | null;
-    displayName: string | null;
-    photoURL: string | null;
-    phoneNumber?: string | null;
-  } | null;
-};
 
 export type NewsState = {
   loading: boolean;
@@ -145,6 +119,32 @@ export type ReportFormState = {
   lastLocation: string;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+};
+export type BasicDetailsProps = {
+  lastLocation: string;
+  formData: FormData;
+  handleInputChange: (
+    field:
+      | 'fullName'
+      | 'gender'
+      | 'nickname'
+      | 'height'
+      | 'weight'
+      | 'eyeColor'
+      | 'hairColor'
+      | 'hairLength'
+      | 'lastSeen'
+      | 'lastLocation'
+      | 'dateOfBirth'
+      | 'photo',
+    value: string,
+  ) => void;
+  showDatePicker: boolean;
+  setShowDatePicker: (value: boolean) => void;
+  handleDateChange: (
+    event: CustomDateTimePickerEvent,
+    selectedDate?: Date,
+  ) => void;
 };
 export type FormFieldKey = keyof ReportFormState;
 export type LastSeenProps = {

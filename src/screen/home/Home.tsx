@@ -9,12 +9,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import {useHomeScreenManager} from '../../hooks/useHome';
-// import MissingPersonModal from '../../component/profileModal/ProfileModal';
 import {HeroSection} from '../../component/hero/Hero';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
 import ReportModal from '../../component/reportModal/reportModal';
-// import {styles} from './HomeStyles';
 
 export default function HomeScreen() {
   const {
@@ -31,7 +29,7 @@ export default function HomeScreen() {
   let error: undefined;
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: colors.whitish}}>
+    <ScrollView style={{flex: 1, backgroundColor: colors.white,}}>
       {error && (
         <Text style={{color: colors.crimson, textAlign: 'center'}}>
           {error}
@@ -44,7 +42,7 @@ export default function HomeScreen() {
 
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color={colors.skyBlue} />
+          <ActivityIndicator size="large" color={colors.blue} />
         </View>
       ) : filteredProfiles.length === 0 ? (
         <Text style={styles.noDataText}>No reports found.</Text>
@@ -73,7 +71,7 @@ export default function HomeScreen() {
                   <TouchableOpacity
                     style={styles.detailsButton}
                     onPress={() => openModal(profile)}>
-                    <Text style={styles.detailsButtonText}>View Details</Text>
+                    <Text style={styles.detailsbtnText}>View Details</Text>
                   </TouchableOpacity>
                   </View>
                 </View>
@@ -107,10 +105,10 @@ export const styles = StyleSheet.create({
     margin: '5%',
     paddingHorizontal: 10,
     flexDirection: 'row',
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
   },
   profileCard: {
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
     width: 200,
     marginRight: 15,
     borderRadius: 10,
@@ -126,11 +124,11 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   detailsOverly:{
-    backgroundColor: colors.clr,
+    backgroundColor: colors.overlay,
   },
   missingText: {
     backgroundColor: colors.crimson,
-    color: colors.whitish,
+    color: colors.white,
     fontSize: 32,
     fontWeight: '400',
     padding: 5,
@@ -139,7 +137,7 @@ export const styles = StyleSheet.create({
   },
   profileDetails: {
     fontWeight: '400',
-    backgroundColor: colors.clr,
+    backgroundColor: colors.overlay,
     width:200,
     fontSize: 11,
     color: 'white',
@@ -148,7 +146,7 @@ export const styles = StyleSheet.create({
     padding: 16,
   },
   detailsButton: {
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
     margin: 16,
     borderRadius: 8,
     alignItems: 'center',
@@ -156,8 +154,8 @@ export const styles = StyleSheet.create({
     height: 24,
     padding: 5,
   },
-  detailsButtonText: {
-    color: colors.whitish,
+  detailsbtnText: {
+    color: colors.white,
     fontSize: 11,
   },
 });

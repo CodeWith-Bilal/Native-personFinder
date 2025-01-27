@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, loadi
 const styles = StyleSheet.create({
   button: {
     height:52,
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   disabledButton: {
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
   },
   text: {
     color: 'white',

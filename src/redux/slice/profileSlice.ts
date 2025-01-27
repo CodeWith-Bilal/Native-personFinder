@@ -1,6 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import { fireError, ProfileState } from '../../types/types';
+
+export const updateProfileAsync = createAsyncThunk(
+  'profile/updateProfile',
+  async ({ name, photo }: { name: string; photo: string | null }, { rejectWithValue }) => {
+    try {
+      const user = auth()?.currentUser;
+      if (!user) {throw new Error('User not found');}
+
+      await user.updateProfile({ displayName: name, photoURL: photo });
+      return { name, photo };
+    } catch (error) {
+      const Err = error as fireError;
+      return rejectWithValue(Err.message || 'Failed to update profile');
+    }
+  }
+);
 
 const initialState: ProfileState = {
   status: 'idle',
@@ -10,41 +26,21 @@ const initialState: ProfileState = {
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
-  reducers: {
-    // Replacing updateProfileAsync with a normal reducer that uses try-catch
-    updateProfile: (state, action) => {
-      state.status = 'loading'; // Set loading state before submitting
-      state.error = null;
-
-      const { name, photo } = action.payload;
-      try {
-        const user = auth()?.currentUser;
-        if (user) {
-          // Updating profile
-          user
-            .updateProfile({
-              displayName: name,
-              photoURL: photo,
-            })
-            .then(() => {
-              state.status = 'succeeded'; // Successfully updated profile
-            })
-            .catch((error) => {
-              state.status = 'failed'; // If there's an error
-              state.error = error.message || 'Failed to update profile';
-            });
-        } else {
-          state.status = 'failed';
-          state.error = 'User not found';
-        }
-      } catch (error) {
-        const Err = error as fireError;
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(updateProfileAsync.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(updateProfileAsync.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(updateProfileAsync.rejected, (state, action) => {
         state.status = 'failed';
-        state.error =  Err.message || 'Failed to update profile';
-      }
-    },
+        state.error = action.payload as string;
+      });
   },
 });
 
-export const { updateProfile } = profileSlice.actions;
 export default profileSlice.reducer;

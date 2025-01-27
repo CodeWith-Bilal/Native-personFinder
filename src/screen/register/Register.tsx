@@ -10,11 +10,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
-import { useAuth } from '../../hooks/useAuth';
+import {useAuth} from '../../hooks/useAuth';
 import Button from '../../component/button/Button';
-import { getInputs } from '../../constants/constants';
-import { IMAGES } from '../../constants/constants';
-import { colors } from '../../constants/colors';
+import {getInputs} from '../../constants/constants';
+import {IMAGES} from '../../constants/constants';
+import {colors} from '../../constants/colors';
 
 const Register: React.FC = () => {
   const {
@@ -28,12 +28,17 @@ const Register: React.FC = () => {
     setSelection,
     onRegister,
     loading,
-    // passwordError,
     error,
-    // validatePassword,
   } = useAuth();
 
-  const inputs = getInputs(username, setUsername, email, setEmail, password, setPassword);
+  const inputs = getInputs(
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,12 +65,7 @@ const Register: React.FC = () => {
                 onChangeText={input.onChangeText}
                 secureTextEntry={input.secureTextEntry}
                 keyboardType={input.keyboardType}
-                placeholderTextColor={colors.charcoal}
-                // onBlur={() => {
-                //   if (input.secureTextEntry) {
-                //     validatePassword(password);
-                //   }
-                // }}
+                placeholderTextColor={colors.black}
               />
             </View>
             {input.helperText && (
@@ -74,29 +74,30 @@ const Register: React.FC = () => {
           </View>
         ))}
 
-        {/* {passwordError && <Text style={styles.errorText}>{passwordError}</Text>} */}
 
         <View style={styles.checkboxContainer}>
-  <CheckBox
-    isChecked={isSelected}
-    onClick={() => setSelection(!isSelected)}
-    style={styles.checkbox}
-  />
-  <Text style={styles.checkboxLabel}>Remember me</Text>
-</View>
+          <CheckBox
+            isChecked={isSelected}
+            onClick={() => setSelection(!isSelected)}
+            style={styles.checkbox}
+          />
+          <Text style={styles.checkboxLabel}>Remember me</Text>
+        </View>
 
         <View style={styles.leftAlignedContainer}>
-          <Text style={styles.helperText}>Save my login details for next time.</Text>
+          <Text style={styles.helperText}>
+            Save my login details for next time.
+          </Text>
         </View>
 
         <View>
-  <Button
-    title={loading ? '' : 'Next'}
-    onPress={onRegister}
-    disabled={loading}
-    loading={loading}
-  />
-</View>
+          <Button
+            title={loading ? '' : 'Next'}
+            onPress={onRegister}
+            disabled={loading}
+            loading={loading}
+          />
+        </View>
 
         {error && <Text style={styles.errorText}>{error}</Text>}
 
@@ -107,7 +108,6 @@ const Register: React.FC = () => {
     </SafeAreaView>
   );
 };
-
 
 export default Register;
 
@@ -131,13 +131,13 @@ export const styles = StyleSheet.create({
     fontSize: 64,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#5B59FE',
+    color: colors.blue,
   },
   subtitle: {
     fontSize: 23,
-    color: '#666',
+    color: colors.bigBlack,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   inputContainer: {
     marginBottom: 20,
@@ -145,50 +145,48 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 8,
-    color: '#333',
+    color: colors.jetBlack,
   },
   iconInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#d0d5dd',
+    borderColor: colors.ashGray,
     borderRadius: 8,
     paddingHorizontal: 12,
-    color: '#333',
+    color: colors.slateGray,
   },
   input: {
     flex: 1,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
+    color: colors.slateGray,
   },
   inputWithIcon: {
     marginLeft: 10,
   },
   inputIcon: {
-    // width: 20,
-    // height: 20,
     marginRight: 2,
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5, // Adjust spacing for alignment
+    marginBottom: 5,
   },
   checkbox: {
-    width: 18, // Smaller checkbox size
+    width: 18,
     height: 18,
     borderWidth: 1,
-    borderRadius: 3, // Rounded corners for the checkbox
-    borderColor: '#667085', // Light gray border
+    borderRadius: 3,
+    borderColor: '#667085',
     justifyContent: 'center',
     alignItems: 'center',
   },
   checkboxLabel: {
     marginLeft: 8,
     fontSize: 16,
-    color: '#101828', // Darker text color for label
-    fontWeight: '500', // Slightly bold text
+    color: '#101828',
+    fontWeight: '500',
   },
   leftAlignedContainer: {
     alignItems: 'flex-start',
@@ -209,5 +207,6 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+    marginTop: 30,
   },
 });

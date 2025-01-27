@@ -9,8 +9,8 @@ const SearchBar: React.FC<SearchBarProps> = ({value, onChange}) => {
     <View style={styles.searchContainer}>
       <TextInput
         style={styles.searchInput}
-        placeholder="Search by name or location"
-        placeholderTextColor={colors.bigBlack}
+        placeholder="Search"
+        placeholderTextColor="black"
         value={value}
         onChangeText={onChange}
       />
@@ -31,5 +31,11 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
   },
-  searchInput: {flex: 1, height: 40},
+  searchInput: {
+    flex: 1,
+    height: 40,
+    fontSize: 14,
+    paddingVertical: 5,
+    color: colors.bigBlack,
+  },
 });

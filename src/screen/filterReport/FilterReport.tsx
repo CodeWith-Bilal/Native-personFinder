@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Text, FlatList, ActivityIndicator, StyleSheet} from 'react-native';
 import {useReportHook} from '../../hooks/useReport';
-// import MissingPersonModal from '../../component/profileModal/ProfileModal';
 import Header from '../../component/header/Header';
 import SearchBar from '../../component/searchBar/SearchBar';
 import FilterOptions from '../../component/filterOptions/FilterOptions';
 import {useAppNavigation} from '../../utils/AppNavigation';
 import MiissingPersonCard from '../../component/missingPersonCard/missongPersonCard';
 import {colors} from '../../constants/colors';
-import {MiissingPersonCardProp} from "../../types/types"
+import {MiissingPersonCardProp} from '../../types/types';
 import ReportModal from '../../component/reportModal/reportModal';
 const AllMissingPersonsScreen = () => {
   const navigation = useAppNavigation();
@@ -41,7 +40,7 @@ const AllMissingPersonsScreen = () => {
       ) : loading ? (
         <ActivityIndicator
           size="large"
-          color={colors.skyBlue}
+          color={colors.blue}
           style={styles.loader}
         />
       ) : filteredProfiles.length === 0 ? (
@@ -73,7 +72,7 @@ export default AllMissingPersonsScreen;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
     padding: 16,
   },
   errorText: {

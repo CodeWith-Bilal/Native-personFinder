@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
 import {ReportFormState} from '../../types/types';
-import {handleFormFieldUpdate} from '../../utils/formFieldHandlers';
-import {calculateAge} from '../../utils/calculateAge';
+import {formFieldHandlers} from '../../constants/constants';
+import {calculateAge} from '../../constants/constants';
 const initialState: ReportFormState = {
   fullName: '',
   gender: '',
@@ -53,7 +53,7 @@ const reportFormSlice = createSlice({
   reducers: {
     updateFormField: (state, action) => {
       const {key, value} = action.payload;
-      handleFormFieldUpdate(state, key, value);
+      formFieldHandlers(state, key, value);
     },
 
     resetForm: state => {

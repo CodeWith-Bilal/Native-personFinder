@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {sendEmail} from '../../utils/email';
+import {sendEmail} from '../../utils/SendEmail';
 import {ReportItemProps} from '../../types/types';
 import { colors } from '../../constants/colors';
 
@@ -24,7 +24,7 @@ const ReportItem = ({item}: ReportItemProps) => (
             `Details about ${item?.name}`,
           )
         }>
-        <Text style={styles.contactButtonText}>Contact Person</Text>
+        <Text style={styles.contactbtnText}>Contact Person</Text>
       </TouchableOpacity>
     </View>
   </View>
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   reportCard: {
     flexDirection: 'row',
     marginBottom: 20,
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
     padding: 16,
   },
   reportImage: {
@@ -52,39 +52,39 @@ export const styles = StyleSheet.create({
     fontFamily:'Familjen Grotesk',
     fontSize: 16,
     fontWeight: '400',
-    color: colors.charcoal,
+    color: colors.black,
   },
   reportReporter: {
     fontFamily:'Familjen Grotesk',
     fontSize: 16,
     marginTop: 4,
     fontWeight: '400',
-    color: colors.charcoal,
+    color: colors.black,
   },
   reportLocation: {
     fontFamily:'Familjen Grotesk',
     fontSize: 16,
     marginTop: 4,
     fontWeight: '400',
-    color: colors.charcoal,
+    color: colors.black,
   },
   reportDescription: {
     fontFamily:'Familjen Grotesk',
     fontSize: 16,
     marginTop: 4,
     fontWeight: '400',
-    color: colors.charcoal,
+    color: colors.black,
   },
   contactButton: {
     width: 101,
     marginTop: 17,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
     borderRadius: 5,
   },
-  contactButtonText: {
-    color: colors.whitish,
+  contactbtnText: {
+    color: colors.white,
     fontSize: 11,
     textAlign: 'center',
   },

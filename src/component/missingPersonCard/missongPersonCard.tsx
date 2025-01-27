@@ -17,7 +17,7 @@ const MiissingPersonCard: React.FC<MiissingPersonCardProp> = ({profile, onPress}
           Last Seen Location: {profile?.lastLocation}
         </Text>
         <TouchableOpacity style={styles.detailsButton} onPress={onPress}>
-          <Text style={styles.detailsButtonText}>Details</Text>
+          <Text style={styles.detailsbtnText}>Details</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     padding: 16,
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
     borderRadius: 8,
     marginBottom: 16,
   },
@@ -47,25 +47,25 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     marginBottom: 4,
-    color: colors.charcoal,
+    color: colors.black,
   },
   details: {
     fontFamily:'Familjen Grotesk',
     fontSize: 16,
     marginBottom: 2,
     fontWeight: '400',
-    color: colors.charcoal,
+    color: colors.black,
   },
   detailsButton: {
     width: 93,
     marginTop: 8,
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
   },
-  detailsButtonText: {
-    color: colors.whitish,
+  detailsbtnText: {
+    color: colors.white,
     fontWeight: 'bold',
     textAlign: 'center',
   },

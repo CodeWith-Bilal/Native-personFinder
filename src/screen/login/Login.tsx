@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <Logo color={colors.skyBlue} size="65" />
+        <Logo color={colors.blue} size="65" />
         <Text style={styles.welcomeText}>Welcome Back</Text>
 
         {inputs.map((input, index) => (
@@ -56,14 +56,14 @@ export default function Login() {
           </View>
         ))}
 
-<View style={styles.width}>
-  <Button
-    title={loading ? '' : 'Log in'}
-    onPress={onLogin}
-    disabled={loading}
-    loading={loading}
-  />
-</View>
+        <View style={styles.width}>
+          <Button
+            title={loading ? '' : 'Log in'}
+            onPress={onLogin}
+            disabled={loading}
+            loading={loading}
+          />
+        </View>
 
         <View style={styles.linkContainer}>
           <TouchableOpacity

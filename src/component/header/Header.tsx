@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
       fontSize: 23,
       fontWeight: 'bold',
       marginLeft: 19,
-      color: colors.charcoal,
+      color: colors.black,
     },
   });
 

@@ -1,6 +1,5 @@
 import {useState, useMemo} from 'react';
 import { useReportHook } from './useReport';
-// import {useReportHook} from '../hooks/useReportFound';
 
 export const useHomeScreenManager = () => {
   const {

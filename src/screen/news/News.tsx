@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import useFetchReports from '../../hooks/useNews';
-// import {styles} from './NewsStyles';
 import {colors} from '../../constants/colors';
 import Header from '../../component/header/Header';
 import ReportItem from '../../component/reportItem/ReportItem';
@@ -17,7 +16,7 @@ const ReportScreen = () => {
       {isLoading ? (
         <ActivityIndicator
           size="large"
-          color={colors.skyBlue}
+          color={colors.blue}
           style={styles.loader}
         />
       ) : reports.length === 0 ? (
@@ -38,7 +37,7 @@ export default ReportScreen;
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.whitish,
+      backgroundColor: colors.white,
       paddingHorizontal: 16,
       paddingTop: 20,
     },

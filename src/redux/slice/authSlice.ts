@@ -5,7 +5,6 @@ import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { fireError } from '../../types/types';
 import { AuthState } from '../../types/types';
-// import {GOOGLE_CLIENT_ID} from '@env';
 import { GOOGLE_CLIENT_ID } from '@env';
 
 const initialState: AuthState = {
@@ -17,13 +16,11 @@ const initialState: AuthState = {
 
 GoogleSignin.configure({
   webClientId: GOOGLE_CLIENT_ID,
-  offlineAccess: true,  // Ensure offline access is enabled
+  offlineAccess: true,
 });
 
 
-// Regular functions instead of async thunks
 
-// Login function
 export const loginUser = async (email: string, password: string) => {
   try {
     const response = await auth().signInWithEmailAndPassword(email, password);
@@ -38,12 +35,11 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-// Google login function
+
 export const googleLogin = async () => {
   try {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
-    // Force account selection by signing out first
     await GoogleSignin.signOut();
 
     const signInResponse = await GoogleSignin.signIn();
@@ -65,7 +61,6 @@ export const googleLogin = async () => {
   }
 };
 
-// Register function
 export const registerUser = async (email: string, password: string, username: string) => {
   try {
     const response = await auth().createUserWithEmailAndPassword(email, password);
@@ -92,7 +87,6 @@ export const registerUser = async (email: string, password: string, username: st
   }
 };
 
-// Forgot password function
 export const forgotPassword = async (email: string) => {
   try {
     await auth().sendPasswordResetEmail(email);

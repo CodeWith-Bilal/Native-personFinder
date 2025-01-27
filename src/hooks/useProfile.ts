@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useSelector } from 'react-redux';
-import { updateProfile } from '../redux/slice/profileSlice';
+import { updateProfileAsync } from '../redux/slice/profileSlice';
 import { RootState } from '../redux/store';
 import { useAppDispatch } from '../hooks/useDispatch';
 import { launchImageLibrary, ImageLibraryOptions, Asset } from 'react-native-image-picker';
 import { ToastAndroid, Alert } from 'react-native';
-import { fireError } from '../types/types';
 
 export const useProfile = () => {
   const [name, setName] = useState<string>('');
@@ -26,12 +25,13 @@ export const useProfile = () => {
   }, [user]);
 
   const UpdateProfile = async () => {
-    try {
-      await dispatch(updateProfile({ name, photo }));
-    } catch (err) {
-      ToastAndroid.show('Failed to update profile.', ToastAndroid.LONG);
-    }
-  };
+  try {
+    await dispatch(updateProfileAsync({ name, photo })).unwrap();
+    ToastAndroid.show('Profile updated successfully.', ToastAndroid.LONG);
+  } catch (error) {
+    ToastAndroid.show('Failed to update profile.', ToastAndroid.LONG);
+  }
+};
 
   const selectImage = () => {
     const options: ImageLibraryOptions = {
@@ -55,11 +55,6 @@ export const useProfile = () => {
 
   const handleSave = () => {
     UpdateProfile();
-    if (status === 'succeeded') {
-      ToastAndroid.show('Profile updated successfully.', ToastAndroid.LONG);
-    } else if (status === 'failed') {
-      ToastAndroid.show('Failed to update profile.', ToastAndroid.LONG);
-    }
   };
 
   const signOut = async () => {
@@ -67,7 +62,7 @@ export const useProfile = () => {
       await auth().signOut();
       ToastAndroid.show('Signed out successfully.', ToastAndroid.LONG);
     } catch (err) {
-      const erro = err as fireError;
+      const erro = err as Error;
       Alert.alert('Error', erro.message);
     }
   };
@@ -78,7 +73,7 @@ export const useProfile = () => {
     photo,
     setName,
     setPhoto,
-    updateProfile,
+    updateProfileAsync,
     selectImage,
     handleSave,
     signOut,

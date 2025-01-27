@@ -12,7 +12,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {useReportFound} from '../../hooks/useReportFound';
-import {sendEmail} from '../../utils/email';
+import {sendEmail} from '../../utils/SendEmail';
 import { ReportModalProps} from '../../types/types';
 import {colors} from '../../constants/colors';
 
@@ -42,7 +42,7 @@ const ReportModal: React.FC<ReportModalProps> = ({
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.modalContent}>
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>×</Text>
+            <Text style={styles.closebtnText}>×</Text>
           </TouchableOpacity>
           <Image source={{uri: profile?.photo}} style={styles.modalImage} />
           <Text style={styles.modalDetails}>{profile?.fullName}</Text>
@@ -81,11 +81,11 @@ const ReportModal: React.FC<ReportModalProps> = ({
                     `Details about ${profile?.fullName}`,
                   )
                 }>
-                <Text style={styles.modalButtonText}>Contact Via Email</Text>
+                <Text style={styles.modalbtnText}>Contact Via Email</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={[styles.modalButton, {backgroundColor: colors.skyBlue}]}
+                style={[styles.modalButton, {backgroundColor: colors.blue}]}
                 onPress={handleReportFound}>
                 <Text style={styles.modalButtonReport}>Report Found</Text>
               </TouchableOpacity>
@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
   modalContent: {
     width: '90%',
     height: '73%',
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
     borderRadius: 8,
     padding: 20,
     alignItems: 'center',
@@ -120,7 +120,7 @@ export const styles = StyleSheet.create({
     right: 10,
     zIndex: 1,
   },
-  closeButtonText: {
+  closebtnText: {
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -136,13 +136,13 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
     marginBottom: 4,
     textAlign: 'center',
-    color: colors.charcoal,
+    color: colors.black,
     fontFamily: 'Familjen Grotesk',
   },
   modalInput: {
     width: '100%',
     height: 40,
-    borderColor: colors.charcoal,
+    borderColor: colors.black,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -150,7 +150,7 @@ export const styles = StyleSheet.create({
     marginTop: 16,
   },
   modalButton: {
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
 
     paddingVertical: 10,
     paddingHorizontal: 16,
@@ -159,16 +159,16 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.skyBlue,
+    borderColor: colors.blue,
   },
 
-  modalButtonText: {
-    color: colors.skyBlue,
+  modalbtnText: {
+    color: colors.blue,
     fontWeight: '500',
     fontFamily: 'Montserrat',
   },
   modalButtonReport: {
-    color: colors.whitish,
+    color: colors.white,
     fontWeight: '500',
     fontFamily: 'Montserrat',
   },

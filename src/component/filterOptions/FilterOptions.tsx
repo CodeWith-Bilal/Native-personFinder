@@ -16,7 +16,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({options, onSelect}) => {
             key={index}
             style={styles.filterButton}
             onPress={() => onSelect(option === 'All' ? null : option)}>
-            <Text style={styles.filterButtonText}>{option}</Text>
+            <Text style={styles.filterbtnText}>{option}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
-  filterText: {fontSize: 14, fontWeight: 'bold', color: colors.charcoal},
+  filterText: {fontSize: 14, fontWeight: 'bold', color: colors.black},
 
   filterButton: {
     backgroundColor: colors.filter,
@@ -45,5 +45,5 @@ export const styles = StyleSheet.create({
     shadowRadius: 2, 
     elevation: 2,
   },
-  filterButtonText: {fontSize: 14, fontWeight: 'bold', color: colors.label},
+  filterbtnText: {fontSize: 14, fontWeight: 'bold', color: colors.label},
 });

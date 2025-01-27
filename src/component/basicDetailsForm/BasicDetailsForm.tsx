@@ -3,16 +3,15 @@ import {View, Text, TextInput, TouchableOpacity, Image, StyleSheet} from 'react-
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {IMAGES} from '../../constants/constants';
 import useGenderDropdown from '../../hooks/useBasicDetailsForm';
-import {BasicDetailsSectionProps} from '../../types/types';
+import {BasicDetailsProps} from '../../types/types';
 import { colors } from '../../constants/colors';
 
-const BasicDetailsSection: React.FC<BasicDetailsSectionProps> = ({
+const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
   formData,
   handleInputChange,
   showDatePicker,
   setShowDatePicker,
   handleDateChange,
-  // lastLocation,
 }) => {
   const {genderDropdownVisible, toggleGenderDropdown} = useGenderDropdown();
   const dateOfBirthDate = new Date(formData?.dateOfBirth);
@@ -94,7 +93,7 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   label: {
-    color: colors.charcoal,
+    color: colors.black,
     fontWeight: '500',
     fontSize: 14,
     marginBottom: 6,
@@ -119,7 +118,7 @@ export const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
-    color: colors.charcoal,
+    color: colors.black,
   },
   dropdownIcon: {
     width: 20,
@@ -136,7 +135,7 @@ export const styles = StyleSheet.create({
   },
   dropdownOptionText: {
     fontSize: 16,
-    color: colors.charcoal,
+    color: colors.black,
   },
   dateInput: {
     flexDirection: 'row',

@@ -1,5 +1,3 @@
-// components/InputField.tsx
-
 import React from 'react';
 import { View, Text, TextInput, Image, StyleSheet, TextInputProps } from 'react-native';
 import { colors } from '../../constants/colors';
@@ -26,10 +24,6 @@ const InputField: React.FC<InputFieldProps> = ({ label, icon, infoText, ...textI
 export default InputField;
 
 const styles = StyleSheet.create({
-//   inputLabelContainer: {
-//     width: '100%',
-//     marginBottom: 10,
-//   },
   label: {
     fontSize: 14,
     fontWeight: '500',

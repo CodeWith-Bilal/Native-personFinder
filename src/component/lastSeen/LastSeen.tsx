@@ -13,7 +13,6 @@ const LastSeen: React.FC<LastSeenProps> = ({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
-  // Helper function to format date and time in PST
   const formatDateToPST = (date: Date): string => {
     return new Intl.DateTimeFormat('en-PK', {
       timeZone: 'Asia/Karachi',
@@ -27,25 +26,22 @@ const LastSeen: React.FC<LastSeenProps> = ({
   };
 
   const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    if (Platform.OS === 'android') setShowDatePicker(false); // Close date picker after selection on Android
+    if (Platform.OS === 'android') {setShowDatePicker(false);}
     if (selectedDate) {
-      setDate(selectedDate); // Temporarily save the date
-      // Alert.alert('Date Selected', `You selected: ${formatDateToPST(selectedDate)}`);
-      setShowTimePicker(true); // Open the time picker after date selection
+      setDate(selectedDate);
+      setShowTimePicker(true);
     }
   };
 
   const onTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
-    if (Platform.OS === 'android') setShowTimePicker(false); // Close time picker after selection on Android
+    if (Platform.OS === 'android') {setShowTimePicker(false);}
     if (selectedTime) {
-      // Combine the selected time with the previously selected date
       const finalDateTime = new Date(date || new Date());
       finalDateTime.setHours(selectedTime.getHours());
       finalDateTime.setMinutes(selectedTime.getMinutes());
 
-      setDate(finalDateTime); // Update the state with the full date and time
-      handleInputChange('lastSeen', formatDateToPST(finalDateTime)); // Save in PST format
-      // Alert.alert('Date and Time Selected', `You selected: ${formatDateToPST(finalDateTime)}`);
+      setDate(finalDateTime);
+      handleInputChange('lastSeen', formatDateToPST(finalDateTime));
     }
   };
 
@@ -55,12 +51,11 @@ const LastSeen: React.FC<LastSeenProps> = ({
         <Text style={styles.label}>Last Seen</Text>
         <TextInput
           value={lastSeen}
-          onFocus={() => setShowDatePicker(true)} // Open date picker when input is focused
+          onFocus={() => setShowDatePicker(true)}
           placeholder="Last Seen"
           style={styles.input}
         />
 
-        {/* Date Picker */}
         {showDatePicker && (
           <DateTimePicker
             value={date || new Date()}
@@ -70,7 +65,6 @@ const LastSeen: React.FC<LastSeenProps> = ({
           />
         )}
 
-        {/* Time Picker */}
         {showTimePicker && (
           <DateTimePicker
             value={date || new Date()}
@@ -88,7 +82,7 @@ export default LastSeen;
 
 export const styles = StyleSheet.create({
   label: {
-    color: colors.charcoal,
+    color: colors.black,
     fontWeight: '500',
     fontSize: 14,
     marginBottom: 6,

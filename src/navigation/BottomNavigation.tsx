@@ -24,7 +24,6 @@ type TabIcons = {
   [key: string]: ImageSourcePropType | undefined;
 };
 
-// Mapping route names to icon sources to remove conditional complexity
 const getTabIcon = (routeName: string): ImageSourcePropType | undefined => {
   const icons: TabIcons = {
     Home: IMAGES?.home,
@@ -55,7 +54,7 @@ const BottomNavigation: React.FC = () => {
             <Text
               style={[
                 styles.tabBarLabel,
-                { color: focused ? colors.skyBlue : colors.charcoal, marginLeft: isLandscape ? 15 : 0 },
+                { color: focused ? colors.blue : colors.black, marginLeft: isLandscape ? 15 : 0 },
               ]}
             >
               {route.name}
@@ -81,7 +80,7 @@ const BottomNavigation: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white', // Ensuring no undefined variable
+    backgroundColor: 'white',
   },
   tabBarStyle: {
     paddingBottom: 8,
@@ -95,11 +94,11 @@ const styles = StyleSheet.create({
     borderRadius: 42,
     borderWidth: 2,
     borderTopWidth: 2,
-    borderColor: colors.charcoal,
+    borderColor: colors.black,
   },
   tabBarLabel: {
     fontSize: 12,
-    color: colors.charcoal,
+    color: colors.black,
     fontWeight: '400',
   },
   iconStyle: {

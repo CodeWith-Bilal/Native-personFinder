@@ -66,7 +66,7 @@ const EditProfileScreen: React.FC = () => {
       </ScrollView>
 
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Text style={styles.saveButtonText}>Save Changes</Text>
+        <Text style={styles.savebtnText}>Save Changes</Text>
       </TouchableOpacity>
     </View>
   );
@@ -77,7 +77,7 @@ export default EditProfileScreen;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -139,15 +139,15 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   saveButton: {
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
     paddingVertical: 15,
     borderRadius: 8,
     marginHorizontal: 20,
     marginBottom: 20,
     alignItems: 'center',
   },
-  saveButtonText: {
-    color: colors.buttonText,
+  savebtnText: {
+    color: colors.btnText,
     fontWeight: 'bold',
     fontSize: 23,
   },

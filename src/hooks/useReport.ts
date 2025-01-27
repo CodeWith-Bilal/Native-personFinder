@@ -35,7 +35,7 @@ export function useReportHook() {
     hairColor: '',
     hairLength: '',
     photo: null,
-    lastSeen: '', // Ensure this field is properly initialized
+    lastSeen: '',
     lastLocation: '',
   });
 
@@ -72,9 +72,8 @@ export function useReportHook() {
   ) => {
     const currentDate = selectedDate || new Date();
     handleInputChange('lastSeen', currentDate.toISOString());
-    setShowDatePicker(false); // Dismiss the date picker
+    setShowDatePicker(false);
   };
-//photo select
   const selectPhoto = async () => {
     setIsloading(true);
     const response = await launchImageLibrary({
@@ -87,8 +86,7 @@ export function useReportHook() {
       const imageBase64 = response.assets[0].base64;
       if (imageBase64) {
         try {
-          // Save base64 image in Firestore under the 'Reports' collection
-          const reportId = 'uniqueReportId'; // Replace with actual report ID or logic
+          const reportId = 'uniqueReportId';
           await firestore()
             .collection('Reports')
             .doc(reportId)
@@ -100,9 +98,7 @@ export function useReportHook() {
             );
 
           handleInputChange('photo', `data:image/jpeg;base64,${imageBase64}`);
-          // Alert.alert('Success', 'Image uploaded successfully!');
         } catch (error) {
-          console.error('Error uploading image:', error);
           Alert.alert('Error', 'Failed to upload image to Firestore.');
         }
       } else {
@@ -134,7 +130,7 @@ export function useReportHook() {
       !fullName ||
       !gender ||
       !dateOfBirth ||
-      !lastSeen || // Ensure lastSeen is checked
+      !lastSeen ||
       !lastLocation ||
       !height ||
       !weight ||
@@ -163,7 +159,7 @@ export function useReportHook() {
         dateOfBirth: new Date().toISOString(),
         nickname: '',
         lastLocation: '',
-        lastSeen: '', // Reset lastSeen
+        lastSeen: '',
         height: '',
         weight: '',
         eyeColor: '',
@@ -246,7 +242,7 @@ export function useReportHook() {
     setDate,
     handleInputChange,
     handleDateChange,
-    handleLastSeenChange, // Ensure this function is passed for lastSeen handling
+    handleLastSeenChange,
     selectPhoto,
     submitReport: submitReportForm,
     profiles,

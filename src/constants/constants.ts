@@ -4,8 +4,10 @@ import {
   HandleInputChange,
   InputConfig,
   InputField,
+  FormFieldKey,
+  ReportFormState,
 } from '../types/types';
-
+import {Alert} from 'react-native';
 export const getPhysicalDescriptionFields = (
   formData: FormData,
   handleInputChange: HandleInputChange,
@@ -110,6 +112,35 @@ export const getInputConfig = (
     secureTextEntry: true,
   },
 ];
+export const formFieldHandlers = (
+  state: ReportFormState,
+  key: FormFieldKey,
+  value: string,
+) => {
+  switch (key) {
+    case 'fullName':
+    case 'gender':
+    case 'nickname':
+    case 'height':
+    case 'weight':
+    case 'eyeColor':
+    case 'hairColor':
+    case 'lastSeen':
+    case 'hairLength':
+    case 'lastLocation':
+      state[key] = value;
+      break;
+    case 'dateOfBirth':
+      state.dateOfBirth = new Date(value).toISOString();
+      break;
+    case 'photo':
+      state.photo = value || null;
+      break;
+    default:
+      Alert.alert(`Unknown field ${key}`);
+      break;
+  }
+};
 
 export const IMAGES = {
   back: require('../assets/images/Backspace.png'),
@@ -151,3 +182,19 @@ export {
   ProfileScreen,
   News,
 };
+
+
+
+export function calculateAge(birthDate: Date): number {
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDifference < 0 ||
+    (monthDifference === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+  return age;
+}

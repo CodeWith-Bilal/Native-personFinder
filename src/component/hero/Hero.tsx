@@ -18,11 +18,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <>
       <View style={styles.header}>
-        <Logo color={colors.skyBlue} size="45" />
+        <Logo color={colors.blue} size="45" />
         <View style={styles.searchContainer}>
           <TextInput
             placeholder="Search"
             style={styles.searchInput}
+            placeholderTextColor={colors.bigBlack}
             value={searchQuery}
             onChangeText={handleSearchQueryChange}
           />
@@ -54,7 +55,7 @@ export const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
     borderRadius: 8,
     marginTop: 10,
     paddingHorizontal: 16,
@@ -68,7 +69,7 @@ export const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 14,
   },
   bannerContainer: {
     alignItems: 'center',

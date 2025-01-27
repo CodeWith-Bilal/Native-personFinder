@@ -86,7 +86,7 @@ export default function ReportMissingPerson() {
 
       <View style={styles.alignButton}>
         <TouchableOpacity style={styles.submitButton} onPress={submitReport}>
-          <Text style={styles.submitButtonText}>Submit Report</Text>
+          <Text style={styles.submitbtnText}>Submit Report</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -94,26 +94,26 @@ export default function ReportMissingPerson() {
 }
 export const styles = StyleSheet.create({
   horizontalLine: {
-    borderBottomColor: colors.charcoal,
+    borderBottomColor: colors.black,
     borderBottomWidth: 1,
     marginBottom: 16,
   },
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: colors.whitish,
+    backgroundColor: colors.white,
   },
 
   title: {
     fontSize: 23,
     fontWeight: '400',
-    color: colors.charcoal,
+    color: colors.black,
     fontFamily: 'Familjen Grotesk',
     marginBottom: 16,
     marginTop: 16,
   },
   label: {
-    color: colors.charcoal,
+    color: colors.black,
     fontWeight: '500',
     fontSize: 14,
     marginBottom: 6,
@@ -129,14 +129,14 @@ export const styles = StyleSheet.create({
 
   submitButton: {
      width: width * 0.6,
-    backgroundColor: colors.skyBlue,
+    backgroundColor: colors.blue,
     paddingHorizontal: 17,
     paddingVertical: 7,
     borderRadius: 8,
     alignItems: 'center',
   },
-  submitButtonText: {
-    color: colors.buttonText,
+  submitbtnText: {
+    color: colors.btnText,
    fontSize: width > 350 ? 23 : 18,
     fontWeight: '500',
     fontFamily: 'Montserrat',
