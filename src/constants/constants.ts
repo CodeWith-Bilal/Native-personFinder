@@ -143,8 +143,11 @@ export const formFieldHandlers = (
 };
 
 export const IMAGES = {
+<<<<<<< HEAD
   missingBanner: require('../assets/images/missingBanner.jpg'),
   bannerKid: require('../assets/images/bannerKid.jpg'),
+=======
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
   back: require('../assets/images/Backspace.png'),
   banner: require('../assets/images/Banner.png'),
   calender: require('../assets/images/Calender.png'),

@@ -19,6 +19,7 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 
+<<<<<<< HEAD
 export const registerUser = async (email: string, password: string, username: string) => {
   try {
     const response = await auth().createUserWithEmailAndPassword(email, password);
@@ -44,6 +45,8 @@ export const registerUser = async (email: string, password: string, username: st
     throw (err as fireError)?.message;
   }
 };
+=======
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
 
 
 export const loginUser = async (email: string, password: string) => {
@@ -86,6 +89,35 @@ export const googleLogin = async () => {
   }
 };
 
+<<<<<<< HEAD
+=======
+export const registerUser = async (email: string, password: string, username: string) => {
+  try {
+    const response = await auth().createUserWithEmailAndPassword(email, password);
+    const user = response?.user;
+
+    await user.updateProfile({ displayName: username });
+    await firestore().collection('User').doc(user?.uid).set({
+      username: username,
+      email: email.toLowerCase(),
+    });
+
+    const serializableUser = {
+      uid: user?.uid,
+      displayName: user?.displayName,
+      email: user?.email,
+      phoneNumber: user?.phoneNumber,
+      photoURL: user?.photoURL,
+    };
+
+    return serializableUser;
+  } catch (err) {
+    ToastAndroid.show('Invalid Properties. Try agin later', ToastAndroid.LONG);
+    throw (err as fireError)?.message;
+  }
+};
+
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
 export const forgotPassword = async (email: string) => {
   try {
     await auth().sendPasswordResetEmail(email);

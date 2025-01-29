@@ -125,7 +125,10 @@ export const styles = StyleSheet.create({
   },
   detailsOverly:{
     backgroundColor: colors.overlay,
+<<<<<<< HEAD
     borderRadius: 10,
+=======
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
   },
   missingText: {
     backgroundColor: colors.crimson,

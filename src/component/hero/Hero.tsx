@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { View, TextInput, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
 import { useAppNavigation } from '../../utils/AppNavigation';
 import { Logo } from '../../component/logo/Logo';
@@ -6,11 +7,19 @@ import { IMAGES } from '../../constants/constants';
 import { colors } from '../../constants/colors';
 import { useAutoScroll } from '../../hooks/useScroll';
 
+=======
+import {View, TextInput, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+import {useAppNavigation} from '../../utils/AppNavigation';
+import {Logo} from '../../component/logo/Logo';
+import {IMAGES} from '../../constants/constants';
+import {colors} from '../../constants/colors';
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
 interface HeroSectionProps {
   searchQuery: string;
   handleSearchQueryChange: (text: string) => void;
 }
 
+<<<<<<< HEAD
 const imageList = [IMAGES.banner, IMAGES.bannerKid, IMAGES.missingBanner];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ searchQuery, handleSearchQueryChange }) => {
@@ -18,6 +27,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ searchQuery, handleSea
   const { flatListRef } = useAutoScroll(imageList);
 
   const renderItem = ({ item }: { item: any }) => <Image source={item} style={styles.sliderImage} />;
+=======
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  searchQuery,
+  handleSearchQueryChange,
+}) => {
+  const navigation = useAppNavigation();
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
 
   return (
     <>
@@ -38,6 +54,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ searchQuery, handleSea
       </View>
 
       <View style={styles.bannerContainer}>
+<<<<<<< HEAD
         <FlatList
           ref={flatListRef}
           data={imageList}
@@ -48,12 +65,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ searchQuery, handleSea
           pagingEnabled
           scrollEnabled={false}
         />
+=======
+        <Image source={IMAGES?.banner} style={styles.bannerImage} />
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
       </View>
 
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Featured Profiles</Text>
         <TouchableOpacity>
+<<<<<<< HEAD
           <Text style={styles.seeMore} onPress={() => navigation.navigate('FilterReport')}>
+=======
+          <Text
+            style={styles.seeMore}
+            onPress={() => navigation.navigate('FilterReport')}>
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
             See More
           </Text>
         </TouchableOpacity>
@@ -84,6 +110,7 @@ export const styles = StyleSheet.create({
   },
   bannerContainer: {
     alignItems: 'center',
+<<<<<<< HEAD
     width:'100%',
     marginVertical: 20,
   },
@@ -92,6 +119,14 @@ export const styles = StyleSheet.create({
     height: 250,
     borderRadius: 10,
     marginHorizontal: 25,
+=======
+    marginVertical: 20,
+  },
+  bannerImage: {
+    width: '90%',
+    height: 200,
+    borderRadius: 10,
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
   },
   sectionHeader: {
     flexDirection: 'row',

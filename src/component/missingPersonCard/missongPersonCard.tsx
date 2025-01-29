@@ -30,7 +30,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 16,
     backgroundColor: colors.white,
+<<<<<<< HEAD
     borderRadius: 10,
+=======
+    borderRadius: 8,
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
     marginBottom: 16,
   },
   image: {
@@ -57,19 +61,31 @@ export const styles = StyleSheet.create({
     color: colors.black,
   },
   detailsButton: {
+<<<<<<< HEAD
     width: 95,
     height: 26,
     marginTop: 8,
     backgroundColor: colors.blue,
     paddingVertical: 5,
     // paddingHorizontal: ,
+=======
+    width: 93,
+    marginTop: 8,
+    backgroundColor: colors.blue,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
     borderRadius: 8,
   },
   detailsbtnText: {
     color: colors.white,
+<<<<<<< HEAD
     fontSize: 11,
     fontFamily:'Montserrat',
     fontWeight: '500',
+=======
+    fontWeight: 'bold',
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
     textAlign: 'center',
   },
 });

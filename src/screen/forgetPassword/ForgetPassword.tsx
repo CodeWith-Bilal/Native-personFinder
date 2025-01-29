@@ -51,18 +51,26 @@ export default function ForgotPassword() {
             onChangeText={setEmail}
           />
         </View>
+<<<<<<< HEAD
 <View style={styles.btn}>
 <Button title="Send Reset Code" onPress={sendResetCode}/>
 </View>
+=======
+
+        <Button title="Send Reset Code" onPress={sendResetCode} />
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
       </View>
     </ScrollView>
   );
 }
 
 export const styles = StyleSheet.create({
+<<<<<<< HEAD
   btn:{
 width: 280,
   },
+=======
+>>>>>>> 0d02bea3c2765118d7deeb36477f63487a609931
     scrollContainer: {
       flexGrow: 1,
     },
