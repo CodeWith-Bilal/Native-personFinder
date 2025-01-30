@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
-import { useAppNavigation } from '../../utils/AppNavigation';
-import { Logo } from '../../component/logo/Logo';
-import { IMAGES } from '../../constants/constants';
-import { colors } from '../../constants/colors';
-import { useAutoScroll } from '../../hooks/useScroll';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Text,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+} from 'react-native';
+import {useAppNavigation} from '../../utils/AppNavigation';
+import {Logo} from '../../component/logo/Logo';
+import {IMAGES} from '../../constants/constants';
+import {colors} from '../../constants/colors';
+import {useAutoScroll} from '../../hooks/useScroll';
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -12,12 +21,19 @@ interface HeroSectionProps {
 }
 
 const imageList = [IMAGES.banner, IMAGES.bannerKid, IMAGES.missingBanner];
-
-export const HeroSection: React.FC<HeroSectionProps> = ({ searchQuery, handleSearchQueryChange }) => {
+const windowWidth = Dimensions.get('window').width;
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  searchQuery,
+  handleSearchQueryChange,
+}) => {
   const navigation = useAppNavigation();
-  const { flatListRef } = useAutoScroll(imageList);
+  const {flatListRef} = useAutoScroll(imageList);
 
-  const renderItem = ({ item }: { item: any }) => <Image source={item} style={styles.sliderImage} />;
+  const renderItem = ({item}: {item: any}) => (
+    <View style={styles.imageContainer}>
+      <Image source={item} style={styles.sliderImage} />
+    </View>
+  );
 
   return (
     <>
@@ -53,7 +69,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ searchQuery, handleSea
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Featured Profiles</Text>
         <TouchableOpacity>
-          <Text style={styles.seeMore} onPress={() => navigation.navigate('FilterReport')}>
+          <Text
+            style={styles.seeMore}
+            onPress={() => navigation.navigate('FilterReport')}>
             See More
           </Text>
         </TouchableOpacity>
@@ -84,14 +102,20 @@ export const styles = StyleSheet.create({
   },
   bannerContainer: {
     alignItems: 'center',
-    width:'100%',
+    width: '100%',
     marginVertical: 20,
+    paddingLeft: 10,
+    paddingRight: 20,
+    justifyContent: 'center',
   },
   sliderImage: {
-    width: 344,
+    width: windowWidth * 0.9,
     height: 250,
     borderRadius: 10,
-    marginHorizontal: 25,
+  },
+  imageContainer: {
+    paddingLeft: 10,
+    paddingRight: 5,
   },
   sectionHeader: {
     flexDirection: 'row',

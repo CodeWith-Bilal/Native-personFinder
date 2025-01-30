@@ -103,7 +103,6 @@ export const styles = StyleSheet.create({
   },
   profilesContainer: {
     margin: '5%',
-    paddingHorizontal: 10,
     flexDirection: 'row',
     backgroundColor: colors.white,
   },
