@@ -11,7 +11,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({options, onSelect}) => {
     <>
       <View style={styles.filterContainer}>
         <Text style={styles.filterText}>Filter By: </Text>
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <TouchableOpacity
             key={index}
             style={styles.filterButton}

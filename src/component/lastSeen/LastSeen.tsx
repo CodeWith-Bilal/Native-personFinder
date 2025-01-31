@@ -13,7 +13,7 @@ const LastSeen: React.FC<LastSeenProps> = ({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
-  const formatDateToPST = (date: Date): string => {
+  const formatDateToPST = (date?: Date): string => {
     return new Intl.DateTimeFormat('en-PK', {
       timeZone: 'Asia/Karachi',
       year: 'numeric',

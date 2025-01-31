@@ -44,7 +44,7 @@ const Register: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
-          source={IMAGES.regVector}
+          source={IMAGES?.regVector}
           style={styles.topRightImage}
           resizeMode="contain"
         />
@@ -68,8 +68,8 @@ const Register: React.FC = () => {
                 placeholderTextColor={colors.black}
               />
             </View>
-            {input.helperText && (
-              <Text style={styles.helperText}>{input.helperText}</Text>
+            {input?.helperText && (
+              <Text style={styles.helperText}>{input?.helperText}</Text>
             )}
           </View>
         ))}

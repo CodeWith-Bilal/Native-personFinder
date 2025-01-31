@@ -35,7 +35,7 @@ const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
       </TouchableOpacity>
       {genderDropdownVisible && (
         <View style={styles.dropdownOptions}>
-          {['Male', 'Female', 'Trans'].map(gender => (
+          {['Male', 'Female', 'Trans']?.map(gender => (
             <TouchableOpacity
               key={gender}
               style={styles.dropdownOption}
