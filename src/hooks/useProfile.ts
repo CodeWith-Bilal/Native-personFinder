@@ -28,7 +28,7 @@ export const useProfile = () => {
   try {
     await dispatch(updateProfileAsync({ name, photo })).unwrap();
     ToastAndroid.show('Profile updated successfully.', ToastAndroid.LONG);
-  } catch (error) {
+  } catch (err) {
     ToastAndroid.show('Failed to update profile.', ToastAndroid.LONG);
   }
 };
