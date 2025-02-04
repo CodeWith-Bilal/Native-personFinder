@@ -1,13 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screen/home/Home';
 import { colors } from '../constants/colors';
-import {
-  ReportForm,
-  FilterReport,
-  ProfileScreen,
-  News,
-} from '../constants/constants';
+
 import {
   Image,
   View,
@@ -17,6 +11,7 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import { IMAGES } from '../constants/constants';
+import { screenConfigurations } from '../utils/ScreenName';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,14 +30,6 @@ const getTabIcon = (routeName: string): ImageSourcePropType | undefined => {
 
   return icons[routeName];
 };
-
-const screenConfigurations = [
-  { name: 'Home', component: HomeScreen },
-  { name: 'Report', component: FilterReport },
-  { name: 'Upload', component: ReportForm },
-  { name: 'Profile', component: ProfileScreen },
-  { name: 'News', component: News },
-];
 
 const BottomNavigation: React.FC = () => {
   const { width, height } = useWindowDimensions();
@@ -75,7 +62,7 @@ const BottomNavigation: React.FC = () => {
           headerShown: false,
         })}
       >
-        {screenConfigurations.map((screen, index) => (
+        {screenConfigurations?.map((screen, index) => (
           <Tab.Screen
             key={index}
             name={screen.name}
