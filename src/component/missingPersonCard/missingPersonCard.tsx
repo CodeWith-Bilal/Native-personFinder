@@ -62,7 +62,6 @@ export const styles = StyleSheet.create({
     marginTop: 8,
     backgroundColor: colors.blue,
     paddingVertical: 5,
-    // paddingHorizontal: ,
     borderRadius: 8,
   },
   detailsbtnText: {

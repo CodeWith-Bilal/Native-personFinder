@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useAppDispatch} from './useDispatch';
 import {addNewsReport} from '../redux/slice/newsSlice';
 import auth from '@react-native-firebase/auth';
-import {useAppNavigation} from '../utils/AppNavigation';
+import {useAppNavigation} from './useAppNavigation';
 import {ToastAndroid} from 'react-native';
 import {MissingPerson} from '../types/types';
 

@@ -36,6 +36,14 @@ const getTabIcon = (routeName: string): ImageSourcePropType | undefined => {
   return icons[routeName];
 };
 
+const screenConfigurations = [
+  { name: 'Home', component: HomeScreen },
+  { name: 'Report', component: FilterReport },
+  { name: 'Upload', component: ReportForm },
+  { name: 'Profile', component: ProfileScreen },
+  { name: 'News', component: News },
+];
+
 const BottomNavigation: React.FC = () => {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -67,11 +75,13 @@ const BottomNavigation: React.FC = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Report" component={FilterReport} />
-        <Tab.Screen name="Upload" component={ReportForm} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="News" component={News} />
+        {screenConfigurations.map((screen, index) => (
+          <Tab.Screen
+            key={index}
+            name={screen.name}
+            component={screen.component}
+          />
+        ))}
       </Tab.Navigator>
     </View>
   );

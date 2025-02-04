@@ -10,7 +10,7 @@ import {
 import Button from '../../component/button/Button';
 import { useAuth } from '../../hooks/useAuth';
 import Header from '../../component/header/Header';
-import {useAppNavigation} from '../../utils/AppNavigation';
+import {useAppNavigation} from '../../hooks/useAppNavigation';
 import { FORGOT_PASSWORD } from '../../constants/constants';
 import { IMAGES } from '../../constants/constants';
 import { colors } from '../../constants/colors';

@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {useAppNavigation} from '../../utils/AppNavigation';
+import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {IMAGES} from '../../constants/constants';
 import { useProfile } from '../../hooks/useProfile';
 import { colors } from '../../constants/colors';

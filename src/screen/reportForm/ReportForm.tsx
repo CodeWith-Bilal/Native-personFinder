@@ -11,7 +11,7 @@ import {
 
 import {useReportHook} from '../../hooks/useReport';
 import Header from '../../component/header/Header';
-import {useAppNavigation} from '../../utils/AppNavigation';
+import {useAppNavigation} from '../../hooks/useAppNavigation';
 import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
 import PhotoUpload from '../../component/photoUpload/PhotoUpload';
 import {getPhysicalDescriptionFields} from '../../constants/constants';

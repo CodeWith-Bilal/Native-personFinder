@@ -4,7 +4,7 @@ import useFetchReports from '../../hooks/useNews';
 import {colors} from '../../constants/colors';
 import Header from '../../component/header/Header';
 import ReportItem from '../../component/reportItem/ReportItem';
-import {useAppNavigation} from '../../utils/AppNavigation';
+import {useAppNavigation} from '../../hooks/useAppNavigation';
 const ReportScreen = () => {
   const navigation = useAppNavigation();
   const {reports, isLoading} = useFetchReports();

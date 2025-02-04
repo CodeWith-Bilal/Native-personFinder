@@ -9,7 +9,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {useAppNavigation} from '../../utils/AppNavigation';
+import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {Logo} from '../../component/logo/Logo';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';

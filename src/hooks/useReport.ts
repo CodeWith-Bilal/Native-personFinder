@@ -16,7 +16,7 @@ import {
   setSelectedGender,
   filterProfiles,
 } from '../redux/slice/filterReportSlice';
-import { useAppNavigation } from '../utils/AppNavigation';
+import { useAppNavigation } from './useAppNavigation';
 import { CustomDateTimePickerEvent } from '../types/types';
 import { Profile } from '../types/types';
 
