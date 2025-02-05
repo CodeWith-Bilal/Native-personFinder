@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import {View, Text, ActivityIndicator, FlatList} from 'react-native';
 import useFetchReports from '../../hooks/useNews';
 import {colors} from '../../constants/colors';
 import Header from '../../component/header/Header';
 import ReportItem from '../../component/reportItem/ReportItem';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
+import { styles } from './newsStyle';
 const ReportScreen = () => {
   const navigation = useAppNavigation();
   const {reports, isLoading} = useFetchReports();
@@ -34,25 +35,3 @@ const ReportScreen = () => {
 };
 
 export default ReportScreen;
-export const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.white,
-      paddingHorizontal: 16,
-      paddingTop: 20,
-    },
-    listContainer: {
-      paddingBottom: 20,
-    },
-    noDataText: {
-      textAlign: 'center',
-      marginTop: 20,
-      fontSize: 16,
-      color: colors.crimson,
-    },
-    loader: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });

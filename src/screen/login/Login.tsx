@@ -14,7 +14,7 @@ import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {getInputConfig} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
-import {styles} from './LoginStyles';
+import {styles} from './loginStyles';
 
 export default function Login() {
   const {

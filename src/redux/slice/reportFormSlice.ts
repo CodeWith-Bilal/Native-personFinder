@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
 import {ReportFormState} from '../../types/types';
 import {formFieldHandlers} from '../../constants/constants';
-import {calculateAge} from '../../constants/constants';
+import {calculateAge} from '../../utils/AgeCalculator';
 const initialState: ReportFormState = {
   fullName: '',
   gender: '',

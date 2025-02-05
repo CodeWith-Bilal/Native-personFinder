@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import {IMAGES} from '../../constants/constants';
-import { colors } from '../../constants/colors';
+import { styles } from './header';
 interface HeaderProps {
   title: string;
   onBackPress: () => void;
@@ -22,18 +22,4 @@ const Header: React.FC<HeaderProps> = ({ title, onBackPress }) => {
 export default Header;
 
 
-
-export const styles = StyleSheet.create({
-    headerContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 30,
-    },
-    header: {
-      fontSize: 23,
-      fontWeight: 'bold',
-      marginLeft: 19,
-      color: colors.black,
-    },
-  });
 

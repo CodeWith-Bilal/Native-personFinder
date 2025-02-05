@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useAppDispatch} from './useDispatch';
+import {useAppDispatch} from '../hooks/useRedux';
 import {addNewsReport} from '../redux/slice/newsSlice';
 import auth from '@react-native-firebase/auth';
 import {useAppNavigation} from './useAppNavigation';

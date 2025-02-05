@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { login, googleLogin, registerUser, forgotPassword, setLoading, setError, setSuccess, loginUser } from '../redux/slice/authSlice';
+import { useAppDispatch } from './useRedux';
 
 export const useAuth = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

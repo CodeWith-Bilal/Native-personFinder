@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Platform } from 'react-native';
+import { View, Text, TextInput, Platform } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { LastSeenProps } from '../../types/types';
-import { colors } from '../../constants/colors';
+import { styles } from './lastSeenStyle';
 
 const LastSeen: React.FC<LastSeenProps> = ({
   lastSeen,
@@ -80,25 +80,3 @@ const LastSeen: React.FC<LastSeenProps> = ({
 
 export default LastSeen;
 
-export const styles = StyleSheet.create({
-  label: {
-    color: colors.black,
-    fontWeight: '500',
-    fontSize: 14,
-    marginBottom: 6,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: colors.lightGray,
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 15,
-    fontSize: 16,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
-    gap: 10,
-  },
-});

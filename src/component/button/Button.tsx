@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import { colors } from '../../constants/colors';
+import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { styles } from './buttonStyle';
 
 interface ButtonProps {
   title: string;
@@ -26,25 +26,5 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, loadi
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    height:52,
-    backgroundColor: colors.blue,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  disabledButton: {
-    backgroundColor: colors.blue,
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 600,
-    fontFamily:'Montserrat',
-  },
-});
 
 export default Button;

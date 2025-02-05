@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, TextInput, Image, StyleSheet} from 'react-native';
+import {View, TextInput, Image} from 'react-native';
 import {IMAGES} from '../../constants/constants';
-import {colors} from '../../constants/colors';
 import {SearchBarProps} from '../../types/types';
+import { styles } from './searchBarStyle';
 
 const SearchBar: React.FC<SearchBarProps> = ({value, onChange}) => {
   return (
@@ -21,21 +21,3 @@ const SearchBar: React.FC<SearchBarProps> = ({value, onChange}) => {
 
 export default SearchBar;
 
-export const styles = StyleSheet.create({
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 30,
-    borderColor: colors.lightGray,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-  },
-  searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 14,
-    paddingVertical: 5,
-    color: colors.bigBlack,
-  },
-});

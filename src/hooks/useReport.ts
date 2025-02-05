@@ -3,7 +3,7 @@ import { Alert, ToastAndroid } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import firestore from '@react-native-firebase/firestore';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from './useDispatch';
+import { useAppDispatch } from '../hooks/useRedux';
 import { RootState } from '../redux/store';
 import {
   updateFormField,

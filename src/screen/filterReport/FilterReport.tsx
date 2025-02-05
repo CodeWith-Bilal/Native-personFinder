@@ -1,14 +1,15 @@
 import React from 'react';
-import {View, Text, FlatList, ActivityIndicator, StyleSheet} from 'react-native';
+import {View, Text, FlatList, ActivityIndicator } from 'react-native';
 import {useReportHook} from '../../hooks/useReport';
-import Header from '../../component/header/Header';
 import SearchBar from '../../component/searchBar/SearchBar';
 import FilterOptions from '../../component/filterOptions/FilterOptions';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
-import MiissingPersonCard from '../../component/missingPersonCard/missingPersonCard';
+import MiissingPersonCard from '../../component/missingPersonCard/MissingPersonCard';
 import {colors} from '../../constants/colors';
 import {MiissingPersonCardProp} from '../../types/types';
-import ReportModal from '../../component/reportModal/reportModal';
+import ReportModal from '../../component/reportModal/ReportModal';
+import { styles } from './filterReport';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 const AllMissingPersonsScreen = () => {
   const navigation = useAppNavigation();
   const {
@@ -69,28 +70,4 @@ const AllMissingPersonsScreen = () => {
 };
 
 export default AllMissingPersonsScreen;
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-    padding: 16,
-  },
-  errorText: {
-    color: colors.crimson,
-    textAlign: 'center',
-  },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  noDataText: {
-    textAlign: 'center',
-    marginTop: 20,
-    fontSize: 16,
-    color: colors.crimson,
-  },
-  listContent: {
-    paddingBottom: 20,
-  },
-});
+

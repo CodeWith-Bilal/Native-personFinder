@@ -3,7 +3,7 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useSelector } from 'react-redux';
 import { updateProfileAsync } from '../redux/slice/profileSlice';
 import { RootState } from '../redux/store';
-import { useAppDispatch } from '../hooks/useDispatch';
+import { useAppDispatch } from '../hooks/useRedux';
 import { launchImageLibrary, ImageLibraryOptions, Asset } from 'react-native-image-picker';
 import { ToastAndroid, Alert } from 'react-native';
 
