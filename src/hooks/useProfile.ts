@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useSelector } from 'react-redux';
 import { updateProfileAsync } from '../redux/slice/profileSlice';
 import { RootState } from '../redux/store';
-import { useAppDispatch } from '../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { launchImageLibrary, ImageLibraryOptions, Asset } from 'react-native-image-picker';
 import { ToastAndroid, Alert } from 'react-native';
 
@@ -14,7 +13,7 @@ export const useProfile = () => {
 
   const user: FirebaseAuthTypes.User | null = auth()?.currentUser;
   const dispatch = useAppDispatch();
-  const { status, error } = useSelector((state: RootState) => state.profile);
+  const { status, error } = useAppSelector((state: RootState) => state.profile);
 
   useEffect(() => {
     if (user) {
