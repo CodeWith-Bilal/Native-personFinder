@@ -12,7 +12,7 @@ import {Logo} from '../../component/logo/Logo';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
 import {useAutoScroll} from '../../hooks/useScroll';
-import { styles } from './hero';
+import { styles } from './heroStyle';
 
 interface HeroSectionProps {
   searchQuery: string;

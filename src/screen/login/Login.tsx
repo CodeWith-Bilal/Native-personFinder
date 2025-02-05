@@ -11,7 +11,7 @@ import Button from '../../component/button/Button';
 import {useAuth} from '../../hooks/useAuth';
 import {Logo} from '../../component/logo/Logo';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
-import {getInputConfig} from '../../constants/constants';
+import {INPUT_CONFIG} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
 import {styles} from './loginStyles';
@@ -28,7 +28,7 @@ export default function Login() {
   } = useAuth();
   const navigation = useAppNavigation();
 
-  const inputs = getInputConfig(email, setEmail, password, setPassword);
+  const inputs = INPUT_CONFIG(email, setEmail, password, setPassword);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>

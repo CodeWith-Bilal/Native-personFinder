@@ -11,7 +11,7 @@ import {
 import CheckBox from 'react-native-check-box';
 import {useAuth} from '../../hooks/useAuth';
 import Button from '../../component/button/Button';
-import {getInputs} from '../../constants/constants';
+import {INPUT_FEILD} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
 import {colors} from '../../constants/colors';
 import { styles } from './registerStyle';
@@ -31,7 +31,7 @@ const Register: React.FC = () => {
     error,
   } = useAuth();
 
-  const inputs = getInputs(
+  const inputs = INPUT_FEILD(
     username,
     setUsername,
     email,

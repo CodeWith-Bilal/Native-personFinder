@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 
 import {useReportHook} from '../../hooks/useReport';
-import Header from '../../component/header/Header';
+import {Header} from '../../component/header/Header';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
 import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
 import PhotoUpload from '../../component/photoUpload/PhotoUpload';
-import {getPhysicalDescriptionFields} from '../../constants/constants';
+import {PHYSICAL_DESCRIPTION_FEILDS} from '../../constants/constants';
 import LastSeen from '../../component/lastSeen/LastSeen';
 import { styles } from './reportStyle';
 
@@ -33,7 +33,7 @@ export default function ReportMissingPerson() {
     isloading,
 
   } = useReportHook();
-  const physicalDescriptionFields = getPhysicalDescriptionFields(
+  const physicalDescriptionFields = PHYSICAL_DESCRIPTION_FEILDS(
     formData,
     handleInputChange,
   );

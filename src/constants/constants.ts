@@ -8,7 +8,7 @@ import {
   ReportFormState,
 } from '../types/types';
 import {Alert} from 'react-native';
-export const getPhysicalDescriptionFields = (
+export const  PHYSICAL_DESCRIPTION_FEILDS = (
   formData: FormData,
   handleInputChange: HandleInputChange,
 ): FieldProps[] => [
@@ -49,7 +49,7 @@ export const FORGOT_PASSWORD = {
     "Please enter the email address associated with your account. We'll send you a verification code to reset your password.",
 };
 
-export const getInputs = (
+export const INPUT_FEILD = (
   username: string,
   setUsername: (text: string) => void,
   email: string,
@@ -87,7 +87,7 @@ export const getInputs = (
   },
 ];
 
-export const getInputConfig = (
+export const INPUT_CONFIG = (
   email: string,
   setEmail: (text: string) => void,
   password: string,
@@ -112,7 +112,7 @@ export const getInputConfig = (
     secureTextEntry: true,
   },
 ];
-export const formFieldHandlers = (
+export const FORM_FEILD_HANDLER = (
   state: ReportFormState,
   key: FormFieldKey,
   value: string,
