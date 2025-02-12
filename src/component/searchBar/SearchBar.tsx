@@ -2,7 +2,7 @@ import React from 'react';
 import {View, TextInput, Image} from 'react-native';
 import {IMAGES} from '../../constants/constants';
 import {SearchBarProps} from '../../types/types';
-import { styles } from './searchBarStyle';
+import {styles} from './SearchBarStyle';
 
 const SearchBar: React.FC<SearchBarProps> = ({value, onChange}) => {
   return (
@@ -20,4 +20,3 @@ const SearchBar: React.FC<SearchBarProps> = ({value, onChange}) => {
 };
 
 export default SearchBar;
-

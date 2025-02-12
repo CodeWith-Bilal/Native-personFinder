@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Text, FlatList, ActivityIndicator } from 'react-native';
+import {View, Text, FlatList, ActivityIndicator} from 'react-native';
 import {useReportHook} from '../../hooks/useReport';
 import SearchBar from '../../component/searchBar/SearchBar';
 import FilterOptions from '../../component/filterOptions/FilterOptions';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
 import MiissingPersonCard from '../../component/missingPersonCard/MissingPersonCard';
-import {colors} from '../../constants/colors';
+import {COLORS} from '../../constants/colors';
 import {MiissingPersonCardProp} from '../../types/types';
 import ReportModal from '../../component/reportModal/ReportModal';
-import { styles } from './filterReport';
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import {Header} from 'react-native/Libraries/NewAppScreen';
+import {styles} from './FilterReportStyle';
 const AllMissingPersonsScreen = () => {
   const navigation = useAppNavigation();
   const {
@@ -41,7 +41,7 @@ const AllMissingPersonsScreen = () => {
       ) : loading ? (
         <ActivityIndicator
           size="large"
-          color={colors.blue}
+          color={COLORS.blue}
           style={styles.loader}
         />
       ) : filteredProfiles.length === 0 ? (
@@ -51,9 +51,9 @@ const AllMissingPersonsScreen = () => {
           data={filteredProfiles}
           renderItem={({item}) => (
             <MiissingPersonCard
-            profile={item as MiissingPersonCardProp['profile']}
-            onPress={() => openModal(item)}
-          />
+              profile={item as MiissingPersonCardProp['profile']}
+              onPress={() => openModal(item)}
+            />
           )}
           keyExtractor={item => item?.id}
           contentContainerStyle={styles.listContent}
@@ -70,4 +70,3 @@ const AllMissingPersonsScreen = () => {
 };
 
 export default AllMissingPersonsScreen;
-

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {sendEmail} from '../../utils/SendEmail';
 import {ReportItemProps} from '../../types/types';
-import { styles } from './reportItemStyle';
+import {styles} from './ReportItemStyle';
 
 const ReportItem = ({item}: ReportItemProps) => (
   <View style={styles.reportCard}>
@@ -31,5 +31,3 @@ const ReportItem = ({item}: ReportItemProps) => (
 );
 
 export default ReportItem;
-
-

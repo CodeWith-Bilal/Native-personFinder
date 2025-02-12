@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { IMAGES } from '../../constants/constants';
-import { styles } from './headerStyle';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {IMAGES} from '../../constants/constants';
+import {styles} from './HeaderStyle';
 
 interface HeaderProps {
   title: string;
   onBackPress: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ title, onBackPress }) => {
+export const Header: React.FC<HeaderProps> = ({title, onBackPress}) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={onBackPress}>
@@ -18,4 +18,3 @@ export const Header: React.FC<HeaderProps> = ({ title, onBackPress }) => {
     </View>
   );
 };
-

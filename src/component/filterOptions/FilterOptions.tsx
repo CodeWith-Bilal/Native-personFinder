@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import { styles } from './filterOptionsStyle';
+import {styles} from './FilterOptionsStyle';
 interface FilterOptionsProps {
   options: string[];
   onSelect: (option: string | null) => void;
@@ -25,5 +25,3 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({options, onSelect}) => {
 };
 
 export default FilterOptions;
-
-

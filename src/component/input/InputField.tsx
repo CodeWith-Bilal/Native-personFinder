@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TextInput, Image, TextInputProps } from 'react-native';
-import { styles } from './inputFieldStyle';
+import {View, Text, TextInput, Image, TextInputProps} from 'react-native';
+import {styles} from './InputFieldStyle';
 
 interface InputFieldProps extends TextInputProps {
   label: string;
@@ -8,7 +8,12 @@ interface InputFieldProps extends TextInputProps {
   infoText?: string | null;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, icon, infoText, ...textInputProps }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  icon,
+  infoText,
+  ...textInputProps
+}) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
@@ -22,4 +27,3 @@ const InputField: React.FC<InputFieldProps> = ({ label, icon, infoText, ...textI
 };
 
 export default InputField;
-

@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
-import { Profile } from '../../types/types';
+import {Profile} from '../../types/types';
+import {AppDispatch} from '../store'; // Adjust the import according to your store setup
 
 const filterReportSlice = createSlice({
   name: 'filterReport',
@@ -66,36 +67,38 @@ export const {
   fetchReportsFailure,
 } = filterReportSlice.actions;
 
-export const fetchReports = () => async (dispatch: any) => {
-  dispatch(fetchReportsStart());
+export const fetchReports =
+  () =>
+  async (dispatch: AppDispatch): Promise<void> => {
+    dispatch(fetchReportsStart());
 
-  try {
-    const querySnapshot = await firestore()
-      .collection('Reports')
-      .orderBy('timestamp', 'desc')
-      .get();
+    try {
+      const querySnapshot = await firestore()
+        .collection('Reports')
+        .orderBy('timestamp', 'desc')
+        .get();
 
-    const reportsData = querySnapshot.docs.map(doc => ({
-      id: doc?.id,
-      fullName: doc?.data()?.fullName,
-      age: doc?.data()?.age,
-      gender: doc?.data()?.gender,
-      lastSeen: doc?.data()?.lastSeen,
-      lastLocation: doc?.data()?.lastLocation,
-      photo: doc?.data()?.photo,
-      dateOfBirth: doc?.data()?.dateOfBirth || '',
-      nickname: doc?.data()?.nickname || '',
-      height: doc?.data()?.height || '',
-      weight: doc?.data()?.weight || '',
-      hairColor: doc?.data()?.hairColor || '',
-      hairLength: doc?.data()?.hairLength || '',
-      eyeColor: doc?.data()?.eyeColor || '',
-    }));
+      const reportsData: Profile[] = querySnapshot.docs.map(doc => ({
+        id: doc?.id,
+        fullName: doc?.data()?.fullName,
+        age: doc?.data()?.age,
+        gender: doc?.data()?.gender,
+        lastSeen: doc?.data()?.lastSeen,
+        lastLocation: doc?.data()?.lastLocation,
+        photo: doc?.data()?.photo,
+        dateOfBirth: doc?.data()?.dateOfBirth || '',
+        nickname: doc?.data()?.nickname || '',
+        height: doc?.data()?.height || '',
+        weight: doc?.data()?.weight || '',
+        hairColor: doc?.data()?.hairColor || '',
+        hairLength: doc?.data()?.hairLength || '',
+        eyeColor: doc?.data()?.eyeColor || '',
+      }));
 
-    dispatch(fetchReportsSuccess(reportsData));
-  } catch (error) {
-    dispatch(fetchReportsFailure('Error fetching profiles'));
-  }
-};
+      dispatch(fetchReportsSuccess(reportsData));
+    } catch (error) {
+      dispatch(fetchReportsFailure('Error fetching profiles'));
+    }
+  };
 
 export default filterReportSlice.reducer;

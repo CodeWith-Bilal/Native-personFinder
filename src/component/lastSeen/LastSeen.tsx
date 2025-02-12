@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Platform } from 'react-native';
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { LastSeenProps } from '../../types/types';
-import { styles } from './lastSeenStyle';
+import React, {useState} from 'react';
+import {View, Text, TextInput, Platform} from 'react-native';
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
+import {LastSeenProps} from '../../types/types';
+import {styles} from './LastSeenStyle';
 
 const LastSeen: React.FC<LastSeenProps> = ({
   lastSeen,
@@ -26,7 +28,9 @@ const LastSeen: React.FC<LastSeenProps> = ({
   };
 
   const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    if (Platform.OS === 'android') {setShowDatePicker(false);}
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
     if (selectedDate) {
       setDate(selectedDate);
       setShowTimePicker(true);
@@ -34,7 +38,9 @@ const LastSeen: React.FC<LastSeenProps> = ({
   };
 
   const onTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
-    if (Platform.OS === 'android') {setShowTimePicker(false);}
+    if (Platform.OS === 'android') {
+      setShowTimePicker(false);
+    }
     if (selectedTime) {
       const finalDateTime = new Date(date || new Date());
       finalDateTime.setHours(selectedTime.getHours());
@@ -79,4 +85,3 @@ const LastSeen: React.FC<LastSeenProps> = ({
 };
 
 export default LastSeen;
-

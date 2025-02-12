@@ -1,3 +1,5 @@
+import {KeyboardTypeOptions, ImageSourcePropType} from 'react-native';
+import {FlatList} from 'react-native';
 export type RootStackParamList = {
   Splash: undefined;
   Login: undefined;
@@ -93,7 +95,6 @@ export type Profile = {
   photo: string;
   age: number;
 };
-
 
 export type NewsState = {
   loading: boolean;
@@ -219,7 +220,6 @@ export type SearchBarProps = {
 export type error = {
   error: undefined;
 };
-import {KeyboardTypeOptions} from 'react-native';
 export type InputConfig = {
   label: string;
   placeholder: string;
@@ -239,4 +239,11 @@ export type InputField = {
   secureTextEntry: boolean;
   icon?: any;
   infoText?: string;
+};
+
+export type UseAutoScrollReturn = {
+  flatListRef: React.RefObject<FlatList>;
+  currentIndex: number;
+  length: number;
+  imageList: ImageSourcePropType[];
 };

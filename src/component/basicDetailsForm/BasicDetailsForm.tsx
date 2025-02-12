@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {IMAGES} from '../../constants/constants';
 import useGenderDropdown from '../../hooks/useBasicDetailsForm';
 import {BasicDetailsProps} from '../../types/types';
-import { styles } from './basicDetailsFormStyles';
+import {styles} from './BasicDetailsFormStyles';
 
 const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
   formData,
@@ -72,18 +72,15 @@ const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
         placeholder="Nickname or Known Aliases"
         style={styles.input}
       />
-<Text style={styles.label}>Last Seen Location</Text>
+      <Text style={styles.label}>Last Seen Location</Text>
       <TextInput
-              value={formData?.lastLocation}
-              onChangeText={(text) => handleInputChange('lastLocation', text)}
-              placeholder="Last Location"
-              style={styles.input}
-            />
+        value={formData?.lastLocation}
+        onChangeText={text => handleInputChange('lastLocation', text)}
+        placeholder="Last Location"
+        style={styles.input}
+      />
     </View>
   );
 };
 
 export default BasicDetailsSection;
-
-
-

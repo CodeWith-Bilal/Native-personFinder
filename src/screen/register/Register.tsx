@@ -13,8 +13,8 @@ import {useAuth} from '../../hooks/useAuth';
 import Button from '../../component/button/Button';
 import {INPUT_FEILD} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
-import {colors} from '../../constants/colors';
-import { styles } from './registerStyle';
+import {COLORS} from '../../constants/colors';
+import {styles} from './RegisterStyle';
 
 const Register: React.FC = () => {
   const {
@@ -65,7 +65,7 @@ const Register: React.FC = () => {
                 onChangeText={input.onChangeText}
                 secureTextEntry={input.secureTextEntry}
                 keyboardType={input.keyboardType}
-                placeholderTextColor={colors.black}
+                placeholderTextColor={COLORS.black}
               />
             </View>
             {input?.helperText && (
@@ -73,7 +73,6 @@ const Register: React.FC = () => {
             )}
           </View>
         ))}
-
 
         <View style={styles.checkboxContainer}>
           <CheckBox

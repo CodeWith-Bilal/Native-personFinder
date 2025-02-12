@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {LogoProps} from '../../types/types';
-import { styles } from './logoStyle';
+import {styles} from './LogoStyle';
 
 export const Logo: React.FC<LogoProps> = ({color, size}) => {
   return (
@@ -14,4 +14,3 @@ export const Logo: React.FC<LogoProps> = ({color, size}) => {
     </>
   );
 };
-

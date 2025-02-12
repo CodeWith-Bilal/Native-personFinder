@@ -1,8 +1,16 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { login, googleLogin, registerUser, forgotPassword, setLoading, setError, setSuccess, loginUser } from '../redux/slice/authSlice';
-import { useAppDispatch } from './useRedux';
+import {useState} from 'react';
+import {RootState} from '../redux/store';
+import {
+  login,
+  googleLogin,
+  registerUser,
+  forgotPassword,
+  setLoading,
+  setError,
+  setSuccess,
+  loginUser,
+} from '../redux/slice/authSlice';
+import {useAppDispatch, useAppSelector} from './useRedux';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +20,9 @@ export const useAuth = () => {
   const [username, setUsername] = useState('');
   const [isSelected, setSelection] = useState(false);
 
-  const { loading, error, user } = useSelector((state: RootState) => state.auth);
+  const {loading, error, user} = useAppSelector(
+    (state: RootState) => state.auth,
+  );
 
   const onLogin = async () => {
     try {

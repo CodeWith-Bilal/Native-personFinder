@@ -13,7 +13,7 @@ import {Logo} from '../../component/logo/Logo';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {INPUT_CONFIG} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
-import {colors} from '../../constants/colors';
+import {COLORS} from '../../constants/colors';
 import {styles} from './loginStyles';
 
 export default function Login() {
@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <Logo color={colors.blue} size="65" />
+        <Logo color={COLORS.blue} size="65" />
         <Text style={styles.welcomeText}>Welcome Back</Text>
 
         {inputs.map((input, index) => (

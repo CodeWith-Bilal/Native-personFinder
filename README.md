@@ -1,8 +1,11 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 > # Getting Started
-**--Before you get startet, make these changes--**
-- `android/build.gradle` and replace followint: 
+>
+> **--Before you get startet, make these changes--**
+
+- `android/build.gradle` and replace followint:
+
 ```
 ext {
         buildToolsVersion = "34.0.0" // Use the latest valid version
@@ -15,6 +18,7 @@ ext {
 ```
 
 - recheck proper code in `android/app/src/main/java/com/<app_name>/MainActivity.kt`
+
 ```
 package com.personfinder
 
@@ -27,6 +31,7 @@ import org.devio.rn.splashscreen.SplashScreen;
 ```
 
 - In `android/gradle.properties` add following lines
+
 ```
 android.enableJetifier=true
 ```

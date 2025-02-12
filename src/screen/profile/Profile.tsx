@@ -10,8 +10,8 @@ import {
 
 import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {IMAGES} from '../../constants/constants';
-import { useProfile } from '../../hooks/useProfile';
-import { styles } from './profileStyle';
+import {useProfile} from '../../hooks/useProfile';
+import {styles} from './ProfileStyle';
 const EditProfileScreen: React.FC = () => {
   const navigation = useAppNavigation();
   const {name, email, photo, setName, selectImage, handleSave, signOut} =
@@ -72,5 +72,3 @@ const EditProfileScreen: React.FC = () => {
 };
 
 export default EditProfileScreen;
-
-

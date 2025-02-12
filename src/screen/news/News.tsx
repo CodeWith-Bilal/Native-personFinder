@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, ActivityIndicator, FlatList} from 'react-native';
 import useFetchReports from '../../hooks/useNews';
-import {colors} from '../../constants/colors';
-import Header from '../../component/header/Header';
+import {COLORS} from '../../constants/colors';
+import {Header} from '../../component/header/Header';
 import ReportItem from '../../component/reportItem/ReportItem';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
-import { styles } from './newsStyle';
+import {styles} from './NewsStyle';
 const ReportScreen = () => {
   const navigation = useAppNavigation();
   const {reports, isLoading} = useFetchReports();
@@ -17,7 +17,7 @@ const ReportScreen = () => {
       {isLoading ? (
         <ActivityIndicator
           size="large"
-          color={colors.blue}
+          color={COLORS.blue}
           style={styles.loader}
         />
       ) : reports.length === 0 ? (

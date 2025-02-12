@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {View, Text, TextInput, Image, ScrollView} from 'react-native';
 import Button from '../../component/button/Button';
 import {useAuth} from '../../hooks/useAuth';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {FORGOT_PASSWORD} from '../../constants/constants';
 import {IMAGES} from '../../constants/constants';
-import {colors} from '../../constants/colors';
-import {styles} from './forgetPassword';
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import {COLORS} from '../../constants/colors';
+import {styles} from './ForgetPasswordStyle';
+import {Header} from 'react-native/Libraries/NewAppScreen';
 export default function ForgotPassword() {
   const navigation = useAppNavigation();
   const {email, setEmail, sendResetCode} = useAuth();
@@ -37,7 +31,7 @@ export default function ForgotPassword() {
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor={colors.black}
+            placeholderTextColor={COLORS.black}
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}

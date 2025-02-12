@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Alert, ToastAndroid } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {useState, useEffect} from 'react';
+import {Alert, ToastAndroid} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 import firestore from '@react-native-firebase/firestore';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../hooks/useRedux';
-import { RootState } from '../redux/store';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
+import {RootState} from '../redux/store';
 import {
   updateFormField,
   submitReport,
@@ -16,9 +15,9 @@ import {
   setSelectedGender,
   filterProfiles,
 } from '../redux/slice/filterReportSlice';
-import { useAppNavigation } from './useAppNavigation';
-import { CustomDateTimePickerEvent } from '../types/types';
-import { Profile } from '../types/types';
+import {useAppNavigation} from './useAppNavigation';
+import {CustomDateTimePickerEvent} from '../types/types';
+import {Profile} from '../types/types';
 
 export function useReportHook() {
   const dispatch = useAppDispatch();
@@ -53,8 +52,8 @@ export function useReportHook() {
         ? value.toISOString()
         : value;
 
-    setFormData(prev => ({ ...prev, [key]: updatedValue }));
-    dispatch(updateFormField({ key, value: updatedValue }));
+    setFormData(prev => ({...prev, [key]: updatedValue}));
+    dispatch(updateFormField({key, value: updatedValue}));
   };
 
   const handleDateChange = (
@@ -94,7 +93,7 @@ export function useReportHook() {
               {
                 photo: `data:image/jpeg;base64,${imageBase64}`,
               },
-              { merge: true },
+              {merge: true},
             );
 
           handleInputChange('photo', `data:image/jpeg;base64,${imageBase64}`);
@@ -214,7 +213,7 @@ export function useReportHook() {
     setSelectedProfile(null);
   };
 
-  const { filteredProfiles, selectedGender, searchQuery } = useSelector(
+  const {filteredProfiles, selectedGender, searchQuery} = useAppSelector(
     (state: RootState) => state.filterReport,
   );
 

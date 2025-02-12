@@ -6,20 +6,25 @@ import {
   Image,
   Text,
   FlatList,
+  ImageSourcePropType,
 } from 'react-native';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {Logo} from '../../component/logo/Logo';
 import {IMAGES} from '../../constants/constants';
-import {colors} from '../../constants/colors';
+import {COLORS} from '../../constants/colors';
 import {useAutoScroll} from '../../hooks/useScroll';
-import { styles } from './heroStyle';
+import {styles} from './HeroStyle';
 
 interface HeroSectionProps {
   searchQuery: string;
   handleSearchQueryChange: (text: string) => void;
 }
 
-const imageList = [IMAGES.banner, IMAGES.bannerKid, IMAGES.missingBanner];
+const imageList: ImageSourcePropType[] = [
+  IMAGES.banner,
+  IMAGES.bannerKid,
+  IMAGES.missingBanner,
+];
 export const HeroSection: React.FC<HeroSectionProps> = ({
   searchQuery,
   handleSearchQueryChange,
@@ -27,7 +32,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const navigation = useAppNavigation();
   const {flatListRef} = useAutoScroll(imageList);
 
-  const renderItem = ({item}: {item: any}) => (
+  interface RenderItemProps {
+    item: ImageSourcePropType;
+  }
+
+  const renderItem = ({item}: RenderItemProps) => (
     <View style={styles.imageContainer}>
       <Image source={item} style={styles.sliderImage} />
     </View>
@@ -36,12 +45,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <>
       <View style={styles.header}>
-        <Logo color={colors.blue} size="45" />
+        <Logo color={COLORS.blue} size="45" />
         <View style={styles.searchContainer}>
           <TextInput
             placeholder="Search"
             style={styles.searchInput}
-            placeholderTextColor={colors.bigBlack}
+            placeholderTextColor={COLORS.bigBlack}
             value={searchQuery}
             onChangeText={handleSearchQueryChange}
           />
@@ -77,4 +86,3 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     </>
   );
 };
-

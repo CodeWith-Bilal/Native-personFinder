@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
-import { styles } from './buttonStyle';
+import {TouchableOpacity, Text, ActivityIndicator} from 'react-native';
+import {styles} from './ButtonStyle';
 
 interface ButtonProps {
   title: string;
@@ -10,13 +10,17 @@ interface ButtonProps {
   style?: React.CSSProperties;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, loading = false }) => {
+const Button: React.FC<ButtonProps> = ({
+  title,
+  onPress,
+  disabled = false,
+  loading = false,
+}) => {
   return (
     <TouchableOpacity
       style={[styles.button, disabled && styles.disabledButton]}
       onPress={onPress}
-      disabled={disabled}
-    >
+      disabled={disabled}>
       {loading ? (
         <ActivityIndicator size="small" color="white" />
       ) : (
@@ -25,6 +29,5 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, loadi
     </TouchableOpacity>
   );
 };
-
 
 export default Button;

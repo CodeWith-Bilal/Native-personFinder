@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants/colors';
+import {COLORS} from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   btn: {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     padding: 20,
-    backgroundColor: colors.white,
+    backgroundColor: COLORS.white,
   },
   headerWrapper: {
     width: '100%',
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Familjen Grotesk',
     fontSize: 16,
     fontWeight: '400',
-    color: colors.onyx,
+    color: COLORS.onyx,
     marginBottom: 24,
     paddingHorizontal: 20,
     textAlign: 'center',
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     marginBottom: 6,
-    color: colors.jetBlack,
+    color: COLORS.jetBlack,
     fontWeight: '500',
     alignSelf: 'flex-start',
     marginLeft: '10%',
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: COLORS.borderGray,
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 14,
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: colors.slateGray,
+    color: COLORS.slateGray,
     height: 40,
   },
 });

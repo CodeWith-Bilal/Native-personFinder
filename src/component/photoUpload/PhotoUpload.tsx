@@ -1,9 +1,15 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image,ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import {IMAGES} from '../../constants/constants';
 import {PhotoUploadProp} from '../../types/types';
-import { colors } from '../../constants/colors';
-import { styles } from './photoUploadStyle';
+import {COLORS} from '../../constants/colors';
+import {styles} from './PhotoUploadStyle';
 const PhotoUpload: React.FC<PhotoUploadProp> = ({
   photo,
   selectPhoto,
@@ -14,7 +20,7 @@ const PhotoUpload: React.FC<PhotoUploadProp> = ({
       <Text style={styles.title}>Upload Photographs</Text>
       <TouchableOpacity style={styles.photoUpload} onPress={selectPhoto}>
         {isloading ? (
-          <ActivityIndicator size="large" color={colors.blue} />
+          <ActivityIndicator size="large" color={COLORS.blue} />
         ) : photo ? (
           <Image source={{uri: photo}} style={styles.uploadedImage} />
         ) : (
@@ -32,5 +38,3 @@ const PhotoUpload: React.FC<PhotoUploadProp> = ({
 };
 
 export default PhotoUpload;
-
-

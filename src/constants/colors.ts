@@ -1,4 +1,4 @@
-export const colors = {
+export const COLORS = {
   blue: '#5B59FE',
   crimson: '#CC4141',
   white: '#FFFFFF',
@@ -16,6 +16,6 @@ export const colors = {
   ashGray: '#d0d5dd',
   onyx: '#222526',
   lightGray: '#ccc',
-  transparent:"#00000080",
-  overlay:'#000000B5',
+  transparent: '#00000080',
+  overlay: '#000000B5',
 };

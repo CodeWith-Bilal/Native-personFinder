@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import {useReportFound} from '../../hooks/useReportFound';
 import {sendEmail} from '../../utils/SendEmail';
-import { ReportModalProps} from '../../types/types';
-import {colors} from '../../constants/colors';
-import { styles } from './reportModalStyle';
+import {ReportModalProps} from '../../types/types';
+import {COLORS} from '../../constants/colors';
+import {styles} from './ReportModalStyle';
 
 const ReportModal: React.FC<ReportModalProps> = ({
   visible,
@@ -29,7 +29,9 @@ const ReportModal: React.FC<ReportModalProps> = ({
     handleReportFound,
   } = useReportFound(onClose, profile);
 
-  if (!profile) {return null;}
+  if (!profile) {
+    return null;
+  }
 
   return (
     <Modal
@@ -60,14 +62,14 @@ const ReportModal: React.FC<ReportModalProps> = ({
             <TextInput
               style={styles.modalInput}
               placeholder="Location"
-              placeholderTextColor={colors.bigBlack}
+              placeholderTextColor={COLORS.bigBlack}
               value={currentLocation}
               onChangeText={setCurrentLocation}
             />
             <TextInput
               style={[styles.modalInput, {height: 100}]}
               placeholder="More Description"
-              placeholderTextColor={colors.bigBlack}
+              placeholderTextColor={COLORS.bigBlack}
               multiline={true}
               value={description}
               onChangeText={setDescription}
@@ -85,7 +87,7 @@ const ReportModal: React.FC<ReportModalProps> = ({
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={[styles.modalButton, {backgroundColor: colors.blue}]}
+                style={[styles.modalButton, {backgroundColor: COLORS.blue}]}
                 onPress={handleReportFound}>
                 <Text style={styles.modalButtonReport}>Report Found</Text>
               </TouchableOpacity>
@@ -98,6 +100,3 @@ const ReportModal: React.FC<ReportModalProps> = ({
 };
 
 export default ReportModal;
-
-
-

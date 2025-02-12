@@ -14,7 +14,7 @@ import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsFo
 import PhotoUpload from '../../component/photoUpload/PhotoUpload';
 import {PHYSICAL_DESCRIPTION_FEILDS} from '../../constants/constants';
 import LastSeen from '../../component/lastSeen/LastSeen';
-import { styles } from './reportStyle';
+import {styles} from './ReportStyle';
 
 export default function ReportMissingPerson() {
   const navigation = useAppNavigation();
@@ -31,7 +31,6 @@ export default function ReportMissingPerson() {
     selectPhoto,
     submitReport,
     isloading,
-
   } = useReportHook();
   const physicalDescriptionFields = PHYSICAL_DESCRIPTION_FEILDS(
     formData,
@@ -77,7 +76,11 @@ export default function ReportMissingPerson() {
         </View>
       ))}
 
-      <PhotoUpload photo={formData?.photo} selectPhoto={selectPhoto}  isloading={isloading} />
+      <PhotoUpload
+        photo={formData?.photo}
+        selectPhoto={selectPhoto}
+        isloading={isloading}
+      />
 
       <View style={styles.horizontalLine} />
 
@@ -89,4 +92,3 @@ export default function ReportMissingPerson() {
     </ScrollView>
   );
 }
-

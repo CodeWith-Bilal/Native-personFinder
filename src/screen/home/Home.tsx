@@ -10,9 +10,9 @@ import {
 import {useHomeScreenManager} from '../../hooks/useHome';
 import {HeroSection} from '../../component/hero/Hero';
 import {IMAGES} from '../../constants/constants';
-import {colors} from '../../constants/colors';
+import {COLORS} from '../../constants/colors';
 import ReportModal from '../../component/reportModal/ReportModal';
-import { styles } from './homeStyle';
+import {styles} from './HomeStyle';
 
 export default function HomeScreen() {
   const {
@@ -29,9 +29,9 @@ export default function HomeScreen() {
   let error: undefined;
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: colors.white,}}>
+    <ScrollView style={{flex: 1, backgroundColor: COLORS.white}}>
       {error && (
-        <Text style={{color: colors.crimson, textAlign: 'center'}}>
+        <Text style={{color: COLORS.crimson, textAlign: 'center'}}>
           {error}
         </Text>
       )}
@@ -42,7 +42,7 @@ export default function HomeScreen() {
 
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color={colors.blue} />
+          <ActivityIndicator size="large" color={COLORS.blue} />
         </View>
       ) : filteredProfiles.length === 0 ? (
         <Text style={styles.noDataText}>No reports found.</Text>
@@ -60,19 +60,19 @@ export default function HomeScreen() {
                 <View style={styles.overlay}>
                   <Text style={styles.missingText}>MISSING</Text>
                   <View style={styles.detailsOverly}>
-                  <Text style={styles.profileDetails}>
-                    Name: {profile?.fullName}
-                    {'\n'}
-                    Age: {profile?.age} ({profile?.gender}){'\n'}
-                    Last Seen: {profile?.lastSeen}
-                    {'\n'}
-                    Last Seen Location: {profile?.lastLocation}
-                  </Text>
-                  <TouchableOpacity
-                    style={styles.detailsButton}
-                    onPress={() => openModal(profile)}>
-                    <Text style={styles.detailsbtnText}>View Details</Text>
-                  </TouchableOpacity>
+                    <Text style={styles.profileDetails}>
+                      Name: {profile?.fullName}
+                      {'\n'}
+                      Age: {profile?.age} ({profile?.gender}){'\n'}
+                      Last Seen: {profile?.lastSeen}
+                      {'\n'}
+                      Last Seen Location: {profile?.lastLocation}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.detailsButton}
+                      onPress={() => openModal(profile)}>
+                      <Text style={styles.detailsbtnText}>View Details</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </ImageBackground>
@@ -89,4 +89,3 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
-

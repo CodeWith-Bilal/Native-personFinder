@@ -8,7 +8,7 @@ import {
   ReportFormState,
 } from '../types/types';
 import {Alert} from 'react-native';
-export const  PHYSICAL_DESCRIPTION_FEILDS = (
+export const PHYSICAL_DESCRIPTION_FEILDS = (
   formData: FormData,
   handleInputChange: HandleInputChange,
 ): FieldProps[] => [
@@ -184,5 +184,3 @@ export {
   ProfileScreen,
   News,
 };
-
-

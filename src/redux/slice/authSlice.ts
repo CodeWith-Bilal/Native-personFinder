@@ -1,11 +1,11 @@
-import { ToastAndroid } from 'react-native';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {ToastAndroid} from 'react-native';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { fireError } from '../../types/types';
-import { AuthState } from '../../types/types';
-import { GOOGLE_CLIENT_ID } from '@env';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {fireError} from '../../types/types';
+import {AuthState} from '../../types/types';
+import {GOOGLE_CLIENT_ID} from '@env';
 
 const initialState: AuthState = {
   loading: false,
@@ -19,12 +19,19 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 
-export const registerUser = async (email: string, password: string, username: string) => {
+export const registerUser = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
   try {
-    const response = await auth().createUserWithEmailAndPassword(email, password);
+    const response = await auth().createUserWithEmailAndPassword(
+      email,
+      password,
+    );
     const user = response?.user;
 
-    await user.updateProfile({ displayName: username });
+    await user.updateProfile({displayName: username});
     await firestore().collection('User').doc(user?.uid).set({
       username: username,
       email: email.toLowerCase(),
@@ -45,30 +52,31 @@ export const registerUser = async (email: string, password: string, username: st
   }
 };
 
-
 export const loginUser = async (email: string, password: string) => {
   try {
     const response = await auth().signInWithEmailAndPassword(email, password);
-    const { uid, email: userEmail, displayName, photoURL } = response?.user;
+    const {uid, email: userEmail, displayName, photoURL} = response?.user;
     setLoading(true);
-    return { uid, email: userEmail, displayName, photoURL };
+    return {uid, email: userEmail, displayName, photoURL};
   } catch (err) {
     const error = err as fireError;
     setLoading(true);
-    ToastAndroid.show('Login failed. Please check your credentials or register.', ToastAndroid.LONG);
+    ToastAndroid.show(
+      'Login failed. Please check your credentials or register.',
+      ToastAndroid.LONG,
+    );
     throw error?.message;
   }
 };
 
-
 export const googleLogin = async () => {
   try {
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
 
     await GoogleSignin.signOut();
 
     const signInResponse = await GoogleSignin.signIn();
-    const { data } = signInResponse;
+    const {data} = signInResponse;
 
     if (!data?.idToken) {
       throw new Error('Google Sign-In failed: idToken is null.');
@@ -76,12 +84,15 @@ export const googleLogin = async () => {
 
     const googleCredential = auth.GoogleAuthProvider.credential(data.idToken);
     const response = await auth().signInWithCredential(googleCredential);
-    const { uid, email, displayName, photoURL } = response?.user;
+    const {uid, email, displayName, photoURL} = response?.user;
 
-    return { uid, email, displayName, photoURL };
+    return {uid, email, displayName, photoURL};
   } catch (err) {
     const error = err as fireError;
-    ToastAndroid.show('Google login failed. Please try again.', ToastAndroid.LONG);
+    ToastAndroid.show(
+      'Google login failed. Please try again.',
+      ToastAndroid.LONG,
+    );
     throw error.message || 'An unknown error occurred';
   }
 };
@@ -91,11 +102,13 @@ export const forgotPassword = async (email: string) => {
     await auth().sendPasswordResetEmail(email);
     ToastAndroid.show('Reset email sent! Check your inbox.', ToastAndroid.LONG);
   } catch (err) {
-    ToastAndroid.show('Password reset email not sent. Please try again.', ToastAndroid.LONG);
+    ToastAndroid.show(
+      'Password reset email not sent. Please try again.',
+      ToastAndroid.LONG,
+    );
     throw (err as fireError)?.message;
   }
 };
-
 
 const authSlice = createSlice({
   name: 'auth',
@@ -129,6 +142,14 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError, clearState, login, setLoading, setError, setSuccess } = authSlice.actions;
+export const {
+  logout,
+  clearError,
+  clearState,
+  login,
+  setLoading,
+  setError,
+  setSuccess,
+} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { updateProfileAsync } from '../redux/slice/profileSlice';
-import { RootState } from '../redux/store';
-import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { launchImageLibrary, ImageLibraryOptions, Asset } from 'react-native-image-picker';
-import { ToastAndroid, Alert } from 'react-native';
+import {useState, useEffect} from 'react';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {updateProfileAsync} from '../redux/slice/profileSlice';
+import {RootState} from '../redux/store';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
+import {
+  launchImageLibrary,
+  ImageLibraryOptions,
+  Asset,
+} from 'react-native-image-picker';
+import {ToastAndroid, Alert} from 'react-native';
 
 export const useProfile = () => {
   const [name, setName] = useState<string>('');
@@ -13,7 +17,7 @@ export const useProfile = () => {
 
   const user: FirebaseAuthTypes.User | null = auth()?.currentUser;
   const dispatch = useAppDispatch();
-  const { status, error } = useAppSelector((state: RootState) => state.profile);
+  const {status, error} = useAppSelector((state: RootState) => state.profile);
 
   useEffect(() => {
     if (user) {
@@ -24,13 +28,13 @@ export const useProfile = () => {
   }, [user]);
 
   const UpdateProfile = async () => {
-  try {
-    await dispatch(updateProfileAsync({ name, photo })).unwrap();
-    ToastAndroid.show('Profile updated successfully.', ToastAndroid.LONG);
-  } catch (err) {
-    ToastAndroid.show('Failed to update profile.', ToastAndroid.LONG);
-  }
-};
+    try {
+      await dispatch(updateProfileAsync({name, photo})).unwrap();
+      ToastAndroid.show('Profile updated successfully.', ToastAndroid.LONG);
+    } catch (err) {
+      ToastAndroid.show('Failed to update profile.', ToastAndroid.LONG);
+    }
+  };
 
   const selectImage = () => {
     const options: ImageLibraryOptions = {
@@ -40,7 +44,7 @@ export const useProfile = () => {
       quality: 1,
     };
 
-    launchImageLibrary(options, (response) => {
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         ToastAndroid.show('Cancelled image picker', ToastAndroid.LONG);
       } else if (response.errorCode) {
