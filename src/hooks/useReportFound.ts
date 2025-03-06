@@ -15,35 +15,36 @@ export const useReportFound = (
   const dispatch = useAppDispatch();
   const currentUser = auth().currentUser;
   const navigation = useAppNavigation();
+
   const resetFields = () => {
     setCurrentLocation('');
     setDescription('');
   };
 
-  const handleReportFound = () => {
+  const handleReportFound = async () => {
     if (profile && currentUser) {
-      dispatch(
-        addNewsReport({
-          fullName: profile?.fullName,
-          photo: profile?.photo,
-          currentLocation,
-          description,
-          reportedBy: currentUser?.displayName || currentUser?.email,
-        }),
-      )
-        .then(() => {
+      try {
+        await dispatch(
+          addNewsReport({
+            fullName: profile?.fullName,
+            photo: profile?.photo,
+            currentLocation,
+            description,
+            reportedBy: currentUser?.displayName || currentUser?.email,
+          }),
+        ).unwrap();
+        if (onClose) {
           onClose();
-          resetFields();
-          ToastAndroid.show(
-            'News report added successfully!',
-            ToastAndroid.LONG,
-          );
-
-          navigation.navigate('News');
-        })
-        .catch(() => {
-          ToastAndroid.show('Error adding news report', ToastAndroid.LONG);
-        });
+        }
+        resetFields();
+        ToastAndroid.show(
+          'News report added successfully!',
+          ToastAndroid.LONG,
+        );
+        navigation.navigate('News');
+      } catch (error) {
+        ToastAndroid.show('Error adding news report', ToastAndroid.LONG);
+      }
     } else {
       ToastAndroid.show(
         'No profile selected or user not logged in',

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList, ActivityIndicator} from 'react-native';
-import {useReportHook} from '../../hooks/useReport';
+import {useReport} from '../../hooks/useReport';
 import SearchBar from '../../component/searchBar/SearchBar';
 import FilterOptions from '../../component/filterOptions/FilterOptions';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
@@ -21,8 +21,8 @@ const AllMissingPersonsScreen = () => {
     searchQuery,
     handleSearchQueryChange,
     handleGenderChange,
-    loading,
-  } = useReportHook();
+    isloading,
+  } = useReport();
   let error: undefined;
 
   const filterOptions = ['Male', 'Female', 'Trans', 'All'];
@@ -38,7 +38,7 @@ const AllMissingPersonsScreen = () => {
 
       {error ? (
         <Text style={styles.errorText}>{error}</Text>
-      ) : loading ? (
+      ) : isloading ? (
         <ActivityIndicator
           size="large"
           color={COLORS.blue}

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {updateProfileAsync} from '../redux/slice/profileSlice';
+import {updateProfileAsync} from '../redux/slice/authSlice';
 import {RootState} from '../redux/store';
 import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
 import {
@@ -17,7 +17,7 @@ export const useProfile = () => {
 
   const user: FirebaseAuthTypes.User | null = auth()?.currentUser;
   const dispatch = useAppDispatch();
-  const {status, error} = useAppSelector((state: RootState) => state.profile);
+  const {status, error} = useAppSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     if (user) {

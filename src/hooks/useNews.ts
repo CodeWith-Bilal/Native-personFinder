@@ -1,39 +1,19 @@
-import {useState, useEffect} from 'react';
-import firestore from '@react-native-firebase/firestore';
-import {Report} from '../types/types';
+import { useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
+import {fetchNewsWithSnapshot} from '../redux/slice/newsSlice';
 
-const useFetchReports = () => {
-  const [reports, setReports] = useState<Report[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const useNews = () => {
+  const dispatch = useAppDispatch();
+  const {reports, loading: isLoading} = useAppSelector(state => state.news);
+
   useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('News')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot(
-        querySnapshot => {
-          const reportList = querySnapshot.docs.map(documentSnapshot => {
-            const data = documentSnapshot.data();
-            return {
-              id: documentSnapshot?.id,
-              name: data?.fullName,
-              reporter: data?.reportedBy,
-              location: data?.currentLocation,
-              description: data?.description,
-              photoUrl: data?.photo,
-            };
-          });
-          setReports(reportList);
-          setIsLoading(false);
-        },
-        () => {
-          setIsLoading(false);
-        },
-      );
+    dispatch(fetchNewsWithSnapshot());
 
-    return () => unsubscribe();
-  }, []);
+    return () => {
+    };
+  }, [dispatch]);
 
   return {reports, isLoading};
 };
 
-export default useFetchReports;
+export default useNews;

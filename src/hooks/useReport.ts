@@ -1,27 +1,18 @@
 import {useState, useEffect} from 'react';
-import {Alert, ToastAndroid} from 'react-native';
+import {Alert} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import firestore from '@react-native-firebase/firestore';
-import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
-import {RootState} from '../redux/store';
+import {useAppDispatch} from '../hooks/useRedux';
 import {
   updateFormField,
-  submitReport,
-  resetForm,
 } from '../redux/slice/reportFormSlice';
 import {
-  fetchReports,
-  setSearchQuery,
-  setSelectedGender,
-  filterProfiles,
-} from '../redux/slice/filterReportSlice';
-import {useAppNavigation} from './useAppNavigation';
-import {CustomDateTimePickerEvent} from '../types/types';
-import {Profile} from '../types/types';
+  fetchReportsWithSnapshotListener,
+  uploadImageAndStore,
+  submitReport as submitReportThunk, resetForm
+} from '../redux/slice/reportFormSlice'; // Import the new thunks
 
-export function useReportHook() {
+export function useReport() {
   const dispatch = useAppDispatch();
-  const navigation = useAppNavigation();
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -42,6 +33,22 @@ export function useReportHook() {
   const [showPicker, setShowPicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [isloading, setIsloading] = useState(false);
+  const [profiles, setProfiles] = useState<any[]>([]);
+  const [profilesError, _setProfilesError] = useState<string | null>(null);
+  const [searchQuery, _setSearchQuery] = useState<string>('');
+  const [selectedGender, setSelectedGender] = useState<string | null>('');
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [selectedProfile, setSelectedProfile] = useState<any>(null);
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedProfile(null);
+  };
+
+  const openModal = (profile: any) => {
+    setSelectedProfile(profile);
+    setModalVisible(true);
+  };
 
   const handleInputChange = (
     key: keyof typeof formData,
@@ -52,27 +59,10 @@ export function useReportHook() {
         ? value.toISOString()
         : value;
 
-    setFormData(prev => ({...prev, [key]: updatedValue}));
-    dispatch(updateFormField({key, value: updatedValue}));
+    setFormData(prev => ({ ...prev, [key]: updatedValue }));
+    dispatch(updateFormField({ key, value: updatedValue }));
   };
 
-  const handleDateChange = (
-    event: CustomDateTimePickerEvent,
-    selectedDate: Date | undefined,
-  ) => {
-    const currentDate = selectedDate || new Date();
-    handleInputChange('dateOfBirth', currentDate.toISOString());
-    setShowDatePicker(false);
-  };
-
-  const handleLastSeenChange = (
-    event: CustomDateTimePickerEvent,
-    selectedDate: Date | undefined,
-  ) => {
-    const currentDate = selectedDate || new Date();
-    handleInputChange('lastSeen', currentDate.toISOString());
-    setShowDatePicker(false);
-  };
   const selectPhoto = async () => {
     setIsloading(true);
     const response = await launchImageLibrary({
@@ -85,20 +75,11 @@ export function useReportHook() {
       const imageBase64 = response.assets[0].base64;
       if (imageBase64) {
         try {
-          const reportId = 'uniqueReportId';
-          await firestore()
-            .collection('Reports')
-            .doc(reportId)
-            .set(
-              {
-                photo: `data:image/jpeg;base64,${imageBase64}`,
-              },
-              {merge: true},
-            );
-
+          const reportId = 'uniqueReportId'; // Replace with actual report ID logic
+          await dispatch(uploadImageAndStore({ imageBase64, reportId })).unwrap();
           handleInputChange('photo', `data:image/jpeg;base64,${imageBase64}`);
         } catch (error) {
-          Alert.alert('Error', 'Failed to upload image to Firestore.');
+          Alert.alert('Error', error as string);
         }
       } else {
         Alert.alert('Error', 'No valid image data found.');
@@ -109,7 +90,47 @@ export function useReportHook() {
     setIsloading(false);
   };
 
-  const submitReportForm = async () => {
+  const handleGenderChange = (gender: string | null) => {
+    setSelectedGender(gender);
+    handleInputChange('gender', gender);
+  };
+
+  const handleLastSeenChange = (date: Date) => {
+    handleInputChange('lastSeen', date.toISOString());
+  };
+
+  const handleSearchQueryChange = (query: string) => {
+    // Implement your search query logic here
+    // For example:
+    dispatch(updateFormField({ key: 'searchQuery', value: query }));
+  };
+
+  useEffect(() => {
+    let unsubscribe: (() => void) | undefined;
+    const fetchReports = async () => {
+      const result = await dispatch(fetchReportsWithSnapshotListener()).unwrap();
+      if ('reports' in result && 'unsubscribe' in result && typeof result.unsubscribe === 'function') {
+        setProfiles(result.reports as any[]);
+        unsubscribe = result.unsubscribe as () => void;
+      }
+    };
+
+    fetchReports();
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [dispatch]);
+
+  const filteredProfiles = profiles.filter(profile => {
+    const matchesSearch = profile.fullName.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesGender = !selectedGender || profile.gender === selectedGender;
+    return matchesSearch && matchesGender;
+  });
+
+  const submitReport = async () => {
     const {
       fullName,
       gender,
@@ -139,18 +160,13 @@ export function useReportHook() {
       !hairLength ||
       !photo
     ) {
-      ToastAndroid.show('Please fill all required fields.', ToastAndroid.LONG);
+      Alert.alert('Error', 'Please fill all required fields.');
       return;
     }
 
     try {
-      await dispatch(submitReport(formData)).unwrap();
-
-      ToastAndroid.show(
-        'Missing person report has been submitted.',
-        ToastAndroid.LONG,
-      );
-      navigation.navigate('Home');
+      await dispatch(submitReportThunk(formData)).unwrap();
+      Alert.alert('Success', 'Missing person report has been submitted.');
       dispatch(resetForm());
       setFormData({
         fullName: '',
@@ -171,66 +187,6 @@ export function useReportHook() {
     }
   };
 
-  const [loading, setLoading] = useState(true);
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [profilesError, setProfilesError] = useState<string | null>(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
-
-  useEffect(() => {
-    setLoading(true);
-    const unsubscribe = firestore()
-      .collection('Reports')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot(
-        querySnapshot => {
-          const profilesData: Profile[] = querySnapshot.docs.map(
-            doc =>
-              ({
-                id: doc.id,
-                ...doc.data(),
-              } as Profile),
-          );
-          setProfiles(profilesData);
-          setLoading(false);
-        },
-        () => {
-          setProfilesError('Error fetching profiles');
-          setLoading(false);
-        },
-      );
-
-    return () => unsubscribe();
-  }, []);
-
-  const openModal = (profile: Profile) => {
-    setSelectedProfile(profile);
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-    setSelectedProfile(null);
-  };
-
-  const {filteredProfiles, selectedGender, searchQuery} = useAppSelector(
-    (state: RootState) => state.filterReport,
-  );
-
-  useEffect(() => {
-    dispatch(fetchReports());
-  }, [dispatch]);
-
-  const handleSearchQueryChange = (query: string) => {
-    dispatch(setSearchQuery(query));
-    dispatch(filterProfiles());
-  };
-
-  const handleGenderChange = (gender: string | null) => {
-    dispatch(setSelectedGender(gender));
-    dispatch(filterProfiles());
-  };
-
   return {
     formData,
     showDatePicker,
@@ -240,10 +196,8 @@ export function useReportHook() {
     date,
     setDate,
     handleInputChange,
-    handleDateChange,
     handleLastSeenChange,
     selectPhoto,
-    submitReport: submitReportForm,
     profiles,
     profilesError,
     modalVisible,
@@ -253,9 +207,9 @@ export function useReportHook() {
     filteredProfiles,
     selectedGender,
     searchQuery,
-    loading,
     handleSearchQueryChange,
     handleGenderChange,
     isloading,
+    submitReport, // Add submitReport to the returned values
   };
 }

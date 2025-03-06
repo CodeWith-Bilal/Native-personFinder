@@ -40,6 +40,7 @@ export type AuthState = {
   loading: boolean;
   error: string | null;
   success: boolean;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
   user: {
     uid: string;
     email: string | null;
@@ -96,10 +97,18 @@ export type Profile = {
   age: number;
 };
 
-export type NewsState = {
+export interface NewsState {
   loading: boolean;
   error: string | null;
-};
+  reports: Array<{
+    id: string;
+    name: string;
+    reporter: string;
+    location: string;
+    description: string;
+    photoUrl: string;
+  }>;
+}
 export type ProfileState = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;

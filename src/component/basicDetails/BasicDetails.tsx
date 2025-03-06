@@ -2,11 +2,11 @@ import React from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {IMAGES} from '../../constants/constants';
-import useGenderDropdown from '../../hooks/useBasicDetailsForm';
+import useGenderDropdown from '../../hooks/useBasicDetails';
 import {BasicDetailsProps} from '../../types/types';
 import {styles} from './BasicDetailsStyles';
 
-const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
+const BasicDetails: React.FC<BasicDetailsProps> = ({
   formData,
   handleInputChange,
   showDatePicker,
@@ -83,4 +83,4 @@ const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
   );
 };
 
-export default BasicDetailsSection;
+export default BasicDetails;

@@ -1,15 +1,15 @@
 import {useState, useMemo} from 'react';
-import {useReportHook} from './useReport';
+import {useReport} from './useReport';
 
-export const useHomeScreenManager = () => {
+export const useHome = () => {
   const {
     profiles,
     modalVisible,
     selectedProfile,
     openModal,
     closeModal,
-    loading,
-  } = useReportHook();
+    isloading,
+  } = useReport();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchQueryChange = (query: string) => {
@@ -34,6 +34,6 @@ export const useHomeScreenManager = () => {
     selectedProfile,
     openModal,
     closeModal,
-    loading,
+    isloading,
   };
 };

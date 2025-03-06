@@ -7,8 +7,8 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import {useHomeScreenManager} from '../../hooks/useHome';
-import {HeroSection} from '../../component/hero/Hero';
+import {useHome} from '../../hooks/useHome';
+import {Hero} from '../../component/hero/Hero';
 import {IMAGES} from '../../constants/constants';
 import {COLORS} from '../../constants/colors';
 import ReportModal from '../../component/reportModal/ReportModal';
@@ -23,8 +23,8 @@ export default function HomeScreen() {
     selectedProfile,
     openModal,
     closeModal,
-    loading,
-  } = useHomeScreenManager();
+    isloading,
+  } = useHome();
 
   let error: undefined;
 
@@ -35,12 +35,12 @@ export default function HomeScreen() {
           {error}
         </Text>
       )}
-      <HeroSection
+      <Hero
         searchQuery={searchQuery}
         handleSearchQueryChange={handleSearchQueryChange}
       />
 
-      {loading ? (
+      {isloading ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color={COLORS.blue} />
         </View>

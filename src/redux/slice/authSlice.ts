@@ -1,5 +1,5 @@
 import {ToastAndroid} from 'react-native';
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -12,6 +12,7 @@ const initialState: AuthState = {
   error: null,
   success: false,
   user: null,
+  status: 'idle',
 };
 
 GoogleSignin.configure({
@@ -56,11 +57,9 @@ export const loginUser = async (email: string, password: string) => {
   try {
     const response = await auth().signInWithEmailAndPassword(email, password);
     const {uid, email: userEmail, displayName, photoURL} = response?.user;
-    setLoading(true);
     return {uid, email: userEmail, displayName, photoURL};
   } catch (err) {
     const error = err as fireError;
-    setLoading(true);
     ToastAndroid.show(
       'Login failed. Please check your credentials or register.',
       ToastAndroid.LONG,
@@ -68,6 +67,7 @@ export const loginUser = async (email: string, password: string) => {
     throw error?.message;
   }
 };
+
 
 export const googleLogin = async () => {
   try {
@@ -109,7 +109,26 @@ export const forgotPassword = async (email: string) => {
     throw (err as fireError)?.message;
   }
 };
+export const updateProfileAsync = createAsyncThunk(
+  'profile/updateProfile',
+  async (
+    {name, photo}: {name: string; photo: string | null},
+    {rejectWithValue},
+  ) => {
+    try {
+      const user = auth()?.currentUser;
+      if (!user) {
+        throw new Error('User not found');
+      }
 
+      await user.updateProfile({displayName: name, photoURL: photo});
+      return {name, photo};
+    } catch (error) {
+      const Err = error as fireError;
+      return rejectWithValue(Err.message || 'Failed to update profile');
+    }
+  },
+);
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -140,6 +159,20 @@ const authSlice = createSlice({
       state.success = action.payload;
     },
   },
+  extraReducers: builder => {
+      builder
+        .addCase(updateProfileAsync.pending, state => {
+          state.status = 'loading';
+          state.error = null;
+        })
+        .addCase(updateProfileAsync.fulfilled, state => {
+          state.status = 'succeeded';
+        })
+        .addCase(updateProfileAsync.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.payload as string;
+        });
+    },
 });
 
 export const {

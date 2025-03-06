@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {FlatList, ImageSourcePropType} from 'react-native';
 import {UseAutoScrollReturn} from '../types/types';
 
-export const useAutoScroll = (
+export const useScroll = (
   imageList: ImageSourcePropType[],
 ): UseAutoScrollReturn => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);

@@ -12,10 +12,10 @@ import {useAppNavigation} from '../../hooks/useAppNavigation';
 import {Logo} from '../../component/logo/Logo';
 import {IMAGES} from '../../constants/constants';
 import {COLORS} from '../../constants/colors';
-import {useAutoScroll} from '../../hooks/useScroll';
+import {useScroll} from '../../hooks/useScroll';
 import {styles} from './HeroStyle';
 
-interface HeroSectionProps {
+interface HeroProps {
   searchQuery: string;
   handleSearchQueryChange: (text: string) => void;
 }
@@ -25,12 +25,12 @@ const imageList: ImageSourcePropType[] = [
   IMAGES.bannerKid,
   IMAGES.missingBanner,
 ];
-export const HeroSection: React.FC<HeroSectionProps> = ({
+export const Hero: React.FC<HeroProps> = ({
   searchQuery,
   handleSearchQueryChange,
 }) => {
   const navigation = useAppNavigation();
-  const {flatListRef} = useAutoScroll(imageList);
+  const {flatListRef} = useScroll(imageList);
 
   interface RenderItemProps {
     item: ImageSourcePropType;

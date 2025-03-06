@@ -7,12 +7,14 @@ import {
   ScrollView,
 } from 'react-native';
 
-import {useReportHook} from '../../hooks/useReport';
+import {useReport} from '../../hooks/useReport';
 import {Header} from '../../component/header/Header';
 import {useAppNavigation} from '../../hooks/useAppNavigation';
-import BasicDetailsSection from '../../component/basicDetailsForm/BasicDetailsForm';
+import BasicDetailsSection from '../../component/basicDetails/BasicDetails';
 import PhotoUpload from '../../component/photoUpload/PhotoUpload';
 import {PHYSICAL_DESCRIPTION_FEILDS} from '../../constants/constants';
+
+type CustomDateTimePickerEvent = any;
 import LastSeen from '../../component/lastSeen/LastSeen';
 import {styles} from './ReportStyle';
 
@@ -27,15 +29,20 @@ export default function ReportMissingPerson() {
     date,
     setDate,
     handleInputChange,
-    handleDateChange,
     selectPhoto,
     submitReport,
     isloading,
-  } = useReportHook();
+  } = useReport();
   const physicalDescriptionFields = PHYSICAL_DESCRIPTION_FEILDS(
     formData,
     handleInputChange,
   );
+  function handleDateChange(event: CustomDateTimePickerEvent, selectedDate?: Date | undefined): void {
+    if (selectedDate) {
+      setDate(selectedDate);
+      setShowDatePicker(false);
+    }
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Header
