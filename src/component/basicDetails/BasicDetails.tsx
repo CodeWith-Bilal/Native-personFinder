@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {IMAGES} from '../../constants/constants';
 import useGenderDropdown from '../../hooks/useBasicDetailsForm';
 import {BasicDetailsProps} from '../../types/types';
-import {styles} from './BasicDetailsFormStyles';
+import {styles} from './BasicDetailsStyles';
 
 const BasicDetailsSection: React.FC<BasicDetailsProps> = ({
   formData,

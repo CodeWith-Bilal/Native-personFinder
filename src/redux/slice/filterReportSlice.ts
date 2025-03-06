@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
 import {Profile} from '../../types/types';
-import {AppDispatch} from '../store'; // Adjust the import according to your store setup
+import {AppDispatch} from '../store';
 
 const filterReportSlice = createSlice({
   name: 'filterReport',
